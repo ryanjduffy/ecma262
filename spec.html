@@ -914,15 +914,15 @@
       <p>For brevity, the <sub>ℝ</sub> subscript can be omitted on numeric values&mdash;a numeric value with no subscript is interpreted to be a Mathematical value. An operation with no subscript is interpreted to be a Mathematical value operation, unless one of the parameters has a particular subscript, in which case the operation adopts that subscript. For example, 1<sub>𝔽</sub> + 2<sub>𝔽</sub> = 3<sub>𝔽</sub> is a statement about Number values, and 1 + 2 = 3 is a statement about Mathematical values.</p>
       <p>In general, when this specification refers to a numerical value, such as in the phrase, "the length of _y_" or "the integer represented by the four hexadecimal digits ...", without explicitly specifying a numeric kind, the phrase refers to a Mathematical value. Phrases which refer to a Number or a BigInt value are explicitly annotated as such; for example, "the Number value of the number of code points in ..." or "the BigInt value of ...".</p>
       <p>It is not defined to mix Numbers, BigInts and mathematical values in either arithmetic or comparison operations, and any such undefined operation would be an editorial error in this specification text.</p>
-      <p>The Number value 0, alternatively written 0<sub>𝔽</sub>, is defined as the double-precision floating point positive zero value. In certain contexts, it may also be written as *+0* for clarity.</p>
+      <p>The Number value 0, is defined as the double-precision floating point positive zero value. In certain contexts, it may also be written as *+0* for clarity.</p>
       <p>This specification denotes most numeric values in base 10; it also uses numeric values of the form 0x followed by digits 0-9 or A-F as base-16 values.</p>
       <p>In certain contexts, an operation is specified which is generic between Numbers, BigInts and mathematical values. In these cases, the subscript can be a variable; _t_ is often used for this purpose, for example 5<sub>_t_</sub> &times; 10<sub>_t_</sub> = 50<sub>_t_</sub> for any _t_ ranging over ℝ, 𝔽 and ℤ, since the values involved are within the range where the semantics coincide.</p>
       <p>Conversions between mathematical values and numbers are never implicit, and always explicit in this document. A conversion from a mathematical value to a Number is denoted as "the Number value for _x_" or 𝔽(_x_), and is defined in <emu-xref href="#sec-ecmascript-language-types-number-type"></emu-xref>. A conversion from a Number to a mathematical value is denoted as "the <dfn id="mathematical-value">mathematical value</dfn> of _x_", or ℝ(_x_). Note that the mathematical value of non-finite values is not defined, and the mathematical value of *+0* and *-0* is the mathematical value 0<sub>ℝ</sub>.</p>
-      <p>When the term <dfn id="integer">integer</dfn> is used in this specification, it refers to a mathematical value which is in the set of integers, unless otherwise stated: when the term <dfn id="a Number whose mathematical value is an integer">a Number whose mathematical value is an integer</dfn> is used in this specification, it refers to a Number value which its mathematical value is in the set of integers. As shorthand, integer<sub>_t_</sub> can be used to refer to any of the three, as determined by _t_.</p>
+      <p>When the term <dfn id="integer">integer</dfn> is used in this specification, it refers to a mathematical value which is in the set of integers, unless otherwise stated: when the term <dfn id="integral Number">integral Number</dfn> is used in this specification, it refers to a Number value which its mathematical value is in the set of integers.</p>
       <p>The mathematical function <emu-eqn id="eqn-abs" aoid="abs">abs<sub>_t_</sub>(_x_)</emu-eqn> produces the absolute value of _x_, which is <emu-eqn>-<sub>_t_</sub>_x_</emu-eqn> if _x_ &lt;<sub>_t_</sub> 0<sub>_t_</sub> and otherwise is _x_ itself.</p>
       <p>The mathematical function <emu-eqn id="eqn-min" aoid="min">min<sub>_t_</sub>(_x1_, _x2_, &hellip; , _xN_)</emu-eqn> produces the mathematically smallest of <emu-eqn>_x1_</emu-eqn> through <emu-eqn>_xN_</emu-eqn>. The mathematical function <emu-eqn id="eqn-max" aoid="max">max<sub>_t_</sub>(_x1_, _x2_, ..., _xN_)</emu-eqn> produces the mathematically largest of <emu-eqn>_x1_</emu-eqn> through <emu-eqn>_xN_</emu-eqn>. The domain and range of these mathematical functions include *+&infin;* and *-&infin;*.</p>
-      <p>The notation &ldquo;<emu-eqn id="eqn-modulo" aoid="modulo">_x_ modulo<sub>_t_</sub> _y_</emu-eqn>&rdquo; (_y_ must be finite and nonzero) computes a value _k_ of the same sign as _y_ (or zero) such that <emu-eqn>abs<sub>_t_</sub>(_k_) &lt;<sub>_t_</sub> abs<sub>_t_</sub>(_y_) and _x_-<sub>_t_</sub>_k_ = _q_ &times;<sub>_t_</sub> _y_</emu-eqn> for some integer<sub>_t_</sub> _q_.</p>
-      <p>The mathematical function <emu-eqn id="eqn-floor" aoid="floor">floor<sub>_t_</sub>(_x_)</emu-eqn> produces the largest integer<sub>_t_</sub> (closest to positive infinity) that is not larger than _x_.</p>
+      <p>The notation &ldquo;<emu-eqn id="eqn-modulo" aoid="modulo">_x_ modulo<sub>_t_</sub> _y_</emu-eqn>&rdquo; (_y_ must be finite and nonzero) computes a value _k_ of the same sign as _y_ (or zero) such that <emu-eqn>abs<sub>_t_</sub>(_k_) &lt;<sub>_t_</sub> abs<sub>_t_</sub>(_y_) and _x_-<sub>_t_</sub>_k_ = _q_ &times;<sub>_t_</sub> _y_</emu-eqn> for some integer (for _t_ = ℝ), integral Number (for _t_ = 𝔽), or BigInt (for _t_ = ℤ) _q_.</p>
+      <p>The mathematical function <emu-eqn id="eqn-floor" aoid="floor">floor<sub>_t_</sub>(_x_)</emu-eqn> produces the largest integer (for _t_ = ℝ), integral Number (for _t_ = 𝔽), or BigInt (for _t_ = ℤ) (closest to positive infinity) that is not larger than _x_.</p>
       <emu-note>
         <p><emu-eqn>floor<sub>_t_</sub>(_x_) = _x_ -<sub>_t_</sub> (_x_ modulo<sub>_t_</sub> 1<sub>_t_</sub>)</emu-eqn>.</p>
       </emu-note>
@@ -1500,7 +1500,7 @@
           <p>The abstract operation Number::bitwiseNOT takes argument _x_ (a Number). It performs the following steps when called:</p>
           <emu-alg>
             1. Let _oldValue_ be ! ToInt32(_x_).
-            1. Return the result of applying bitwise complement to _oldValue_. The result is a signed 32-bit integer.
+            1. Return the result of applying bitwise complement to _oldValue_. The result is a signed 32-bit integral Number.
           </emu-alg>
         </emu-clause>
 
@@ -1520,17 +1520,17 @@
             <li>If abs(_base_) &lt; *1*<sub>𝔽</sub> and _exponent_ is *-&infin;*, the result is *+&infin;*.</li>
             <li>If _base_ is *+&infin;* and _exponent_ &gt; *+0*, the result is *+&infin;*.</li>
             <li>If _base_ is *+&infin;* and _exponent_ &lt; *+0*, the result is *+0*.</li>
-            <li>If _base_ is *-&infin;* and _exponent_ &gt; *+0* and _exponent_ is an odd integer, the result is *-&infin;*.</li>
-            <li>If _base_ is *-&infin;* and _exponent_ &gt; *+0* and _exponent_ is not an odd integer, the result is *+&infin;*.</li>
-            <li>If _base_ is *-&infin;* and _exponent_ &lt; *+0* and _exponent_ is an odd integer, the result is *-0*.</li>
-            <li>If _base_ is *-&infin;* and _exponent_ &lt; *+0* and _exponent_ is not an odd integer, the result is *+0*.</li>
+            <li>If _base_ is *-&infin;* and _exponent_ &gt; *+0* and _exponent_ is an odd integral Number, the result is *-&infin;*.</li>
+            <li>If _base_ is *-&infin;* and _exponent_ &gt; *+0* and _exponent_ is not an odd integral Number, the result is *+&infin;*.</li>
+            <li>If _base_ is *-&infin;* and _exponent_ &lt; *+0* and _exponent_ is an odd integral Number, the result is *-0*.</li>
+            <li>If _base_ is *-&infin;* and _exponent_ &lt; *+0* and _exponent_ is not an odd integral Number, the result is *+0*.</li>
             <li>If _base_ is *+0* and _exponent_ &gt; *+0*, the result is *+0*.</li>
             <li>If _base_ is *+0* and _exponent_ &lt; *+0*, the result is *+&infin;*.</li>
-            <li>If _base_ is *-0* and _exponent_ &gt; *+0* and _exponent_ is an odd integer, the result is *-0*.</li>
-            <li>If _base_ is *-0* and _exponent_ &gt; *+0* and _exponent_ is not an odd integer, the result is *+0*.</li>
-            <li>If _base_ is *-0* and _exponent_ &lt; *+0* and _exponent_ is an odd integer, the result is *-&infin;*.</li>
-            <li>If _base_ is *-0* and _exponent_ &lt; *+0* and _exponent_ is not an odd integer, the result is *+&infin;*.</li>
-            <li>If _base_ &lt; *+0* and _base_ is finite and _exponent_ is finite and _exponent_ is not an integer, the result is *NaN*.</li>
+            <li>If _base_ is *-0* and _exponent_ &gt; *+0* and _exponent_ is an odd integral Number, the result is *-0*.</li>
+            <li>If _base_ is *-0* and _exponent_ &gt; *+0* and _exponent_ is not an odd integral Number, the result is *+0*.</li>
+            <li>If _base_ is *-0* and _exponent_ &lt; *+0* and _exponent_ is an odd integral Number, the result is *-&infin;*.</li>
+            <li>If _base_ is *-0* and _exponent_ &lt; *+0* and _exponent_ is not an odd integral Number, the result is *+&infin;*.</li>
+            <li>If _base_ &lt; *+0* and _base_ is finite and _exponent_ is finite and _exponent_ is not an integral Number, the result is *NaN*.</li>
           </ul>
           <emu-note>
             <p>The result of _base_ `**` _exponent_ when _base_ is *1* or *-1* and _exponent_ is *+Infinity* or *-Infinity* differs from IEEE 754-2019. The first edition of ECMAScript specified a result of *NaN* for this operation, whereas later versions of IEEE 754-2019 specified *1*. The historical ECMAScript behaviour is preserved for compatibility reasons.</p>
@@ -1681,7 +1681,7 @@
             1. Let _lnum_ be ! ToInt32(_x_).
             1. Let _rnum_ be ! ToUint32(_y_).
             1. Let _shiftCount_ be the result of masking out all but the least significant 5 bits of _rnum_, that is, compute _rnum_ &amp; 0x1F.
-            1. Return the result of left shifting _lnum_ by _shiftCount_ bits. The result is a signed 32-bit integer.
+            1. Return the result of left shifting _lnum_ by _shiftCount_ bits. The result is a signed 32-bit integral Number.
           </emu-alg>
         </emu-clause>
 
@@ -1692,7 +1692,7 @@
             1. Let _lnum_ be ! ToInt32(_x_).
             1. Let _rnum_ be ! ToUint32(_y_).
             1. Let _shiftCount_ be the result of masking out all but the least significant 5 bits of _rnum_, that is, compute _rnum_ &amp; 0x1F.
-            1. Return the result of performing a sign-extending right shift of _lnum_ by _shiftCount_ bits. The most significant bit is propagated. The result is a signed 32-bit integer.
+            1. Return the result of performing a sign-extending right shift of _lnum_ by _shiftCount_ bits. The most significant bit is propagated. The result is a signed 32-bit integral Number.
           </emu-alg>
         </emu-clause>
 
@@ -1703,7 +1703,7 @@
             1. Let _lnum_ be ! ToUint32(_x_).
             1. Let _rnum_ be ! ToUint32(_y_).
             1. Let _shiftCount_ be the result of masking out all but the least significant 5 bits of _rnum_, that is, compute _rnum_ &amp; 0x1F.
-            1. Return the result of performing a zero-filling right shift of _lnum_ by _shiftCount_ bits. Vacated bits are filled with zero. The result is an unsigned 32-bit integer.
+            1. Return the result of performing a zero-filling right shift of _lnum_ by _shiftCount_ bits. Vacated bits are filled with zero. The result is an unsigned 32-bit integral Number.
           </emu-alg>
         </emu-clause>
 
@@ -4472,20 +4472,20 @@
 
       <emu-clause id="sec-createbytedatablock" aoid="CreateByteDataBlock">
         <h1>CreateByteDataBlock ( _size_ )</h1>
-        <p>The abstract operation CreateByteDataBlock takes argument _size_ (a Number whose mathematical value is an integer). It performs the following steps when called:</p>
+        <p>The abstract operation CreateByteDataBlock takes argument _size_ (an integral Number). It performs the following steps when called:</p>
         <emu-alg>
-          1. Assert: _size_ &ge; 0<sub>𝔽</sub>.
+          1. Assert: _size_ &ge; *+0*.
           1. Let _db_ be a new Data Block value consisting of _size_ bytes. If it is impossible to create such a Data Block, throw a *RangeError* exception.
-          1. Set all of the bytes of _db_ to 0<sub>𝔽</sub>.
+          1. Set all of the bytes of _db_ to *+0*.
           1. Return _db_.
         </emu-alg>
       </emu-clause>
 
       <emu-clause id="sec-createsharedbytedatablock" aoid="CreateSharedByteDataBlock">
         <h1>CreateSharedByteDataBlock ( _size_ )</h1>
-        <p>The abstract operation CreateSharedByteDataBlock takes argument _size_ (a Number whose mathematical value is an integer). It performs the following steps when called:</p>
+        <p>The abstract operation CreateSharedByteDataBlock takes argument _size_ (an integral Number). It performs the following steps when called:</p>
         <emu-alg>
-          1. Assert: _size_ &ge; 0<sub>𝔽</sub>.
+          1. Assert: _size_ &ge; *+0*.
           1. Let _db_ be a new Shared Data Block value consisting of _size_ bytes. If it is impossible to create such a Shared Data Block, throw a *RangeError* exception.
           1. Let _execution_ be the [[CandidateExecution]] field of the surrounding agent's Agent Record.
           1. Let _eventList_ be the [[EventList]] field of the element in _execution_.[[EventsRecords]] whose [[AgentSignifier]] is AgentSignifier().
@@ -4501,22 +4501,22 @@
         <p>The abstract operation CopyDataBlockBytes takes arguments _toBlock_, _toIndex_, _fromBlock_, _fromIndex_, and _count_. It performs the following steps when called:</p>
         <emu-alg>
           1. Assert: _fromBlock_ and _toBlock_ are distinct Data Block or Shared Data Block values.
-          1. Assert: _fromIndex_, _toIndex_, and _count_ are Numbers whose mathematical value is an integer &ge; 0<sub>𝔽</sub>.
+          1. Assert: _fromIndex_, _toIndex_, and _count_ are integral Numbers &ge; *+0*.
           1. Let _fromSize_ be the Number value of number of bytes in _fromBlock_.
           1. Assert: _fromIndex_ +<sub>𝔽</sub> _count_ &le;<sub>𝔽</sub> _fromSize_.
           1. Let _toSize_ be the Number value of number of bytes in _toBlock_.
           1. Assert: _toIndex_ +<sub>𝔽</sub> _count_ &le;<sub>𝔽</sub> _toSize_.
-          1. Repeat, while _count_ &gt; 0<sub>𝔽</sub>,
+          1. Repeat, while _count_ &gt; *+0*,
             1. If _fromBlock_ is a Shared Data Block, then
               1. Let _execution_ be the [[CandidateExecution]] field of the surrounding agent's Agent Record.
               1. Let _eventList_ be the [[EventList]] field of the element in _execution_.[[EventsRecords]] whose [[AgentSignifier]] is AgentSignifier().
               1. Let _bytes_ be a List of length 1 that contains a nondeterministically chosen byte value.
               1. NOTE: In implementations, _bytes_ is the result of a non-atomic read instruction on the underlying hardware. The nondeterminism is a semantic prescription of the memory model to describe observable behaviour of hardware with weak consistency.
-              1. Let _readEvent_ be ReadSharedMemory { [[Order]]: ~Unordered~, [[NoTear]]: *true*, [[Block]]: _fromBlock_, [[ByteIndex]]: _fromIndex_, [[ElementSize]]: 1 }.
+              1. Let _readEvent_ be ReadSharedMemory { [[Order]]: ~Unordered~, [[NoTear]]: *true*, [[Block]]: _fromBlock_, [[ByteIndex]]: ℝ(_fromIndex_), [[ElementSize]]: 1 }.
               1. Append _readEvent_ to _eventList_.
               1. Append Chosen Value Record { [[Event]]: _readEvent_, [[ChosenValue]]: _bytes_ } to _execution_.[[ChosenValues]].
               1. If _toBlock_ is a Shared Data Block, then
-                1. Append WriteSharedMemory { [[Order]]: ~Unordered~, [[NoTear]]: *true*, [[Block]]: _toBlock_, [[ByteIndex]]: _toIndex_, [[ElementSize]]: 1, [[Payload]]: _bytes_ } to _eventList_.
+                1. Append WriteSharedMemory { [[Order]]: ~Unordered~, [[NoTear]]: *true*, [[Block]]: _toBlock_, [[ByteIndex]]: ℝ(_toIndex_), [[ElementSize]]: 1, [[Payload]]: _bytes_ } to _eventList_.
               1. Else,
                 1. Set _toBlock_[_toIndex_] to _bytes_[0].
             1. Else,
@@ -5497,7 +5497,7 @@
       <h1>IsNonNegativeInteger ( _argument_ )</h1>
       <p>The abstract operation IsNonNegativeInteger takes argument _argument_. It determines if _argument_ is a non-negative integer Number value. It performs the following steps when called:</p>
       <emu-alg>
-        1. If ! IsInteger(_argument_) is *true* and _argument_ &ge; 0<sub>𝔽</sub>, return *true*.
+        1. If ! IsInteger(_argument_) is *true* and _argument_ &ge; *+0*, return *true*.
         1. Otherwise, return *false*.
       </emu-alg>
     </emu-clause>
@@ -5901,7 +5901,7 @@
       <p>The abstract operation CreateArrayFromList takes argument _elements_ (a List). It is used to create an Array object whose elements are provided by _elements_. It performs the following steps when called:</p>
       <emu-alg>
         1. Assert: _elements_ is a List whose elements are all ECMAScript language values.
-        1. Let _array_ be ! ArrayCreate(0<sub>𝔽</sub>).
+        1. Let _array_ be ! ArrayCreate(*+0*).
         1. Let _n_ be 0.
         1. For each element _e_ of _elements_, do
           1. Perform ! CreateDataPropertyOrThrow(_array_, ! ToString(𝔽(_n_)), _e_).
@@ -5917,7 +5917,7 @@
         1. Assert: Type(_obj_) is Object.
         1. Return ? ToLength(? Get(_obj_, *"length"*)).
       </emu-alg>
-      <p>An <dfn>array-like object</dfn> is any object for which this operation returns an integer rather than an abrupt completion.</p>
+      <p>An <dfn>array-like object</dfn> is any object for which this operation returns an integral Number rather than an abrupt completion.</p>
       <emu-note>
         Typically, an array-like object would also have some properties with integer index names. However, that is not a requirement of this definition.
       </emu-note>
@@ -8941,7 +8941,7 @@
 
       <emu-clause id="sec-arraycreate" aoid="ArrayCreate">
         <h1>ArrayCreate ( _length_ [ , _proto_ ] )</h1>
-        <p>The abstract operation ArrayCreate takes argument _length_ (a non-negative Number whose mathematical value is an integer) and optional argument _proto_. It is used to specify the creation of new Array exotic objects. It performs the following steps when called:</p>
+        <p>The abstract operation ArrayCreate takes argument _length_ (a non-negative integral Number) and optional argument _proto_. It is used to specify the creation of new Array exotic objects. It performs the following steps when called:</p>
         <emu-alg>
           1. Assert: ! IsNonNegativeInteger(_length_) is *true*.
           1. If _length_ is *-0*, set _length_ to *+0*.
@@ -10423,7 +10423,7 @@
 
     <emu-clause id="sec-codepointat" aoid="CodePointAt">
       <h1>Static Semantics: CodePointAt ( _string_, _positionNumber_ )</h1>
-      <p>The abstract operation CodePointAt takes arguments _string_ (a String) and _positionNumber_ (a Number whose mathematical value is a non-negative integer). It interprets _string_ as a sequence of UTF-16 encoded code points, as described in <emu-xref href="#sec-ecmascript-language-types-string-type"></emu-xref>, and reads from it a single code point starting with the code unit at index _positionNumber_. It performs the following steps when called:</p>
+      <p>The abstract operation CodePointAt takes arguments _string_ (a String) and _positionNumber_ (non-negative integral Number). It interprets _string_ as a sequence of UTF-16 encoded code points, as described in <emu-xref href="#sec-ecmascript-language-types-string-type"></emu-xref>, and reads from it a single code point starting with the code unit at index _positionNumber_. It performs the following steps when called:</p>
       <emu-alg>
         1. Let _size_ be the length of _string_.
         1. Let _position_ be the Mathematical value of _positionNumber_.
@@ -27219,11 +27219,11 @@
         <emu-alg>
           1. Let _x_ be ? thisNumberValue(*this* value).
           1. Let _f_ be ? ToInteger(_fractionDigits_).
-          1. Assert: If _fractionDigits_ is *undefined*, then _f_ is 0<sub>𝔽</sub>.
+          1. Assert: If _fractionDigits_ is *undefined*, then _f_ is *+0*.
           1. If _x_ is not finite, return ! Number::toString(_x_).
-          1. If _f_ &lt; 0<sub>𝔽</sub> or _f_ &gt; 100<sub>𝔽</sub>, throw a *RangeError* exception.
+          1. If _f_ &lt; *+0* or _f_ &gt; 100<sub>𝔽</sub>, throw a *RangeError* exception.
           1. Let _s_ be the empty String.
-          1. If _x_ &lt; 0<sub>𝔽</sub>, then
+          1. If _x_ &lt; *+0*, then
             1. Set _s_ to *"-"*.
             1. Set _x_ to -_x_.
           1. If _x_ = 0, then
@@ -27233,9 +27233,9 @@
             1. If _fractionDigits_ is not *undefined*, then
               1. Let _e_ and _n_ be integers such that 10<sup>ℝ(_f_)</sup> &le; _n_ &lt; 10<sup>ℝ(_f_) + 1</sup> and for which _n_ &times; 10<sup>_e_ - _n_</sup> - ℝ(_x_) is as close to zero as possible. If there are two such sets of _e_ and _n_, pick the _e_ and _n_ for which _n_ &times; 10<sup>_e_ - ℝ(_f_)</sup> is larger.
             1. Else,
-              1. Let _e_, _n_ be integers, and _f_ be a Number whose mathematical value is an integer such that ℝ(_f_) &ge; 0, 10<sup>ℝ(_f_)</sup> &le; _n_ &lt; 10<sup>ℝ(_f_) + 1</sup>, the Number value for _n_ &times; 10<sup>_e_ - ℝ(_f_)</sup> is ℝ(_x_), and _f_ is as small as possible. Note that the decimal representation of _n_ has ℝ(_f_) + 1 digits, _n_ is not divisible by 10, and the least significant digit of _n_ is not necessarily uniquely determined by these criteria.
+              1. Let _e_, _n_ be integers, and _f_ be integral Number such that ℝ(_f_) &ge; 0, 10<sup>ℝ(_f_)</sup> &le; _n_ &lt; 10<sup>ℝ(_f_) + 1</sup>, the Number value for _n_ &times; 10<sup>_e_ - ℝ(_f_)</sup> is ℝ(_x_), and _f_ is as small as possible. Note that the decimal representation of _n_ has ℝ(_f_) + 1 digits, _n_ is not divisible by 10, and the least significant digit of _n_ is not necessarily uniquely determined by these criteria.
             1. Let _m_ be the String value consisting of the digits of the decimal representation of _n_ (in order, with no leading zeroes).
-          1. If _f_ &ne; 0<sub>𝔽</sub>, then
+          1. If _f_ &ne; *+0*, then
             1. Let _a_ be the first code unit of _m_, and let _b_ be the remaining _f_ code units of _m_.
             1. Set _m_ to the string-concatenation of _a_, *"."*, and _b_.
           1. If _e_ = 0, then
@@ -27272,7 +27272,7 @@
           1. If _f_ &lt; 0 or _f_ &gt; 100, throw a *RangeError* exception.
           1. If _x_ is not finite, return ! Number::toString(_x_).
           1. Let _s_ be the empty String.
-          1. If _x_ &lt; 0<sub>𝔽</sub>, then
+          1. If _x_ &lt; *+0*, then
             1. Set _s_ to *"-"*.
             1. Set _x_ to -_x_.
           1. If ℝ(_x_) &ge; 10<sup>21</sup>, then
@@ -27349,7 +27349,7 @@
       <emu-clause id="sec-number.prototype.tostring">
         <h1>Number.prototype.toString ( [ _radix_ ] )</h1>
         <emu-note>
-          <p>The optional _radix_ should be an integer value in the inclusive range 2 to 36. If _radix_ is *undefined* the Number 10 is used as the value of _radix_.</p>
+          <p>The optional _radix_ should be an integral Number value in the inclusive range 2 to 36. If _radix_ is *undefined* the Number 10 is used as the value of _radix_.</p>
         </emu-note>
         <p>The following steps are performed:</p>
         <emu-alg>
@@ -27477,7 +27477,7 @@
       <emu-clause id="sec-bigint.prototype.tostring">
         <h1>BigInt.prototype.toString ( [ _radix_ ] )</h1>
         <emu-note>
-          <p>The optional _radix_ should be an integer value in the inclusive range 2 to 36. If _radix_ not present or is *undefined* the Number 10 is used as the value of _radix_.</p>
+          <p>The optional _radix_ should be an integral Number value in the inclusive range 2 to 36. If _radix_ not present or is *undefined* the Number 10 is used as the value of _radix_.</p>
         </emu-note>
         <p>The following steps are performed:</p>
         <emu-alg>
@@ -27847,7 +27847,7 @@
 
       <emu-clause id="sec-math.ceil">
         <h1>Math.ceil ( _x_ )</h1>
-        <p>Returns the smallest (closest to *-&infin;*) Number value that is not less than _x_ and is an integer. If _x_ is already an integer, the result is _x_.</p>
+        <p>Returns the smallest (closest to *-&infin;*) Number value that is not less than _x_ and is an integral Number. If _x_ is already an integral Number, the result is _x_.</p>
         <ul>
           <li>
             If _x_ is *NaN*, the result is *NaN*.
@@ -27977,7 +27977,7 @@
 
       <emu-clause id="sec-math.floor">
         <h1>Math.floor ( _x_ )</h1>
-        <p>Returns the greatest (closest to *+&infin;*) Number value that is not greater than _x_ and is an integer. If _x_ is already an integer, the result is _x_.</p>
+        <p>Returns the greatest (closest to *+&infin;*) Number value that is not greater than _x_ and is an integral Number. If _x_ is already an integral Number, the result is _x_.</p>
         <ul>
           <li>
             If _x_ is *NaN*, the result is *NaN*.
@@ -28197,7 +28197,7 @@
 
       <emu-clause id="sec-math.round">
         <h1>Math.round ( _x_ )</h1>
-        <p>Returns the Number value that is closest to _x_ and is an integer. If two integers are equally close to _x_, then the result is the Number value that is closer to *+&infin;*. If _x_ is already an integer, the result is _x_.</p>
+        <p>Returns the Number value that is closest to _x_ and is an integral Number. If two integers are equally close to _x_, then the result is the Number value that is closer to *+&infin;*. If _x_ is already an integral Number, the result is _x_.</p>
         <ul>
           <li>
             If _x_ is *NaN*, the result is *NaN*.
@@ -28790,14 +28790,14 @@ THH:mm:ss.sss
             1. Let _y_ be ? ToNumber(_year_).
             1. Let _m_ be ? ToNumber(_month_).
             1. If _date_ is present, let _dt_ be ? ToNumber(_date_); else let _dt_ be 1<sub>𝔽</sub>.
-            1. If _hours_ is present, let _h_ be ? ToNumber(_hours_); else let _h_ be 0<sub>𝔽</sub>.
-            1. If _minutes_ is present, let _min_ be ? ToNumber(_minutes_); else let _min_ be 0<sub>𝔽</sub>.
-            1. If _seconds_ is present, let _s_ be ? ToNumber(_seconds_); else let _s_ be 0<sub>𝔽</sub>.
-            1. If _ms_ is present, let _milli_ be ? ToNumber(_ms_); else let _milli_ be 0<sub>𝔽</sub>.
+            1. If _hours_ is present, let _h_ be ? ToNumber(_hours_); else let _h_ be *+0*.
+            1. If _minutes_ is present, let _min_ be ? ToNumber(_minutes_); else let _min_ be *+0*.
+            1. If _seconds_ is present, let _s_ be ? ToNumber(_seconds_); else let _s_ be *+0*.
+            1. If _ms_ is present, let _milli_ be ? ToNumber(_ms_); else let _milli_ be *+0*.
             1. If _y_ is *NaN*, let _yr_ be *NaN*.
             1. Else,
               1. Let _yi_ be ! ToInteger(_y_).
-              1. If 0<sub>𝔽</sub> &le; _yi_ &le; 99<sub>𝔽</sub>, let _yr_ be 1900<sub>𝔽</sub> + _yi_; otherwise, let _yr_ be _y_.
+              1. If *+0* &le; _yi_ &le; 99<sub>𝔽</sub>, let _yr_ be 1900<sub>𝔽</sub> + _yi_; otherwise, let _yr_ be _y_.
             1. Let _finalDate_ be MakeDate(MakeDay(_yr_, _m_, _dt_), MakeTime(_h_, _min_, _s_, _milli_)).
             1. Let _O_ be ? OrdinaryCreateFromConstructor(NewTarget, *"%Date.prototype%"*, &laquo; [[DateValue]] &raquo;).
             1. Set _O_.[[DateValue]] to TimeClip(UTC(_finalDate_)).
@@ -28891,16 +28891,16 @@ THH:mm:ss.sss
         <p>When the `UTC` function is called, the following steps are taken:</p>
         <emu-alg>
           1. Let _y_ be ? ToNumber(_year_).
-          1. If _month_ is present, let _m_ be ? ToNumber(_month_); else let _m_ be 0<sub>𝔽</sub>.
+          1. If _month_ is present, let _m_ be ? ToNumber(_month_); else let _m_ be *+0*.
           1. If _date_ is present, let _dt_ be ? ToNumber(_date_); else let _dt_ be 1<sub>𝔽</sub>.
-          1. If _hours_ is present, let _h_ be ? ToNumber(_hours_); else let _h_ be 0<sub>𝔽</sub>.
-          1. If _minutes_ is present, let _min_ be ? ToNumber(_minutes_); else let _min_ be 0<sub>𝔽</sub>.
-          1. If _seconds_ is present, let _s_ be ? ToNumber(_seconds_); else let _s_ be 0<sub>𝔽</sub>.
-          1. If _ms_ is present, let _milli_ be ? ToNumber(_ms_); else let _milli_ be 0<sub>𝔽</sub>.
+          1. If _hours_ is present, let _h_ be ? ToNumber(_hours_); else let _h_ be *+0*.
+          1. If _minutes_ is present, let _min_ be ? ToNumber(_minutes_); else let _min_ be *+0*.
+          1. If _seconds_ is present, let _s_ be ? ToNumber(_seconds_); else let _s_ be *+0*.
+          1. If _ms_ is present, let _milli_ be ? ToNumber(_ms_); else let _milli_ be *+0*.
           1. If _y_ is *NaN*, let _yr_ be *NaN*.
           1. Else,
             1. Let _yi_ be ! ToInteger(_y_).
-            1. If 0<sub>𝔽</sub> &le; _yi_ &le; 99<sub>𝔽</sub>, let _yr_ be 1900<sub>𝔽</sub> + _yi_; otherwise, let _yr_ be _y_.
+            1. If *+0* &le; _yi_ &le; 99<sub>𝔽</sub>, let _yr_ be 1900<sub>𝔽</sub> + _yi_; otherwise, let _yr_ be _y_.
           1. Return TimeClip(MakeDate(MakeDay(_yr_, _m_, _dt_), MakeTime(_h_, _min_, _s_, _milli_))).
         </emu-alg>
         <p>The *"length"* property of the `UTC` function is 7.</p>
@@ -29813,7 +29813,7 @@ THH:mm:ss.sss
             1. Let _next_ be _codePoints_[_nextIndex_].
             1. Let _nextCP_ be ? ToNumber(_next_).
             1. If ! IsInteger(_nextCP_) is *false*, throw a *RangeError* exception.
-            1. If _nextCP_ &lt; 0<sub>𝔽</sub> or _nextCP_ &gt; 0x10FFFF<sub>𝔽</sub>, throw a *RangeError* exception.
+            1. If _nextCP_ &lt; *+0* or _nextCP_ &gt; 0x10FFFF<sub>𝔽</sub>, throw a *RangeError* exception.
             1. Append the elements of the UTF16Encoding of _nextCP_ to the end of _elements_.
             1. Set _nextIndex_ to _nextIndex_ + 1.
           1. Return the String value whose code units are, in order, the elements in the List _elements_. If _length_ is 0, the empty String is returned.
@@ -29882,7 +29882,7 @@ THH:mm:ss.sss
         <h1>String.prototype.charAt ( _pos_ )</h1>
         <emu-note>
           <p>Returns a single element String containing the code unit at index _pos_ within the String value resulting from converting this object to a String. If there is no element at that index, the result is the empty String. The result is a String value, not a String object.</p>
-          <p>If `pos` is a value of Number type that is an integer, then the result of `x.charAt(pos)` is equal to the result of `x.substring(pos, pos + 1)`.</p>
+          <p>If `pos` is a value of Number type that is an integral Number, then the result of `x.charAt(pos)` is equal to the result of `x.substring(pos, pos + 1)`.</p>
         </emu-note>
         <p>When the `charAt` method is called with one argument _pos_, the following steps are taken:</p>
         <emu-alg>
@@ -29901,7 +29901,7 @@ THH:mm:ss.sss
       <emu-clause id="sec-string.prototype.charcodeat">
         <h1>String.prototype.charCodeAt ( _pos_ )</h1>
         <emu-note>
-          <p>Returns a Number (a nonnegative integer less than 2<sup>16</sup>) that is the numeric value of the code unit at index _pos_ within the String resulting from converting this object to a String. If there is no element at that index, the result is *NaN*.</p>
+          <p>Returns a Number (a nonnegative integral Number less than 2<sup>16</sup>) that is the numeric value of the code unit at index _pos_ within the String resulting from converting this object to a String. If there is no element at that index, the result is *NaN*.</p>
         </emu-note>
         <p>When the `charCodeAt` method is called with one argument _pos_, the following steps are taken:</p>
         <emu-alg>
@@ -29920,7 +29920,7 @@ THH:mm:ss.sss
       <emu-clause id="sec-string.prototype.codepointat">
         <h1>String.prototype.codePointAt ( _pos_ )</h1>
         <emu-note>
-          <p>Returns a nonnegative integer Number less than or equal to 0x10FFFF that is the code point value of the UTF-16 encoded code point (<emu-xref href="#sec-ecmascript-language-types-string-type"></emu-xref>) starting at the string element at index _pos_ within the String resulting from converting this object to a String. If there is no element at that index, the result is *undefined*. If a valid UTF-16 <emu-xref href="#surrogate-pair"></emu-xref> does not begin at _pos_, the result is the code unit at _pos_.</p>
+          <p>Returns a nonnegative integral  Number less than or equal to 0x10FFFF that is the code point value of the UTF-16 encoded code point (<emu-xref href="#sec-ecmascript-language-types-string-type"></emu-xref>) starting at the string element at index _pos_ within the String resulting from converting this object to a String. If there is no element at that index, the result is *undefined*. If a valid UTF-16 <emu-xref href="#surrogate-pair"></emu-xref> does not begin at _pos_, the result is the code unit at _pos_.</p>
         </emu-note>
         <p>When the `codePointAt` method is called with one argument _pos_, the following steps are taken:</p>
         <emu-alg>
@@ -29928,7 +29928,7 @@ THH:mm:ss.sss
           1. Let _S_ be ? ToString(_O_).
           1. Let _position_ be ? ToInteger(_pos_).
           1. Let _size_ be the length of _S_.
-          1. If _position_ &lt; 0<sub>𝔽</sub> or ℝ(_position_) &ge; _size_, return *undefined*.
+          1. If _position_ &lt; *+0* or ℝ(_position_) &ge; _size_, return *undefined*.
           1. Let _cp_ be ! CodePointAt(_S_, _position_).
           1. Return _cp_.[[CodePoint]].
         </emu-alg>
@@ -30199,9 +30199,9 @@ THH:mm:ss.sss
           1. Let _O_ be ? RequireObjectCoercible(*this* value).
           1. Let _S_ be ? ToString(_O_).
           1. Let _n_ be ? ToInteger(_count_).
-          1. If _n_ &lt; 0<sub>𝔽</sub>, throw a *RangeError* exception.
+          1. If _n_ &lt; *+0*, throw a *RangeError* exception.
           1. If _n_ is *+&infin;*, throw a *RangeError* exception.
-          1. If _n_ is 0<sub>𝔽</sub>, return the empty String.
+          1. If _n_ is *+0*, return the empty String.
           1. Return the String value that is made from _n_ copies of _S_ appended together.
         </emu-alg>
         <emu-note>
@@ -30438,7 +30438,7 @@ THH:mm:ss.sss
             1. If _splitter_ is not *undefined*, then
               1. Return ? Call(_splitter_, _separator_, &laquo; _O_, _limit_ &raquo;).
           1. Let _S_ be ? ToString(_O_).
-          1. Let _A_ be ! ArrayCreate(0<sub>𝔽</sub>).
+          1. Let _A_ be ! ArrayCreate(*+0*).
           1. Let _lengthA_ be 0.
           1. If _limit_ is *undefined*, let _lim_ be 2<sup>32</sup> - 1; else let _lim_ be the mathematical value of ? ToUint32(_limit_).
           1. Let _R_ be ? ToString(_separator_).
@@ -30448,7 +30448,7 @@ THH:mm:ss.sss
             1. Return _A_.
           1. Let _s_ be the length of _S_.
           1. If _s_ = 0, then
-            1. Let _z_ be SplitMatch(_S_, 0<sub>𝔽</sub>, _R_).
+            1. Let _z_ be SplitMatch(_S_, *+0*, _R_).
             1. If _z_ is not *false*, return _A_.
             1. Perform ! CreateDataPropertyOrThrow(_A_, *"0"*, _S_).
             1. Return _A_.
@@ -30483,7 +30483,7 @@ THH:mm:ss.sss
 
         <emu-clause id="sec-splitmatch" aoid="SplitMatch">
           <h1>Runtime Semantics: SplitMatch ( _S_, _q_, _R_ )</h1>
-          <p>The abstract operation SplitMatch takes arguments _S_ (a String), _q_ (a Number whose mathematical value is an integer), and _R_ (a String). It returns either *false* or the end index of a match. It performs the following steps when called:</p>
+          <p>The abstract operation SplitMatch takes arguments _S_ (a String), _q_ (an integral Number), and _R_ (a String). It returns either *false* or the end index of a match. It performs the following steps when called:</p>
           <emu-alg>
             1. Assert: Type(_R_) is String.
             1. Let _r_ be the number of code units in _R_.
@@ -30505,7 +30505,7 @@ THH:mm:ss.sss
           1. If _isRegExp_ is *true*, throw a *TypeError* exception.
           1. Let _searchStr_ be ? ToString(_searchString_).
           1. Let _pos_ be ? ToInteger(_position_).
-          1. Assert: If _position_ is *undefined*, then _pos_ is 0<sub>𝔽</sub>.
+          1. Assert: If _position_ is *undefined*, then _pos_ is *+0*.
           1. Let _len_ be the length of _S_.
           1. Let _start_ be min(max(ℝ(_pos_), 0), _len_).
           1. Let _searchLength_ be the length of _searchStr_.
@@ -31518,13 +31518,13 @@ THH:mm:ss.sss
 
         <emu-clause id="sec-runtime-semantics-repeatmatcher-abstract-operation" aoid="RepeatMatcher">
           <h1>Runtime Semantics: RepeatMatcher ( _m_, _min_, _max_, _greedy_, _x_, _c_, _parenIndex_, _parenCount_ )</h1>
-          <p>The abstract operation RepeatMatcher takes arguments _m_ (a Matcher), _min_ (a Number whose mathematical value is an integer), _max_ (a Number whose mathematical value is an integer or &infin;), _greedy_ (a Boolean), _x_ (a State), _c_ (a Continuation), _parenIndex_ (a Number whose mathematical value is an integer), and _parenCount_ (a Number whose mathematical value is an integer). It performs the following steps when called:</p>
+          <p>The abstract operation RepeatMatcher takes arguments _m_ (a Matcher), _min_ (an integral Number), _max_ (integral Number or &infin;), _greedy_ (a Boolean), _x_ (a State), _c_ (a Continuation), _parenIndex_ (an integral Number), and _parenCount_ (an integral Number). It performs the following steps when called:</p>
           <emu-alg>
             1. If _max_ is zero, return _c_(_x_).
             1. Let _d_ be a new Continuation with parameters (_y_) that captures _m_, _min_, _max_, _greedy_, _x_, _c_, _parenIndex_, and _parenCount_ and performs the following steps when called:
               1. Assert: _y_ is a State.
               1. If _min_ is zero and _y_'s _endIndex_ is equal to _x_'s _endIndex_, return ~failure~.
-              1. If _min_ is zero, let _min2_ be 0<sub>𝔽</sub>; otherwise let _min2_ be _min_ - 1<sub>𝔽</sub>.
+              1. If _min_ is zero, let _min2_ be *+0*; otherwise let _min2_ be _min_ - 1<sub>𝔽</sub>.
               1. If _max_ is &infin;, let _max2_ be &infin;; otherwise let _max2_ be _max_ - 1<sub>𝔽</sub>.
               1. Call RepeatMatcher(_m_, _min2_, _max2_, _greedy_, _y_, _c_, _parenIndex_, _parenCount_) and return its result.
             1. Let _cap_ be a copy of _x_'s _captures_ List.
@@ -31616,7 +31616,7 @@ THH:mm:ss.sss
             1. Assert: _x_ is a State.
             1. Assert: _c_ is a Continuation.
             1. Let _e_ be _x_'s _endIndex_.
-            1. Call IsWordChar(_e_ - 1) and let _a_ be the Boolean result.
+            1. Call IsWordChar(_e_ - 1<sub>𝔽</sub>) and let _a_ be the Boolean result.
             1. Call IsWordChar(_e_) and let _b_ be the Boolean result.
             1. If _a_ is *true* and _b_ is *false*, or if _a_ is *false* and _b_ is *true*, then
               1. Call _c_(_x_) and return its result.
@@ -31628,7 +31628,7 @@ THH:mm:ss.sss
             1. Assert: _x_ is a State.
             1. Assert: _c_ is a Continuation.
             1. Let _e_ be _x_'s _endIndex_.
-            1. Call IsWordChar(_e_ - 1) and let _a_ be the Boolean result.
+            1. Call IsWordChar(_e_ - 1<sub>𝔽</sub>) and let _a_ be the Boolean result.
             1. Call IsWordChar(_e_) and let _b_ be the Boolean result.
             1. If _a_ is *true* and _b_ is *true*, or if _a_ is *false* and _b_ is *false*, then
               1. Call _c_(_x_) and return its result.
@@ -31940,9 +31940,9 @@ THH:mm:ss.sss
         </emu-clause>
         <emu-clause id="sec-runtime-semantics-iswordchar-abstract-operation" aoid="IsWordChar">
           <h1>Runtime Semantics: IsWordChar ( _e_ )</h1>
-          <p>The abstract operation IsWordChar takes argument _e_ (an integer). It performs the following steps when called:</p>
+          <p>The abstract operation IsWordChar takes argument _e_ (an integral Number). It performs the following steps when called:</p>
           <emu-alg>
-            1. If _e_ is -1 or _e_ is _InputLength_, return *false*.
+            1. If _e_ is *-1*<sub>𝔽</sub> or _e_ is _InputLength_, return *false*.
             1. Let _c_ be the character _Input_[_e_].
             1. Let _wordChars_ be the result of ! WordCharacters().
             1. If _c_ is in _wordChars_, return *true*.
@@ -32048,14 +32048,14 @@ THH:mm:ss.sss
 
         <emu-clause id="sec-runtime-semantics-charactersetmatcher-abstract-operation" aoid="CharacterSetMatcher">
           <h1>Runtime Semantics: CharacterSetMatcher ( _A_, _invert_, _direction_ )</h1>
-          <p>The abstract operation CharacterSetMatcher takes arguments _A_ (a CharSet), _invert_ (a Boolean), and _direction_ (an integer). It performs the following steps when called:</p>
+          <p>The abstract operation CharacterSetMatcher takes arguments _A_ (a CharSet), _invert_ (a Boolean), and _direction_ (an integeral Number). It performs the following steps when called:</p>
           <emu-alg>
             1. Return a new Matcher with parameters (_x_, _c_) that captures _A_, _invert_, and _direction_ and performs the following steps when called:
               1. Assert: _x_ is a State.
               1. Assert: _c_ is a Continuation.
               1. Let _e_ be _x_'s _endIndex_.
               1. Let _f_ be _e_ +<sub>𝔽</sub> _direction_.
-              1. If _f_ &lt; 0<sub>𝔽</sub> or _f_ &gt;<sub>𝔽</sub> _InputLength_, return ~failure~.
+              1. If _f_ &lt; *+0* or _f_ &gt;<sub>𝔽</sub> _InputLength_, return ~failure~.
               1. Let _index_ be min<sub>𝔽</sub>(_e_, _f_).
               1. Let _ch_ be the character _Input_[_index_].
               1. Let _cc_ be Canonicalize(_ch_).
@@ -32186,7 +32186,7 @@ THH:mm:ss.sss
 
         <emu-clause id="sec-backreference-matcher" aoid="BackreferenceMatcher">
           <h1>Runtime Semantics: BackreferenceMatcher ( _n_, _direction_ )</h1>
-          <p>The abstract operation BackreferenceMatcher takes arguments _n_ (a Number whose mathematical value is an integer) and _direction_ (a Number whose mathematical value is an integer). It performs the following steps when called:</p>
+          <p>The abstract operation BackreferenceMatcher takes arguments _n_ (an integral Number) and _direction_ (an integral Number). It performs the following steps when called:</p>
           <emu-alg>
             1. Return a new Matcher with parameters (_x_, _c_) that captures _n_ and _direction_ and performs the following steps when called:
               1. Assert: _x_ is a State.
@@ -32197,7 +32197,7 @@ THH:mm:ss.sss
               1. Let _e_ be _x_'s _endIndex_.
               1. Let _len_ be the number of elements in _s_.
               1. Let _f_ be the Number value for ℝ(_e_) + ℝ(_direction_) &times; _len_.
-              1. If _f_ &lt; 0<sub>𝔽</sub> or _f_ &gt;<sub>𝔽</sub> _InputLength_, return ~failure~.
+              1. If _f_ &lt; *+0* or _f_ &gt;<sub>𝔽</sub> _InputLength_, return ~failure~.
               1. Let _g_ be min<sub>𝔽</sub>(_e_, _f_).
               1. If there exists an integer _i_ between 0 (inclusive) and _len_ (exclusive) such that Canonicalize(_s_[_i_]) is not the same character value as Canonicalize(_Input_[ℝ(_g_) + _i_]), return ~failure~.
               1. Let _y_ be the State (_f_, _cap_).
@@ -32621,19 +32621,19 @@ THH:mm:ss.sss
             1. Let _flags_ be _R_.[[OriginalFlags]].
             1. If _flags_ contains *"g"*, let _global_ be *true*; else let _global_ be *false*.
             1. If _flags_ contains *"y"*, let _sticky_ be *true*; else let _sticky_ be *false*.
-            1. If _global_ is *false* and _sticky_ is *false*, set _lastIndex_ to 0<sub>𝔽</sub>.
+            1. If _global_ is *false* and _sticky_ is *false*, set _lastIndex_ to *+0*.
             1. Let _matcher_ be _R_.[[RegExpMatcher]].
             1. If _flags_ contains *"u"*, let _fullUnicode_ be *true*; else let _fullUnicode_ be *false*.
             1. Let _matchSucceeded_ be *false*.
             1. Repeat, while _matchSucceeded_ is *false*,
               1. If ℝ(_lastIndex_) &gt; _length_, then
                 1. If _global_ is *true* or _sticky_ is *true*, then
-                  1. Perform ? Set(_R_, *"lastIndex"*, 0<sub>𝔽</sub>, *true*).
+                  1. Perform ? Set(_R_, *"lastIndex"*, *+0*, *true*).
                 1. Return *null*.
               1. Let _r_ be _matcher_(_S_, _lastIndex_).
               1. If _r_ is ~failure~, then
                 1. If _sticky_ is *true*, then
-                  1. Perform ? Set(_R_, *"lastIndex"*, 0<sub>𝔽</sub>, *true*).
+                  1. Perform ? Set(_R_, *"lastIndex"*, *+0*, *true*).
                   1. Return *null*.
                 1. Set _lastIndex_ to AdvanceStringIndex(_S_, _lastIndex_, _fullUnicode_).
               1. Else,
@@ -32866,7 +32866,7 @@ THH:mm:ss.sss
           1. Let _global_ be ! ToBoolean(? Get(_rx_, *"global"*)).
           1. If _global_ is *true*, then
             1. Let _fullUnicode_ be ! ToBoolean(? Get(_rx_, *"unicode"*)).
-            1. Perform ? Set(_rx_, *"lastIndex"*, 0<sub>𝔽</sub>, *true*).
+            1. Perform ? Set(_rx_, *"lastIndex"*, *+0*, *true*).
           1. Let _results_ be a new empty List.
           1. Let _done_ be *false*.
           1. Repeat, while _done_ is *false*,
@@ -32889,7 +32889,7 @@ THH:mm:ss.sss
             1. Let _matched_ be ? ToString(? Get(_result_, *"0"*)).
             1. Let _matchLength_ be the number of code units in _matched_.
             1. Let _position_ be ? ToInteger(? Get(_result_, *"index"*)).
-            1. Set _position_ to max<sub>𝔽</sub>(min<sub>𝔽</sub>(_position_, _lengthS_), 0<sub>𝔽</sub>).
+            1. Set _position_ to max<sub>𝔽</sub>(min<sub>𝔽</sub>(_position_, _lengthS_), *+0*).
             1. Let _n_ be 1.
             1. Let _captures_ be a new empty List.
             1. Repeat, while _n_ &le; _nCaptures_,
@@ -33099,7 +33099,7 @@ THH:mm:ss.sss
 
       <emu-clause id="sec-lastindex">
         <h1>lastIndex</h1>
-        <p>The value of the *"lastIndex"* property specifies the String index at which to start the next match. It is coerced to an integer when used (see <emu-xref href="#sec-regexpbuiltinexec"></emu-xref>). This property shall have the attributes { [[Writable]]: *true*, [[Enumerable]]: *false*, [[Configurable]]: *false* }.</p>
+        <p>The value of the *"lastIndex"* property specifies the String index at which to start the next match. It is coerced to an integral Number when used (see <emu-xref href="#sec-regexpbuiltinexec"></emu-xref>). This property shall have the attributes { [[Writable]]: *true*, [[Enumerable]]: *false*, [[Configurable]]: *false* }.</p>
       </emu-clause>
     </emu-clause>
 
@@ -33289,7 +33289,7 @@ THH:mm:ss.sss
             1. If IsConstructor(_C_) is *true*, then
               1. Let _A_ be ? Construct(_C_).
             1. Else,
-              1. Let _A_ be ! ArrayCreate(0<sub>𝔽</sub>).
+              1. Let _A_ be ! ArrayCreate(*+0*).
             1. Let _iteratorRecord_ be ? GetIterator(_items_, ~sync~, _usingIterator_).
             1. Let _k_ be 0.
             1. Repeat,
@@ -33411,7 +33411,7 @@ THH:mm:ss.sss
         <p>The following steps are taken:</p>
         <emu-alg>
           1. Let _O_ be ? ToObject(*this* value).
-          1. Let _A_ be ? ArraySpeciesCreate(_O_, 0<sub>𝔽</sub>).
+          1. Let _A_ be ? ArraySpeciesCreate(_O_, *+0*).
           1. Let _n_ be 0.
           1. Let _items_ be a List whose first element is _O_ and whose subsequent elements are, in left to right order, the arguments that were passed to this function invocation.
           1. Repeat, while _items_ is not empty,
@@ -33473,11 +33473,11 @@ THH:mm:ss.sss
           1. Let _O_ be ? ToObject(*this* value).
           1. Let _len_ be ? LengthOfArrayLike(_O_).
           1. Let _relativeTarget_ be ? ToInteger(_target_).
-          1. If _relativeTarget_ &lt; 0<sub>𝔽</sub>, let _to_ be max<sub>𝔽</sub>((_len_ +<sub>𝔽</sub> _relativeTarget_), 0<sub>𝔽</sub>); else let _to_ be min<sub>𝔽</sub>(_relativeTarget_, _len_).
+          1. If _relativeTarget_ &lt; *+0*, let _to_ be max<sub>𝔽</sub>((_len_ +<sub>𝔽</sub> _relativeTarget_), *+0*); else let _to_ be min<sub>𝔽</sub>(_relativeTarget_, _len_).
           1. Let _relativeStart_ be ? ToInteger(_start_).
-          1. If _relativeStart_ &lt; 0<sub>𝔽</sub>, let _from_ be max<sub>𝔽</sub>((_len_ +<sub>𝔽</sub> _relativeStart_), 0<sub>𝔽</sub>); else let _from_ be min<sub>𝔽</sub>(_relativeStart_, _len_).
+          1. If _relativeStart_ &lt; *+0*, let _from_ be max<sub>𝔽</sub>((_len_ +<sub>𝔽</sub> _relativeStart_), *+0*); else let _from_ be min<sub>𝔽</sub>(_relativeStart_, _len_).
           1. If _end_ is *undefined*, let _relativeEnd_ be _len_; else let _relativeEnd_ be ? ToInteger(_end_).
-          1. If _relativeEnd_ &lt; 0<sub>𝔽</sub>, let _final_ be max<sub>𝔽</sub>((_len_ +<sub>𝔽</sub> _relativeEnd_), 0<sub>𝔽</sub>); else let _final_ be min<sub>𝔽</sub>(_relativeEnd_, _len_).
+          1. If _relativeEnd_ &lt; *+0*, let _final_ be max<sub>𝔽</sub>((_len_ +<sub>𝔽</sub> _relativeEnd_), *+0*); else let _final_ be min<sub>𝔽</sub>(_relativeEnd_, _len_).
           1. Let _count_ be min<sub>𝔽</sub>(_final_ -<sub>𝔽</sub> _from_, _len_ -<sub>𝔽</sub> _to_).
           1. If _from_ &lt;<sub>𝔽</sub> _to_ and _to_ &lt;<sub>𝔽</sub> _from_ +<sub>𝔽</sub> _count_, then
             1. Let _direction_ be -1<sub>𝔽</sub>.
@@ -33485,7 +33485,7 @@ THH:mm:ss.sss
             1. Set _to_ to _to_ +<sub>𝔽</sub> _count_ - 1<sub>𝔽</sub>.
           1. Else,
             1. Let _direction_ be 1<sub>𝔽</sub>.
-          1. Repeat, while _count_ &gt; 0<sub>𝔽</sub>,
+          1. Repeat, while _count_ &gt; *+0*,
             1. Let _fromKey_ be ! ToString(_from_).
             1. Let _toKey_ be ! ToString(_to_).
             1. Let _fromPresent_ be ? HasProperty(_O_, _fromKey_).
@@ -33584,7 +33584,7 @@ THH:mm:ss.sss
           1. Let _O_ be ? ToObject(*this* value).
           1. Let _len_ be the Mathematical value of ? LengthOfArrayLike(_O_).
           1. If IsCallable(_callbackfn_) is *false*, throw a *TypeError* exception.
-          1. Let _A_ be ? ArraySpeciesCreate(_O_, 0<sub>𝔽</sub>).
+          1. Let _A_ be ? ArraySpeciesCreate(_O_, *+0*).
           1. Let _k_ be 0.
           1. Let _to_ be 0.
           1. Repeat, while _k_ &lt; _len_,
@@ -33670,8 +33670,8 @@ THH:mm:ss.sss
           1. Let _depthNum_ be 1<sub>𝔽</sub>.
           1. If _depth_ is not *undefined*, then
             1. Set _depthNum_ to ? ToInteger(_depth_).
-          1. Let _A_ be ? ArraySpeciesCreate(_O_, 0<sub>𝔽</sub>).
-          1. Perform ? FlattenIntoArray(_A_, _O_, _sourceLen_, 0<sub>𝔽</sub>, _depthNum_).
+          1. Let _A_ be ? ArraySpeciesCreate(_O_, *+0*).
+          1. Perform ? FlattenIntoArray(_A_, _O_, _sourceLen_, *+0*, _depthNum_).
           1. Return _A_.
         </emu-alg>
 
@@ -33686,7 +33686,7 @@ THH:mm:ss.sss
             1. Assert: ! IsInteger(_depth_) is *true*, or _depth_ is either *+&infin;* or *-&infin;*.
             1. Assert: If _mapperFunction_ is present, then ! IsCallable(_mapperFunction_) is *true*, _thisArg_ is present, and _depth_ is *1*.
             1. Let _targetIndex_ be _start_.
-            1. Let _sourceIndex_ be 0<sub>𝔽</sub>.
+            1. Let _sourceIndex_ be *+0*.
             1. Repeat, while _sourceIndex_ &lt;<sub>𝔽</sub> _sourceLen_,
               1. Let _P_ be ! ToString(_sourceIndex_).
               1. Let _exists_ be ? HasProperty(_source_, _P_).
@@ -33695,7 +33695,7 @@ THH:mm:ss.sss
                 1. If _mapperFunction_ is present, then
                   1. Set _element_ to ? Call(_mapperFunction_, _thisArg_, &laquo; _element_, _sourceIndex_, _source_ &raquo;).
                 1. Let _shouldFlatten_ be *false*.
-                1. If _depth_ &gt; 0<sub>𝔽</sub>, then
+                1. If _depth_ &gt; *+0*, then
                   1. Set _shouldFlatten_ to ? IsArray(_element_).
                 1. If _shouldFlatten_ is *true*, then
                   1. Let _elementLen_ be ? LengthOfArrayLike(_element_).
@@ -33717,8 +33717,8 @@ THH:mm:ss.sss
           1. Let _O_ be ? ToObject(*this* value).
           1. Let _sourceLen_ be ? LengthOfArrayLike(_O_).
           1. If ! IsCallable(_mapperFunction_) is *false*, throw a *TypeError* exception.
-          1. Let _A_ be ? ArraySpeciesCreate(_O_, 0<sub>𝔽</sub>).
-          1. Perform ? FlattenIntoArray(_A_, _O_, _sourceLen_, 0<sub>𝔽</sub>, 1<sub>𝔽</sub>, _mapperFunction_, _thisArg_).
+          1. Let _A_ be ? ArraySpeciesCreate(_O_, *+0*).
+          1. Perform ? FlattenIntoArray(_A_, _O_, _sourceLen_, *+0*, 1<sub>𝔽</sub>, _mapperFunction_, _thisArg_).
           1. Return _A_.
         </emu-alg>
       </emu-clause>
@@ -33767,7 +33767,7 @@ THH:mm:ss.sss
           1. Let _O_ be ? ToObject(*this* value).
           1. Let _len_ be the Mathematical value of ? LengthOfArrayLike(_O_).
           1. If _len_ is 0, return *false*.
-          1. Let _n_ be the Mathematical value of ? ToInteger(_fromIndex_).
+          1. Let _n_ be the mathematical value of ? ToInteger(_fromIndex_).
           1. Assert: If _fromIndex_ is *undefined*, then _n_ is 0.
           1. If _n_ &ge; 0, then
             1. Let _k_ be _n_.
@@ -33936,7 +33936,7 @@ THH:mm:ss.sss
             1. Perform ? Set(_O_, *"length"*, 0, *true*).
             1. Return *undefined*.
           1. Else,
-            1. Assert: _len_ &gt; 0<sub>𝔽</sub>.
+            1. Assert: _len_ &gt; *+0*.
             1. Let _newLen_ be _len_ - 1<sub>𝔽</sub>.
             1. Let _index_ be ! ToString(_newLen_).
             1. Let _element_ be ? Get(_O_, _index_).
@@ -34226,7 +34226,7 @@ THH:mm:ss.sss
             0 &le; _j_ &lt; _len_
           </li>
           <li>
-            HasProperty(_proto_, ToString(_j_)) is *true*.
+            HasProperty(_proto_, ToString(𝔽(_j_))) is *true*.
           </li>
         </ul>
         <p>The sort order is also implementation-defined if _obj_ is sparse and any of the following conditions are true:</p>
@@ -34342,20 +34342,20 @@ THH:mm:ss.sss
           1. Let _O_ be ? ToObject(*this* value).
           1. Let _len_ be ? LengthOfArrayLike(_O_).
           1. Let _relativeStart_ be ? ToInteger(_start_).
-          1. If _relativeStart_ &lt; 0<sub>𝔽</sub>, let _actualStart_ be max<sub>𝔽</sub>((_len_ +<sub>𝔽</sub> _relativeStart_), 0<sub>𝔽</sub>); else let _actualStart_ be min<sub>𝔽</sub>(_relativeStart_, _len_).
+          1. If _relativeStart_ &lt; *+0*, let _actualStart_ be max<sub>𝔽</sub>((_len_ +<sub>𝔽</sub> _relativeStart_), *+0*); else let _actualStart_ be min<sub>𝔽</sub>(_relativeStart_, _len_).
           1. If the number of actual arguments is 0, then
-            1. Let _insertCount_ be 0<sub>𝔽</sub>.
-            1. Let _actualDeleteCount_ be 0<sub>𝔽</sub>.
+            1. Let _insertCount_ be *+0*.
+            1. Let _actualDeleteCount_ be *+0*.
           1. Else if the number of actual arguments is 1, then
-            1. Let _insertCount_ be 0<sub>𝔽</sub>.
+            1. Let _insertCount_ be *+0*.
             1. Let _actualDeleteCount_ be _len_ -<sub>𝔽</sub> _actualStart_.
           1. Else,
             1. Let _insertCount_ be the number of actual arguments minus 2.
             1. Let _dc_ be ? ToInteger(_deleteCount_).
-            1. Let _actualDeleteCount_ be min<sub>𝔽</sub>(max<sub>𝔽</sub>(_dc_, 0<sub>𝔽</sub>), _len_ -<sub>𝔽</sub> _actualStart_).
+            1. Let _actualDeleteCount_ be min<sub>𝔽</sub>(max<sub>𝔽</sub>(_dc_, *+0*), _len_ -<sub>𝔽</sub> _actualStart_).
           1. If _len_ +<sub>𝔽</sub> _insertCount_ -<sub>𝔽</sub> _actualDeleteCount_ &gt; 2<sub>𝔽</sub><sup>53<sub>𝔽</sub></sup> - 1<sub>𝔽</sub>, throw a *TypeError* exception.
           1. Let _A_ be ? ArraySpeciesCreate(_O_, _actualDeleteCount_).
-          1. Let _k_ be 0<sub>𝔽</sub>.
+          1. Let _k_ be *+0*.
           1. Repeat, while _k_ &lt;<sub>𝔽</sub> _actualDeleteCount_,
             1. Let _from_ be ! ToString(_actualStart_ +<sub>𝔽</sub> _k_).
             1. Let _fromPresent_ be ? HasProperty(_O_, _from_).
@@ -34468,10 +34468,10 @@ THH:mm:ss.sss
           1. Let _O_ be ? ToObject(*this* value).
           1. Let _len_ be ? LengthOfArrayLike(_O_).
           1. Let _argCount_ be the Number value representing the amount of actual arguments.
-          1. If _argCount_ &gt; 0<sub>𝔽</sub>, then
+          1. If _argCount_ &gt; *+0*, then
             1. If _len_ +<sub>𝔽</sub> _argCount_ &gt; 2<sub>𝔽</sub><sup>53<sub>𝔽</sub></sup> - 1<sub>𝔽</sub>, throw a *TypeError* exception.
             1. Let _k_ be _len_.
-            1. Repeat, while _k_ &gt; 0<sub>𝔽</sub>,
+            1. Repeat, while _k_ &gt; *+0*,
               1. Let _from_ be ! ToString(_k_ - 1<sub>𝔽</sub>).
               1. Let _to_ be ! ToString(_k_ +<sub>𝔽</sub> _argCount_ - 1<sub>𝔽</sub>).
               1. Let _fromPresent_ be ? HasProperty(_O_, _from_).
@@ -34482,7 +34482,7 @@ THH:mm:ss.sss
                 1. Assert: _fromPresent_ is *false*.
                 1. Perform ? DeletePropertyOrThrow(_O_, _to_).
               1. Set _k_ to _k_ - 1<sub>𝔽</sub>.
-            1. Let _j_ be 0<sub>𝔽</sub>.
+            1. Let _j_ be *+0*.
             1. Let _items_ be a List whose elements are, in left to right order, the arguments that were passed to this function invocation.
             1. Repeat, while _items_ is not empty,
               1. Remove the first element from _items_ and let _E_ be the value of that element.
@@ -35325,7 +35325,7 @@ THH:mm:ss.sss
             1. Perform ? RequireInternalSlot(_target_, [[TypedArrayName]]).
             1. Assert: _target_ has a [[ViewedArrayBuffer]] internal slot.
             1. Let _targetOffset_ be ? ToInteger(_offset_).
-            1. If _targetOffset_ &lt; 0<sub>𝔽</sub>, throw a *RangeError* exception.
+            1. If _targetOffset_ &lt; *+0*, throw a *RangeError* exception.
             1. Let _targetBuffer_ be _target_.[[ViewedArrayBuffer]].
             1. If IsDetachedBuffer(_targetBuffer_) is *true*, throw a *TypeError* exception.
             1. Let _targetLength_ be _target_.[[ArrayLength]].
@@ -35361,7 +35361,7 @@ THH:mm:ss.sss
             1. Perform ? RequireInternalSlot(_target_, [[TypedArrayName]]).
             1. Assert: _target_ has a [[ViewedArrayBuffer]] internal slot.
             1. Let _targetOffset_ be ? ToInteger(_offset_).
-            1. If _targetOffset_ &lt; 0<sub>𝔽</sub>, throw a *RangeError* exception.
+            1. If _targetOffset_ &lt; *+0*, throw a *RangeError* exception.
             1. Let _targetBuffer_ be _target_.[[ViewedArrayBuffer]].
             1. If IsDetachedBuffer(_targetBuffer_) is *true*, throw a *TypeError* exception.
             1. Let _targetLength_ be _target_.[[ArrayLength]].
@@ -35415,9 +35415,9 @@ THH:mm:ss.sss
           1. Perform ? ValidateTypedArray(_O_).
           1. Let _len_ be _O_.[[ArrayLength]].
           1. Let _relativeStart_ be ? ToInteger(_start_).
-          1. If _relativeStart_ &lt; 0<sub>𝔽</sub>, let _k_ be max((ℝ(_len_) + ℝ(_relativeStart_)), 0); else let _k_ be min(ℝ(_relativeStart_), ℝ(_len_)).
+          1. If _relativeStart_ &lt; *+0*, let _k_ be max((ℝ(_len_) + ℝ(_relativeStart_)), 0); else let _k_ be min(ℝ(_relativeStart_), ℝ(_len_)).
           1. If _end_ is *undefined*, let _relativeEnd_ be _len_; else let _relativeEnd_ be ? ToInteger(_end_).
-          1. If _relativeEnd_ &lt; 0<sub>𝔽</sub>, let _final_ be max((ℝ(_len_) + ℝ(_relativeEnd_)), 0); else let _final_ be min(ℝ(_relativeEnd_), ℝ(_len_)).
+          1. If _relativeEnd_ &lt; *+0*, let _final_ be max((ℝ(_len_) + ℝ(_relativeEnd_)), 0); else let _final_ be min(ℝ(_relativeEnd_), ℝ(_len_)).
           1. Let _count_ be max(_final_ - _k_, 0).
           1. Let _A_ be ? TypedArraySpeciesCreate(_O_, &laquo; 𝔽(_count_) &raquo;).
           1. Let _srcName_ be the String value of _O_.[[TypedArrayName]].
@@ -35503,9 +35503,9 @@ THH:mm:ss.sss
           1. Let _buffer_ be _O_.[[ViewedArrayBuffer]].
           1. Let _srcLength_ be _O_.[[ArrayLength]].
           1. Let _relativeBegin_ be ? ToInteger(_begin_).
-          1. If _relativeBegin_ &lt; 0<sub>𝔽</sub>, let _beginIndex_ be max((ℝ(_srcLength_) + ℝ(_relativeBegin_)), 0); else let _beginIndex_ be min(ℝ(_relativeBegin_), ℝ(_srcLength_)).
+          1. If _relativeBegin_ &lt; *+0*, let _beginIndex_ be max((ℝ(_srcLength_) + ℝ(_relativeBegin_)), 0); else let _beginIndex_ be min(ℝ(_relativeBegin_), ℝ(_srcLength_)).
           1. If _end_ is *undefined*, let _relativeEnd_ be _srcLength_; else let _relativeEnd_ be ? ToInteger(_end_).
-          1. If _relativeEnd_ &lt; 0<sub>𝔽</sub>, let _endIndex_ be max((ℝ(_srcLength_) + ℝ(_relativeEnd_)), 0); else let _endIndex_ be min(ℝ(_relativeEnd_), ℝ(_srcLength_)).
+          1. If _relativeEnd_ &lt; *+0*, let _endIndex_ be max((ℝ(_srcLength_) + ℝ(_relativeEnd_)), 0); else let _endIndex_ be min(ℝ(_relativeEnd_), ℝ(_srcLength_)).
           1. Let _newLength_ be max(_endIndex_ - _beginIndex_, 0).
           1. Let _constructorName_ be the String value of _O_.[[TypedArrayName]].
           1. Let _elementSize_ be the Element Size value specified in <emu-xref href="#table-the-typedarray-constructors"></emu-xref> for _constructorName_.
@@ -36880,7 +36880,7 @@ THH:mm:ss.sss
 
       <emu-clause id="sec-clonearraybuffer" aoid="CloneArrayBuffer">
         <h1>CloneArrayBuffer ( _srcBuffer_, _srcByteOffset_, _srcLength_, _cloneConstructor_ )</h1>
-        <p>The abstract operation CloneArrayBuffer takes arguments _srcBuffer_ (an ArrayBuffer object), _srcByteOffset_ (an integer), _srcLength_ (an integer), and _cloneConstructor_ (a constructor). It creates a new ArrayBuffer whose data is a copy of _srcBuffer_'s data over the range starting at _srcByteOffset_ and continuing for _srcLength_ bytes. It performs the following steps when called:</p>
+        <p>The abstract operation CloneArrayBuffer takes arguments _srcBuffer_ (an ArrayBuffer object), _srcByteOffset_ (an integral Number), _srcLength_ (an integral Number), and _cloneConstructor_ (a constructor). It creates a new ArrayBuffer whose data is a copy of _srcBuffer_'s data over the range starting at _srcByteOffset_ and continuing for _srcLength_ bytes. It performs the following steps when called:</p>
         <emu-alg>
           1. Assert: Type(_srcBuffer_) is Object and it has an [[ArrayBufferData]] internal slot.
           1. Assert: IsConstructor(_cloneConstructor_) is *true*.
@@ -36888,7 +36888,7 @@ THH:mm:ss.sss
           1. If IsDetachedBuffer(_srcBuffer_) is *true*, throw a *TypeError* exception.
           1. Let _srcBlock_ be _srcBuffer_.[[ArrayBufferData]].
           1. Let _targetBlock_ be _targetBuffer_.[[ArrayBufferData]].
-          1. Perform CopyDataBlockBytes(_targetBlock_, 0, _srcBlock_, _srcByteOffset_, _srcLength_).
+          1. Perform CopyDataBlockBytes(_targetBlock_, *+0*, _srcBlock_, _srcByteOffset_, _srcLength_).
           1. Return _targetBuffer_.
         </emu-alg>
       </emu-clause>
@@ -36968,7 +36968,7 @@ THH:mm:ss.sss
             1. If _isTypedArray_ is *true* and IsNoTearConfiguration(_type_, _order_) is *true*, let _noTear_ be *true*; otherwise let _noTear_ be *false*.
             1. Let _rawValue_ be a List of length _elementSize_ of nondeterministically chosen byte values.
             1. NOTE: In implementations, _rawValue_ is the result of a non-atomic or atomic read instruction on the underlying hardware. The nondeterminism is a semantic prescription of the memory model to describe observable behaviour of hardware with weak consistency.
-            1. Let _readEvent_ be ReadSharedMemory { [[Order]]: _order_, [[NoTear]]: _noTear_, [[Block]]: _block_, [[ByteIndex]]: _byteIndex_, [[ElementSize]]: _elementSize_ }.
+            1. Let _readEvent_ be ReadSharedMemory { [[Order]]: _order_, [[NoTear]]: _noTear_, [[Block]]: _block_, [[ByteIndex]]: ℝ(_byteIndex_), [[ElementSize]]: _elementSize_ }.
             1. Append _readEvent_ to _eventList_.
             1. Append Chosen Value Record { [[Event]]: _readEvent_, [[ChosenValue]]: _rawValue_ } to _execution_.[[ChosenValues]].
           1. Else, let _rawValue_ be a List of _elementSize_ containing, in order, the _elementSize_ sequence of bytes starting with _block_[_byteIndex_].
@@ -36999,7 +36999,7 @@ THH:mm:ss.sss
 
       <emu-clause id="sec-setvalueinbuffer" aoid="SetValueInBuffer">
         <h1>SetValueInBuffer ( _arrayBuffer_, _byteIndex_, _type_, _value_, _isTypedArray_, _order_ [ , _isLittleEndian_ ] )</h1>
-        <p>The abstract operation SetValueInBuffer takes arguments _arrayBuffer_ (an ArrayBuffer or SharedArrayBuffer), _byteIndex_ (an integer), _type_ (a TypedArray element type), _value_ (a Number or a BigInt), _isTypedArray_ (a Boolean), and _order_ (one of ~SeqCst~, ~Unordered~, or ~Init~) and optional argument _isLittleEndian_ (a Boolean). It performs the following steps when called:</p>
+        <p>The abstract operation SetValueInBuffer takes arguments _arrayBuffer_ (an ArrayBuffer or SharedArrayBuffer), _byteIndex_ (an integral Number), _type_ (a TypedArray element type), _value_ (a Number or a BigInt), _isTypedArray_ (a Boolean), and _order_ (one of ~SeqCst~, ~Unordered~, or ~Init~) and optional argument _isLittleEndian_ (a Boolean). It performs the following steps when called:</p>
         <emu-alg>
           1. Assert: IsDetachedBuffer(_arrayBuffer_) is *false*.
           1. Assert: There are sufficient bytes in _arrayBuffer_ starting at _byteIndex_ to represent a value of _type_.
@@ -37013,7 +37013,7 @@ THH:mm:ss.sss
             1. Let _execution_ be the [[CandidateExecution]] field of the surrounding agent's Agent Record.
             1. Let _eventList_ be the [[EventList]] field of the element in _execution_.[[EventsRecords]] whose [[AgentSignifier]] is AgentSignifier().
             1. If _isTypedArray_ is *true* and IsNoTearConfiguration(_type_, _order_) is *true*, let _noTear_ be *true*; otherwise let _noTear_ be *false*.
-            1. Append WriteSharedMemory { [[Order]]: _order_, [[NoTear]]: _noTear_, [[Block]]: _block_, [[ByteIndex]]: _byteIndex_, [[ElementSize]]: _elementSize_, [[Payload]]: _rawBytes_ } to _eventList_.
+            1. Append WriteSharedMemory { [[Order]]: _order_, [[NoTear]]: _noTear_, [[Block]]: _block_, [[ByteIndex]]: ℝ(_byteIndex_), [[ElementSize]]: _elementSize_, [[Payload]]: _rawBytes_ } to _eventList_.
           1. Else, store the individual bytes of _rawBytes_ into _block_, in order, starting at _block_[_byteIndex_].
           1. Return NormalCompletion(*undefined*).
         </emu-alg>
@@ -37021,7 +37021,7 @@ THH:mm:ss.sss
 
       <emu-clause id="sec-getmodifysetvalueinbuffer" aoid="GetModifySetValueInBuffer">
         <h1>GetModifySetValueInBuffer ( _arrayBuffer_, _byteIndex_, _type_, _value_, _op_ [ , _isLittleEndian_ ] )</h1>
-        <p>The abstract operation GetModifySetValueInBuffer takes arguments _arrayBuffer_ (a SharedArrayBuffer object), _byteIndex_ (a non-negative integer), _type_ (a TypedArray element type), _value_ (a Number or a BigInt), and _op_ (a read-modify-write modification function) and optional argument _isLittleEndian_ (a Boolean). It performs the following steps when called:</p>
+        <p>The abstract operation GetModifySetValueInBuffer takes arguments _arrayBuffer_ (a SharedArrayBuffer object), _byteIndex_ (a non-negative integral Number), _type_ (a TypedArray element type), _value_ (a Number or a BigInt), and _op_ (a read-modify-write modification function) and optional argument _isLittleEndian_ (a Boolean). It performs the following steps when called:</p>
         <emu-alg>
           1. Assert: IsSharedArrayBuffer(_arrayBuffer_) is *true*.
           1. Assert: There are sufficient bytes in _arrayBuffer_ starting at _byteIndex_ to represent a value of _type_.
@@ -37035,7 +37035,7 @@ THH:mm:ss.sss
           1. Let _eventList_ be the [[EventList]] field of the element in _execution_.[[EventsRecords]] whose [[AgentSignifier]] is AgentSignifier().
           1. Let _rawBytesRead_ be a List of length _elementSize_ of nondeterministically chosen byte values.
           1. NOTE: In implementations, _rawBytesRead_ is the result of a load-link, of a load-exclusive, or of an operand of a read-modify-write instruction on the underlying hardware. The nondeterminism is a semantic prescription of the memory model to describe observable behaviour of hardware with weak consistency.
-          1. Let _rmwEvent_ be ReadModifyWriteSharedMemory { [[Order]]: ~SeqCst~, [[NoTear]]: *true*, [[Block]]: _block_, [[ByteIndex]]: _byteIndex_, [[ElementSize]]: _elementSize_, [[Payload]]: _rawBytes_, [[ModifyOp]]: _op_ }.
+          1. Let _rmwEvent_ be ReadModifyWriteSharedMemory { [[Order]]: ~SeqCst~, [[NoTear]]: *true*, [[Block]]: _block_, [[ByteIndex]]: ℝ(_byteIndex_), [[ElementSize]]: _elementSize_, [[Payload]]: _rawBytes_, [[ModifyOp]]: _op_ }.
           1. Append _rmwEvent_ to _eventList_.
           1. Append Chosen Value Record { [[Event]]: _rmwEvent_, [[ChosenValue]]: _rawBytesRead_ } to _execution_.[[ChosenValues]].
           1. Return RawBytesToNumeric(_type_, _rawBytesRead_, _isLittleEndian_).
@@ -37738,7 +37738,7 @@ THH:mm:ss.sss
           1. Assert: _typedArray_ is an Object that has a [[ViewedArrayBuffer]] internal slot.
           1. Let _accessIndex_ be ? ToIndex(_requestIndex_).
           1. Let _length_ be _typedArray_.[[ArrayLength]].
-          1. Assert: _accessIndex_ &ge; 0<sub>𝔽</sub>.
+          1. Assert: _accessIndex_ &ge; *+0*.
           1. If _accessIndex_ &ge;<sub>𝔽</sub> _length_, throw a *RangeError* exception.
           1. Return _accessIndex_.
         </emu-alg>
@@ -37750,7 +37750,7 @@ THH:mm:ss.sss
         <p>Initially a WaiterList object has an empty list and no Synchronize event.</p>
         <p>The agent cluster has a store of WaiterList objects; the store is indexed by (_block_, _i_). WaiterLists are agent-independent: a lookup in the store of WaiterLists by (_block_, _i_) will result in the same WaiterList object in any agent in the agent cluster.</p>
         <p>Each WaiterList has a <dfn>critical section</dfn> that controls exclusive access to that WaiterList during evaluation. Only a single agent may enter a WaiterList's critical section at one time. Entering and leaving a WaiterList's critical section is controlled by the abstract operations EnterCriticalSection and LeaveCriticalSection. Operations on a WaiterList&mdash;adding and removing waiting agents, traversing the list of agents, suspending and notifying agents on the list, setting and retrieving the Synchronize event&mdash;may only be performed by agents that have entered the WaiterList's critical section.</p>
-        <p>The abstract operation GetWaiterList takes arguments _block_ (a Shared Data Block) and _i_ (a non-negative integer). It performs the following steps when called:</p>
+        <p>The abstract operation GetWaiterList takes arguments _block_ (a Shared Data Block) and _i_ (a non-negative integral Number). It performs the following steps when called:</p>
         <emu-alg>
           1. Assert: _block_ is a Shared Data Block.
           1. Assert: _i_ and _i_ + 3 are valid byte offsets within the memory of _block_.
@@ -37815,7 +37815,7 @@ THH:mm:ss.sss
 
       <emu-clause id="sec-removewaiters" aoid="RemoveWaiters">
         <h1>RemoveWaiters ( _WL_, _c_ )</h1>
-        <p>The abstract operation RemoveWaiters takes arguments _WL_ (a WaiterList) and _c_ (a non-negative integer). It performs the following steps when called:</p>
+        <p>The abstract operation RemoveWaiters takes arguments _WL_ (a WaiterList) and _c_ (a non-negative integral Number). It performs the following steps when called:</p>
         <emu-alg>
           1. Assert: The calling agent is in the critical section for _WL_.
           1. Let _L_ be a new empty List.
@@ -42875,7 +42875,7 @@ THH:mm:ss.sss
             1. Set the [[DateValue]] internal slot of this Date object to *NaN*.
             1. Return *NaN*.
           1. Let _yi_ be ! ToInteger(_y_).
-          1. If 0<sub>𝔽</sub> &le; _yi_ &le; 99<sub>𝔽</sub>, let _yyyy_ be _yi_ + 1900<sub>𝔽</sub>.
+          1. If *+0* &le; _yi_ &le; 99<sub>𝔽</sub>, let _yyyy_ be _yi_ + 1900<sub>𝔽</sub>.
           1. Else, let _yyyy_ be _y_.
           1. Let _d_ be MakeDay(_yyyy_, MonthFromTime(_t_), DateFromTime(_t_)).
           1. Let _date_ be UTC(MakeDate(_d_, TimeWithinDay(_t_))).
