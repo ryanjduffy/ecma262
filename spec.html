@@ -4893,9 +4893,9 @@
       <emu-alg>
         1. Let _number_ be ? ToNumber(_argument_).
         1. If _number_ is *NaN*, *+0*, *-0*, *+&infin;*, or *-&infin;*, return *+0*.
-        1. Let _int_ be the Number value that is the same sign as _number_ and whose magnitude is floor(abs(_number_)).
-        1. Let _int32bit_ be _int_ modulo 2<sub>𝔽</sub><sup>32<sub>𝔽</sub></sup>.
-        1. If _int32bit_ &ge; 2<sub>𝔽</sub><sup>31<sub>𝔽</sub></sup>, return _int32bit_ - 2<sub>𝔽</sub><sup>32<sub>𝔽</sub></sup>; otherwise return _int32bit_.
+        1. Let _int_ be the mathematical value that is the same sign as _number_ and whose magnitude is floor(abs(_number_)).
+        1. Let _int32bit_ be _int_ modulo 2<sup>32</sup>.
+        1. If _int32bit_ &ge; 2<sup>31</sup>, return the Number value for _int32bit_ - 2<sup>32</sup>; otherwise return the Number value for _int32bit_.
       </emu-alg>
       <emu-note>
         <p>Given the above definition of ToInt32:</p>
@@ -4919,9 +4919,9 @@
       <emu-alg>
         1. Let _number_ be ? ToNumber(_argument_).
         1. If _number_ is *NaN*, *+0*, *-0*, *+&infin;*, or *-&infin;*, return *+0*.
-        1. Let _int_ be the Number value that is the same sign as _number_ and whose magnitude is floor(abs(_number_)).
-        1. Let _int32bit_ be _int_ modulo 2<sub>𝔽</sub><sup>32<sub>𝔽</sub></sup>.
-        1. Return _int32bit_.
+        1. Let _int_ be the numeric value that is the same sign as _number_ and whose magnitude is floor(abs(_number_)).
+        1. Let _int32bit_ be _int_ modulo 2<sup>32</sup>.
+        1. Return the Number value for _int32bit_.
       </emu-alg>
       <emu-note>
         <p>Given the above definition of ToUint32:</p>
@@ -4948,9 +4948,9 @@
       <emu-alg>
         1. Let _number_ be ? ToNumber(_argument_).
         1. If _number_ is *NaN*, *+0*, *-0*, *+&infin;*, or *-&infin;*, return *+0*.
-        1. Let _int_ be the Number value that is the same sign as _number_ and whose magnitude is floor(abs(_number_)).
-        1. Let _int16bit_ be _int_ modulo 2<sub>𝔽</sub><sup>16<sub>𝔽</sub></sup>.
-        1. If _int16bit_ &ge; 2<sub>𝔽</sub><sup>15<sub>𝔽</sub></sup>, return _int16bit_ - 2<sub>𝔽</sub><sup>16<sub>𝔽</sub></sup>; otherwise return _int16bit_.
+        1. Let _int_ be the mathematical value that is the same sign as _number_ and whose magnitude is floor(abs(_number_)).
+        1. Let _int16bit_ be _int_ modulo 2<sup>16</sup>.
+        1. If _int16bit_ &ge; 2<sup>15</sup>, return the Number value for _int16bit_ - 2<sup>16</sup>; otherwise return the Number value for _int16bit_.
       </emu-alg>
     </emu-clause>
 
@@ -4960,15 +4960,15 @@
       <emu-alg>
         1. Let _number_ be ? ToNumber(_argument_).
         1. If _number_ is *NaN*, *+0*, *-0*, *+&infin;*, or *-&infin;*, return *+0*.
-        1. Let _int_ be the Number value that is the same sign as _number_ and whose magnitude is floor(abs(_number_)).
-        1. Let _int16bit_ be _int_ modulo 2<sub>𝔽</sub><sup>16<sub>𝔽</sub></sup>.
-        1. Return _int16bit_.
+        1. Let _int_ be the mathematical value that is the same sign as _number_ and whose magnitude is floor(abs(_number_)).
+        1. Let _int16bit_ be _int_ modulo 2<sup>16</sup>.
+        1. Return the Number value for _int16bit_.
       </emu-alg>
       <emu-note>
         <p>Given the above definition of ToUint16:</p>
         <ul>
           <li>
-            The substitution of 2<sub>𝔽</sub><sup>16<sub>𝔽</sub></sup> for 2<sub>𝔽</sub><sup>32<sub>𝔽</sub></sup> in step 4 is the only difference between ToUint32 and ToUint16.
+            The substitution of 2<sup>16</sup> for 2<sup>32</sup> in step 4 is the only difference between ToUint32 and ToUint16.
           </li>
           <li>
             ToUint16 maps *-0* to *+0*.
@@ -4983,9 +4983,9 @@
       <emu-alg>
         1. Let _number_ be ? ToNumber(_argument_).
         1. If _number_ is *NaN*, *+0*, *-0*, *+&infin;*, or *-&infin;*, return *+0*.
-        1. Let _int_ be the Number value that is the same sign as _number_ and whose magnitude is floor(abs(_number_)).
-        1. Let _int8bit_ be _int_ modulo 2<sub>𝔽</sub><sup>8<sub>𝔽</sub></sup>.
-        1. If _int8bit_ &ge; 2<sub>𝔽</sub><sup>7<sub>𝔽</sub></sup>, return _int8bit_ - 2<sub>𝔽</sub><sup>8<sub>𝔽</sub></sup>; otherwise return _int8bit_.
+        1. Let _int_ be the mathematical value that is the same sign as _number_ and whose magnitude is floor(abs(_number_)).
+        1. Let _int8bit_ be _int_ modulo 2<sup>8</sup>.
+        1. If _int8bit_ &ge; 2<sup>7</sup>, return the Number value for _int8bit_ - 2<sup>8</sup>; otherwise return the Number value for _int8bit_.
       </emu-alg>
     </emu-clause>
 
@@ -4995,9 +4995,9 @@
       <emu-alg>
         1. Let _number_ be ? ToNumber(_argument_).
         1. If _number_ is *NaN*, *+0*, *-0*, *+&infin;*, or *-&infin;*, return *+0*.
-        1. Let _int_ be the Number value that is the same sign as _number_ and whose magnitude is floor(abs(_number_)).
-        1. Let _int8bit_ be _int_ modulo 2<sub>𝔽</sub><sup>8<sub>𝔽</sub></sup>.
-        1. Return _int8bit_.
+        1. Let _int_ be the mathematical value that is the same sign as _number_ and whose magnitude is floor(abs(_number_)).
+        1. Let _int8bit_ be _int_ modulo 2<sup>8</sup>.
+        1. Return the Number value for _int8bit_.
       </emu-alg>
     </emu-clause>
 
@@ -12605,7 +12605,7 @@
         <emu-grammar>Elision : `,`</emu-grammar>
         <emu-alg>
           1. Let _len_ be _nextIndex_ + 1.
-          1. Perform ? Set(_array_, *"length"*, _len_, *true*).
+          1. Perform ? Set(_array_, *"length"*, 𝔽(_len_), *true*).
           1. NOTE: The above Set throws if _len_ exceeds 2<sup>32</sup>-1.
           1. Return _len_.
         </emu-alg>
@@ -12620,7 +12620,7 @@
             1. ReturnIfAbrupt(_nextIndex_).
           1. Let _initResult_ be the result of evaluating |AssignmentExpression|.
           1. Let _initValue_ be ? GetValue(_initResult_).
-          1. Let _created_ be ! CreateDataPropertyOrThrow(_array_, ! ToString(_nextIndex_), _initValue_).
+          1. Let _created_ be ! CreateDataPropertyOrThrow(_array_, ! ToString(𝔽(_nextIndex_)), _initValue_).
           1. Return _nextIndex_ + 1.
         </emu-alg>
         <emu-grammar>ElementList : Elision? SpreadElement</emu-grammar>
@@ -12639,7 +12639,7 @@
             1. ReturnIfAbrupt(_nextIndex_).
           1. Let _initResult_ be the result of evaluating |AssignmentExpression|.
           1. Let _initValue_ be ? GetValue(_initResult_).
-          1. Let _created_ be ! CreateDataPropertyOrThrow(_array_, ! ToString(_nextIndex_), _initValue_).
+          1. Let _created_ be ! CreateDataPropertyOrThrow(_array_, ! ToString(𝔽(_nextIndex_)), _initValue_).
           1. Return _nextIndex_ + 1.
         </emu-alg>
         <emu-grammar>ElementList : ElementList `,` Elision? SpreadElement</emu-grammar>
@@ -12660,7 +12660,7 @@
             1. Let _next_ be ? IteratorStep(_iteratorRecord_).
             1. If _next_ is *false*, return _nextIndex_.
             1. Let _nextValue_ be ? IteratorValue(_next_).
-            1. Perform ! CreateDataPropertyOrThrow(_array_, ! ToString(_nextIndex_), _nextValue_).
+            1. Perform ! CreateDataPropertyOrThrow(_array_, ! ToString(𝔽(_nextIndex_)), _nextValue_).
             1. Set _nextIndex_ to _nextIndex_ + 1.
         </emu-alg>
         <emu-note>
@@ -15726,7 +15726,7 @@
           1. If |DestructuringAssignmentTarget| is neither an |ObjectLiteral| nor an |ArrayLiteral|, then
             1. Let _lref_ be the result of evaluating |DestructuringAssignmentTarget|.
             1. ReturnIfAbrupt(_lref_).
-          1. Let _A_ be ! ArrayCreate(0).
+          1. Let _A_ be ! ArrayCreate(*+0*).
           1. Let _n_ be 0.
           1. Repeat, while _iteratorRecord_.[[Done]] is *false*,
             1. Let _next_ be IteratorStep(_iteratorRecord_).
@@ -15737,7 +15737,7 @@
               1. Let _nextValue_ be IteratorValue(_next_).
               1. If _nextValue_ is an abrupt completion, set _iteratorRecord_.[[Done]] to *true*.
               1. ReturnIfAbrupt(_nextValue_).
-              1. Perform ! CreateDataPropertyOrThrow(_A_, ! ToString(_n_), _nextValue_).
+              1. Perform ! CreateDataPropertyOrThrow(_A_, ! ToString(𝔽(_n_)), _nextValue_).
               1. Set _n_ to _n_ + 1.
           1. If |DestructuringAssignmentTarget| is neither an |ObjectLiteral| nor an |ArrayLiteral|, then
             1. Return ? PutValue(_lref_, _A_).
@@ -17035,7 +17035,7 @@
         <emu-grammar>BindingRestElement : `...` BindingIdentifier</emu-grammar>
         <emu-alg>
           1. Let _lhs_ be ? ResolveBinding(StringValue of |BindingIdentifier|, _environment_).
-          1. Let _A_ be ! ArrayCreate(0).
+          1. Let _A_ be ! ArrayCreate(*+0*).
           1. Let _n_ be 0.
           1. Repeat,
             1. If _iteratorRecord_.[[Done]] is *false*, then
@@ -17049,12 +17049,12 @@
             1. Let _nextValue_ be IteratorValue(_next_).
             1. If _nextValue_ is an abrupt completion, set _iteratorRecord_.[[Done]] to *true*.
             1. ReturnIfAbrupt(_nextValue_).
-            1. Perform ! CreateDataPropertyOrThrow(_A_, ! ToString(_n_), _nextValue_).
+            1. Perform ! CreateDataPropertyOrThrow(_A_, ! ToString(𝔽(_n_)), _nextValue_).
             1. Set _n_ to _n_ + 1.
         </emu-alg>
         <emu-grammar>BindingRestElement : `...` BindingPattern</emu-grammar>
         <emu-alg>
-          1. Let _A_ be ! ArrayCreate(0).
+          1. Let _A_ be ! ArrayCreate(*+0*).
           1. Let _n_ be 0.
           1. Repeat,
             1. If _iteratorRecord_.[[Done]] is *false*, then
@@ -17067,7 +17067,7 @@
             1. Let _nextValue_ be IteratorValue(_next_).
             1. If _nextValue_ is an abrupt completion, set _iteratorRecord_.[[Done]] to *true*.
             1. ReturnIfAbrupt(_nextValue_).
-            1. Perform ! CreateDataPropertyOrThrow(_A_, ! ToString(_n_), _nextValue_).
+            1. Perform ! CreateDataPropertyOrThrow(_A_, ! ToString(𝔽(_n_)), _nextValue_).
             1. Set _n_ to _n_ + 1.
         </emu-alg>
       </emu-clause>
@@ -25197,7 +25197,7 @@
                 1. Set _k_ to _k_ + 1.
                 1. Set _R_ to the string-concatenation of the previous value of _R_ and _C_.
               1. Else,
-                1. Let _cp_ be ! CodePointAt(_string_, _k_).
+                1. Let _cp_ be ! CodePointAt(_string_, 𝔽(_k_)).
                 1. If _cp_.[[IsUnpairedSurrogate]] is *true*, throw a *URIError* exception.
                 1. Set _k_ to _k_ + _cp_.[[CodeUnitCount]].
                 1. Let _Octets_ be the List of octets resulting by applying the UTF-8 transformation to _cp_.[[CodePoint]].
@@ -28225,7 +28225,7 @@
           <p>`Math.round(3.5)` returns 4, but `Math.round(-3.5)` returns -3.</p>
         </emu-note>
         <emu-note>
-          <p>The value of `Math.round(x)` is not always the same as the value of `Math.floor(x + 0.5)`. When `x` is *-0* or is less than 0 but greater than or equal to -0.5, `Math.round(x)` returns *-0*, but `Math.floor(x + 0.5)` returns *+0*. `Math.round(x)` may also differ from the value of `Math.floor(x + 0.5)`because of internal rounding when computing `x + 0.5`.</p>
+          <p>The value of `Math.round(x)` is not always the same as the value of `Math.floor(x + 0.5)`. When `x` is *-0* or is less than *+0* but greater than or equal to *-0.5*, `Math.round(x)` returns *-0*, but `Math.floor(x + 0.5)` returns *+0*. `Math.round(x)` may also differ from the value of `Math.floor(x + 0.5)`because of internal rounding when computing `x + 0.5`.</p>
         </emu-note>
       </emu-clause>
 
@@ -28567,10 +28567,10 @@
           1. Let _y_ be ! ToInteger(_year_).
           1. Let _m_ be ! ToInteger(_month_).
           1. Let _dt_ be ! ToInteger(_date_).
-          1. Let _ym_ be _y_ + floor(_m_ / 12).
-          1. Let _mn_ be _m_ modulo 12.
+          1. Let _ym_ be _y_ + floor(_m_ / 12<sub>𝔽</sub>).
+          1. Let _mn_ be _m_ modulo 12<sub>𝔽</sub>.
           1. Find a value _t_ such that YearFromTime(_t_) is _ym_ and MonthFromTime(_t_) is _mn_ and DateFromTime(_t_) is 1; but if this is not possible (because some argument is out of range), return *NaN*.
-          1. Return Day(_t_) + _dt_ - 1.
+          1. Return Day(_t_) + _dt_ - 1<sub>𝔽</sub>.
         </emu-alg>
       </emu-clause>
 
@@ -29840,7 +29840,7 @@ THH:mm:ss.sss
           1. Let _stringElements_ be a new empty List.
           1. Let _nextIndex_ be 0.
           1. Repeat,
-            1. Let _nextKey_ be ! ToString(_nextIndex_).
+            1. Let _nextKey_ be ! ToString(𝔽(_nextIndex_)).
             1. Let _nextSeg_ be ? ToString(? Get(_raw_, _nextKey_)).
             1. Append in order the code unit elements of _nextSeg_ to the end of _stringElements_.
             1. If _nextIndex_ + 1 = _literalSegments_, then
@@ -32985,17 +32985,17 @@ THH:mm:ss.sss
           1. If _flags_ contains *"y"*, let _newFlags_ be _flags_.
           1. Else, let _newFlags_ be the string-concatenation of _flags_ and *"y"*.
           1. Let _splitter_ be ? Construct(_C_, &laquo; _rx_, _newFlags_ &raquo;).
-          1. Let _A_ be ! ArrayCreate(0).
+          1. Let _A_ be ! ArrayCreate(*+0*).
           1. Let _lengthA_ be 0.
-          1. If _limit_ is *undefined*, let _lim_ be 2<sup>32</sup> - 1; else let _lim_ be ? ToUint32(_limit_).
-          1. If _lim_ = 0, return _A_.
+          1. If _limit_ is *undefined*, let _lim_ be 2<sup>32</sup> - 1; else let _lim_ be the mathematical value of ? ToUint32(_limit_).
+          1. If _lim_ is 0, return _A_.
           1. Let _size_ be the length of _S_.
-          1. If _size_ = 0, then
+          1. If _size_ is 0, then
             1. Let _z_ be ? RegExpExec(_splitter_, _S_).
             1. If _z_ is not *null*, return _A_.
             1. Perform ! CreateDataPropertyOrThrow(_A_, *"0"*, _S_).
             1. Return _A_.
-          1. Let _p_ be 0.
+          1. Let _p_ be *+0*.
           1. Let _q_ be _p_.
           1. Repeat, while _q_ &lt; _size_,
             1. Perform ? Set(_splitter_, *"lastIndex"*, _q_, *true*).
@@ -33007,22 +33007,22 @@ THH:mm:ss.sss
               1. If _e_ = _p_, set _q_ to AdvanceStringIndex(_S_, _q_, _unicodeMatching_).
               1. Else,
                 1. Let _T_ be the String value equal to the substring of _S_ consisting of the code units at indices _p_ (inclusive) through _q_ (exclusive).
-                1. Perform ! CreateDataPropertyOrThrow(_A_, ! ToString(_lengthA_), _T_).
+                1. Perform ! CreateDataPropertyOrThrow(_A_, ! ToString(𝔽(_lengthA_)), _T_).
                 1. Set _lengthA_ to _lengthA_ + 1.
                 1. If _lengthA_ = _lim_, return _A_.
                 1. Set _p_ to _e_.
-                1. Let _numberOfCaptures_ be ? LengthOfArrayLike(_z_).
+                1. Let _numberOfCaptures_ be the mathematical value of ? LengthOfArrayLike(_z_).
                 1. Set _numberOfCaptures_ to max(_numberOfCaptures_ - 1, 0).
                 1. Let _i_ be 1.
                 1. Repeat, while _i_ &le; _numberOfCaptures_,
-                  1. Let _nextCapture_ be ? Get(_z_, ! ToString(_i_)).
+                  1. Let _nextCapture_ be ? Get(_z_, ! ToString(𝔽(_i_))).
                   1. Perform ! CreateDataPropertyOrThrow(_A_, ! ToString(_lengthA_), _nextCapture_).
                   1. Set _i_ to _i_ + 1.
                   1. Set _lengthA_ to _lengthA_ + 1.
                   1. If _lengthA_ = _lim_, return _A_.
                 1. Set _q_ to _p_.
           1. Let _T_ be the String value equal to the substring of _S_ consisting of the code units at indices _p_ (inclusive) through _size_ (exclusive).
-          1. Perform ! CreateDataPropertyOrThrow(_A_, ! ToString(_lengthA_), _T_).
+          1. Perform ! CreateDataPropertyOrThrow(_A_, ! ToString(𝔽(_lengthA_)), _T_).
           1. Return _A_.
         </emu-alg>
         <p>The value of the *"name"* property of this function is *"[Symbol.split]"*.</p>
@@ -33554,10 +33554,10 @@ THH:mm:ss.sss
         <p>The following steps are taken:</p>
         <emu-alg>
           1. Let _O_ be ? ToObject(*this* value).
-          1. Let _len_ be the Mathematical value of ? LengthOfArrayLike(_O_).
-          1. Let _relativeStart_ be the Mathematical value for ? ToInteger(_start_).
+          1. Let _len_ be the mathematical value of ? LengthOfArrayLike(_O_).
+          1. Let _relativeStart_ be the mathematical value of ? ToInteger(_start_).
           1. If _relativeStart_ &lt; 0, let _k_ be max((_len_ + _relativeStart_), 0); else let _k_ be min(_relativeStart_, _len_).
-          1. If _end_ is *undefined*, let _relativeEnd_ be _len_; else let _relativeEnd_ be the Mathematical value for ? ToInteger(_end_).
+          1. If _end_ is *undefined*, let _relativeEnd_ be _len_; else let _relativeEnd_ be the mathematical value of ? ToInteger(_end_).
           1. If _relativeEnd_ &lt; 0, let _final_ be max((_len_ + _relativeEnd_), 0); else let _final_ be min(_relativeEnd_, _len_).
           1. Repeat, while _k_ &lt; _final_,
             1. Let _Pk_ be ! ToString(𝔽(_k_)).
@@ -33582,7 +33582,7 @@ THH:mm:ss.sss
         <p>When the `filter` method is called with one or two arguments, the following steps are taken:</p>
         <emu-alg>
           1. Let _O_ be ? ToObject(*this* value).
-          1. Let _len_ be the Mathematical value of ? LengthOfArrayLike(_O_).
+          1. Let _len_ be the mathematical value of ? LengthOfArrayLike(_O_).
           1. If IsCallable(_callbackfn_) is *false*, throw a *TypeError* exception.
           1. Let _A_ be ? ArraySpeciesCreate(_O_, *+0*).
           1. Let _k_ be 0.
@@ -33701,7 +33701,7 @@ THH:mm:ss.sss
                   1. Let _elementLen_ be ? LengthOfArrayLike(_element_).
                   1. Set _targetIndex_ to ? FlattenIntoArray(_target_, _element_, _elementLen_, _targetIndex_, _depth_ - 1<sub>𝔽</sub>).
                 1. Else,
-                  1. If _targetIndex_ &ge; 2<sub>𝔽</sub><sup>53<sub>𝔽</sub></sup> - 1<sub>𝔽</sub>, throw a *TypeError* exception.
+                  1. If ℝ(_targetIndex_) &ge; 2<sup>53</sup> - 1, throw a *TypeError* exception.
                   1. Perform ? CreateDataPropertyOrThrow(_target_, ! ToString(_targetIndex_), _element_).
                   1. Set _targetIndex_ to _targetIndex_ + 1<sub>𝔽</sub>.
               1. Set _sourceIndex_ to _sourceIndex_ + 1<sub>𝔽</sub>.
@@ -33765,7 +33765,7 @@ THH:mm:ss.sss
 
         <emu-alg>
           1. Let _O_ be ? ToObject(*this* value).
-          1. Let _len_ be the Mathematical value of ? LengthOfArrayLike(_O_).
+          1. Let _len_ be the mathematical value of ? LengthOfArrayLike(_O_).
           1. If _len_ is 0, return *false*.
           1. Let _n_ be the mathematical value of ? ToInteger(_fromIndex_).
           1. Assert: If _fromIndex_ is *undefined*, then _n_ is 0.
@@ -33775,8 +33775,7 @@ THH:mm:ss.sss
             1. Let _k_ be _len_ + _n_.
             1. If _k_ &lt; 0, set _k_ to 0.
           1. Repeat, while _k_ &lt; _len_,
-            1. Let _kNumber_ be the Number value for _k_.
-            1. Let _elementK_ be the result of ? Get(_O_, ! ToString(_kNumber_)).
+            1. Let _elementK_ be the result of ? Get(_O_, ! ToString(𝔽(_k_))).
             1. If SameValueZero(_searchElement_, _elementK_) is *true*, return *true*.
             1. Set _k_ to _k_ + 1.
           1. Return *false*.
@@ -33802,7 +33801,7 @@ THH:mm:ss.sss
           1. Let _O_ be ? ToObject(*this* value).
           1. Let _len_ be the mathematical value of ? LengthOfArrayLike(_O_).
           1. If _len_ is 0, return -1<sub>𝔽</sub>.
-          1. Let _n_ be the Mathematical value of ? ToInteger(_fromIndex_).
+          1. Let _n_ be the mathematical value of ? ToInteger(_fromIndex_).
           1. Assert: If _fromIndex_ is *undefined*, then _n_ is 0.
           1. If _n_ &ge; _len_, return -1<sub>𝔽</sub>.
           1. If _n_ &ge; 0, then
@@ -33811,7 +33810,7 @@ THH:mm:ss.sss
             1. Let _k_ be _len_ + _n_.
             1. If _k_ &lt; 0, set _k_ to 0.
           1. Repeat, while _k_ &lt; _len_,
-            1. Let _kPresent_ be ? HasProperty(_O_, ! ToString(_k_)).
+            1. Let _kPresent_ be ? HasProperty(_O_, ! ToString(𝔽(_k_))).
             1. If _kPresent_ is *true*, then
               1. Let _elementK_ be ? Get(_O_, ! ToString(𝔽(_k_))).
               1. Let _same_ be the result of performing Strict Equality Comparison _searchElement_ === _elementK_.
@@ -33869,7 +33868,7 @@ THH:mm:ss.sss
         <p>When the `lastIndexOf` method is called with one or two arguments, the following steps are taken:</p>
         <emu-alg>
           1. Let _O_ be ? ToObject(*this* value).
-          1. Let _len_ be the Mathematical value of ? LengthOfArrayLike(_O_).
+          1. Let _len_ be the mathematical value of ? LengthOfArrayLike(_O_).
           1. If _len_ is 0, return -1<sub>𝔽</sub>.
           1. If _fromIndex_ is present, let _n_ be the Mathematical value of ? ToInteger(_fromIndex_); else let _n_ be _len_ - 1.
           1. If _n_ &ge; 0, then
@@ -33995,7 +33994,7 @@ THH:mm:ss.sss
           1. Else,
             1. Let _kPresent_ be *false*.
             1. Repeat, while _kPresent_ is *false* and _k_ &lt; _len_,
-              1. Let _Pk_ be ! ToString(_k_).
+              1. Let _Pk_ be ! ToString(𝔽(_k_)).
               1. Set _kPresent_ to ? HasProperty(_O_, _Pk_).
               1. If _kPresent_ is *true*, then
                 1. Set _accumulator_ to ? Get(_O_, _Pk_).
@@ -34006,7 +34005,7 @@ THH:mm:ss.sss
             1. Let _kPresent_ be ? HasProperty(_O_, _Pk_).
             1. If _kPresent_ is *true*, then
               1. Let _kValue_ be ? Get(_O_, _Pk_).
-              1. Set _accumulator_ to ? Call(_callbackfn_, *undefined*, &laquo; _accumulator_, _kValue_, _k_, _O_ &raquo;).
+              1. Set _accumulator_ to ? Call(_callbackfn_, *undefined*, &laquo; _accumulator_, _kValue_, 𝔽(_k_), _O_ &raquo;).
             1. Set _k_ to _k_ + 1.
           1. Return _accumulator_.
         </emu-alg>
@@ -34066,13 +34065,13 @@ THH:mm:ss.sss
         <p>When the `reverse` method is called, the following steps are taken:</p>
         <emu-alg>
           1. Let _O_ be ? ToObject(*this* value).
-          1. Let _len_ be ? LengthOfArrayLike(_O_).
+          1. Let _len_ be the mathematical value of ? LengthOfArrayLike(_O_).
           1. Let _middle_ be floor(_len_ / 2).
           1. Let _lower_ be 0.
           1. Repeat, while _lower_ &ne; _middle_,
             1. Let _upper_ be _len_ - _lower_ - 1.
-            1. Let _upperP_ be ! ToString(_upper_).
-            1. Let _lowerP_ be ! ToString(_lower_).
+            1. Let _upperP_ be ! ToString(𝔽(_upper_)).
+            1. Let _lowerP_ be ! ToString(𝔽(_lower_)).
             1. Let _lowerExists_ be ? HasProperty(_O_, _lowerP_).
             1. If _lowerExists_ is *true*, then
               1. Let _lowerValue_ be ? Get(_O_, _lowerP_).
@@ -34112,10 +34111,10 @@ THH:mm:ss.sss
             1. Perform ? Set(_O_, *"length"*, 0, *true*).
             1. Return *undefined*.
           1. Let _first_ be ? Get(_O_, *"0"*).
-          1. Let _k_ be 1.
+          1. Let _k_ be 1<sub>𝔽</sub>.
           1. Repeat, while _k_ &lt; _len_,
             1. Let _from_ be ! ToString(_k_).
-            1. Let _to_ be ! ToString(_k_ - 1).
+            1. Let _to_ be ! ToString(_k_ - 1<sub>𝔽</sub>).
             1. Let _fromPresent_ be ? HasProperty(_O_, _from_).
             1. If _fromPresent_ is *true*, then
               1. Let _fromVal_ be ? Get(_O_, _from_).
@@ -34123,9 +34122,9 @@ THH:mm:ss.sss
             1. Else,
               1. Assert: _fromPresent_ is *false*.
               1. Perform ? DeletePropertyOrThrow(_O_, _to_).
-            1. Set _k_ to _k_ + 1.
-          1. Perform ? DeletePropertyOrThrow(_O_, ! ToString(_len_ - 1)).
-          1. Perform ? Set(_O_, *"length"*, _len_ - 1, *true*).
+            1. Set _k_ to _k_ + 1<sub>𝔽</sub>.
+          1. Perform ? DeletePropertyOrThrow(_O_, ! ToString(_len_ - 1<sub>𝔽</sub>)).
+          1. Perform ? Set(_O_, *"length"*, _len_ - 1<sub>𝔽</sub>, *true*).
           1. Return _first_.
         </emu-alg>
         <emu-note>
@@ -34143,20 +34142,20 @@ THH:mm:ss.sss
           1. Let _O_ be ? ToObject(*this* value).
           1. Let _len_ be ? LengthOfArrayLike(_O_).
           1. Let _relativeStart_ be ? ToInteger(_start_).
-          1. If _relativeStart_ &lt; 0, let _k_ be max((_len_ + _relativeStart_), 0); else let _k_ be min(_relativeStart_, _len_).
+          1. If _relativeStart_ &lt; *+0*, let _k_ be max((_len_ + _relativeStart_), *+0*); else let _k_ be min(_relativeStart_, _len_).
           1. If _end_ is *undefined*, let _relativeEnd_ be _len_; else let _relativeEnd_ be ? ToInteger(_end_).
-          1. If _relativeEnd_ &lt; 0, let _final_ be max((_len_ + _relativeEnd_), 0); else let _final_ be min(_relativeEnd_, _len_).
-          1. Let _count_ be max(_final_ - _k_, 0).
+          1. If _relativeEnd_ &lt; *+0*, let _final_ be max((_len_ + _relativeEnd_), *+0*); else let _final_ be min(_relativeEnd_, _len_).
+          1. Let _count_ be max(_final_ - _k_, *+0*).
           1. Let _A_ be ? ArraySpeciesCreate(_O_, _count_).
-          1. Let _n_ be 0.
+          1. Let _n_ be *+0*.
           1. Repeat, while _k_ &lt; _final_,
             1. Let _Pk_ be ! ToString(_k_).
             1. Let _kPresent_ be ? HasProperty(_O_, _Pk_).
             1. If _kPresent_ is *true*, then
               1. Let _kValue_ be ? Get(_O_, _Pk_).
               1. Perform ? CreateDataPropertyOrThrow(_A_, ! ToString(_n_), _kValue_).
-            1. Set _k_ to _k_ + 1.
-            1. Set _n_ to _n_ + 1.
+            1. Set _k_ to _k_ + 1<sub>𝔽</sub>.
+            1. Set _n_ to _n_ + 1<sub>𝔽</sub>.
           1. Perform ? Set(_A_, *"length"*, _n_, *true*).
           1. Return _A_.
         </emu-alg>
@@ -34180,15 +34179,15 @@ THH:mm:ss.sss
         <p>When the `some` method is called with one or two arguments, the following steps are taken:</p>
         <emu-alg>
           1. Let _O_ be ? ToObject(*this* value).
-          1. Let _len_ be ? LengthOfArrayLike(_O_).
+          1. Let _len_ be the mathematical value of ? LengthOfArrayLike(_O_).
           1. If IsCallable(_callbackfn_) is *false*, throw a *TypeError* exception.
           1. Let _k_ be 0.
           1. Repeat, while _k_ &lt; _len_,
-            1. Let _Pk_ be ! ToString(_k_).
+            1. Let _Pk_ be ! ToString(𝔽(_k_)).
             1. Let _kPresent_ be ? HasProperty(_O_, _Pk_).
             1. If _kPresent_ is *true*, then
               1. Let _kValue_ be ? Get(_O_, _Pk_).
-              1. Let _testResult_ be ! ToBoolean(? Call(_callbackfn_, _thisArg_, &laquo; _kValue_, _k_, _O_ &raquo;)).
+              1. Let _testResult_ be ! ToBoolean(? Call(_callbackfn_, _thisArg_, &laquo; _kValue_, 𝔽(_k_), _O_ &raquo;)).
               1. If _testResult_ is *true*, return *true*.
             1. Set _k_ to _k_ + 1.
           1. Return *false*.
@@ -34945,10 +34944,10 @@ THH:mm:ss.sss
             1. Let _targetObj_ be ? TypedArrayCreate(_C_, &laquo; _len_ &raquo;).
             1. Let _k_ be 0.
             1. Repeat, while _k_ &lt; _len_,
-              1. Let _Pk_ be ! ToString(_k_).
+              1. Let _Pk_ be ! ToString(𝔽(_k_)).
               1. Let _kValue_ be the first element of _values_ and remove that element from _values_.
               1. If _mapping_ is *true*, then
-                1. Let _mappedValue_ be ? Call(_mapfn_, _thisArg_, &laquo; _kValue_, _k_ &raquo;).
+                1. Let _mappedValue_ be ? Call(_mapfn_, _thisArg_, &laquo; _kValue_, 𝔽(_k_) &raquo;).
               1. Else, let _mappedValue_ be _kValue_.
               1. Perform ? Set(_targetObj_, _Pk_, _mappedValue_, *true*).
               1. Set _k_ to _k_ + 1.
@@ -34959,11 +34958,11 @@ THH:mm:ss.sss
           1. Let _len_ be ? LengthOfArrayLike(_arrayLike_).
           1. Let _targetObj_ be ? TypedArrayCreate(_C_, &laquo; _len_ &raquo;).
           1. Let _k_ be 0.
-          1. Repeat, while _k_ &lt; _len_,
-            1. Let _Pk_ be ! ToString(_k_).
+          1. Repeat, while _k_ &lt; ℝ(_len_),
+            1. Let _Pk_ be ! ToString(𝔽(_k_)).
             1. Let _kValue_ be ? Get(_arrayLike_, _Pk_).
             1. If _mapping_ is *true*, then
-              1. Let _mappedValue_ be ? Call(_mapfn_, _thisArg_, &laquo; _kValue_, _k_ &raquo;).
+              1. Let _mappedValue_ be ? Call(_mapfn_, _thisArg_, &laquo; _kValue_, 𝔽(_k_) &raquo;).
             1. Else, let _mappedValue_ be _kValue_.
             1. Perform ? Set(_targetObj_, _Pk_, _mappedValue_, *true*).
             1. Set _k_ to _k_ + 1.
@@ -34999,7 +34998,7 @@ THH:mm:ss.sss
           1. Let _k_ be 0.
           1. Repeat, while _k_ &lt; _len_,
             1. Let _kValue_ be _items_[_k_].
-            1. Let _Pk_ be ! ToString(_k_).
+            1. Let _Pk_ be ! ToString(𝔽(_k_)).
             1. Perform ? Set(_newObj_, _Pk_, _kValue_, *true*).
             1. Set _k_ to _k_ + 1.
           1. Return _newObj_.
@@ -35162,14 +35161,14 @@ THH:mm:ss.sss
           1. If _O_.[[ContentType]] is ~BigInt~, set _value_ to ? ToBigInt(_value_).
           1. Otherwise, set _value_ to ? ToNumber(_value_).
           1. Let _relativeStart_ be ? ToInteger(_start_).
-          1. If _relativeStart_ &lt; 0, let _k_ be max((_len_ + _relativeStart_), 0); else let _k_ be min(_relativeStart_, _len_).
+          1. If _relativeStart_ &lt; 0, let _k_ be max((_len_ + _relativeStart_), *+0*); else let _k_ be min(_relativeStart_, _len_).
           1. If _end_ is *undefined*, let _relativeEnd_ be _len_; else let _relativeEnd_ be ? ToInteger(_end_).
-          1. If _relativeEnd_ &lt; 0, let _final_ be max((_len_ + _relativeEnd_), 0); else let _final_ be min(_relativeEnd_, _len_).
+          1. If _relativeEnd_ &lt; *+0*, let _final_ be max((_len_ + _relativeEnd_), *+0*); else let _final_ be min(_relativeEnd_, _len_).
           1. If IsDetachedBuffer(_O_.[[ViewedArrayBuffer]]) is *true*, throw a *TypeError* exception.
           1. Repeat, while _k_ &lt; _final_,
             1. Let _Pk_ be ! ToString(_k_).
             1. Perform ! Set(_O_, _Pk_, _value_, *true*).
-            1. Set _k_ to _k_ + 1.
+            1. Set _k_ to _k_ + 1<sub>𝔽</sub>.
           1. Return _O_.
         </emu-alg>
       </emu-clause>
@@ -35187,17 +35186,17 @@ THH:mm:ss.sss
           1. Let _k_ be 0.
           1. Let _captured_ be 0.
           1. Repeat, while _k_ &lt; _len_,
-            1. Let _Pk_ be ! ToString(_k_).
+            1. Let _Pk_ be ! ToString(𝔽(_k_)).
             1. Let _kValue_ be ? Get(_O_, _Pk_).
-            1. Let _selected_ be ! ToBoolean(? Call(_callbackfn_, _thisArg_, &laquo; _kValue_, _k_, _O_ &raquo;)).
+            1. Let _selected_ be ! ToBoolean(? Call(_callbackfn_, _thisArg_, &laquo; _kValue_, 𝔽(_k_), _O_ &raquo;)).
             1. If _selected_ is *true*, then
               1. Append _kValue_ to the end of _kept_.
               1. Set _captured_ to _captured_ + 1.
             1. Set _k_ to _k_ + 1.
-          1. Let _A_ be ? TypedArraySpeciesCreate(_O_, &laquo; _captured_ &raquo;).
+          1. Let _A_ be ? TypedArraySpeciesCreate(_O_, &laquo; 𝔽(_captured_) &raquo;).
           1. Let _n_ be 0.
           1. For each element _e_ of _kept_, do
-            1. Perform ! Set(_A_, ! ToString(_n_), _e_, *true*).
+            1. Perform ! Set(_A_, ! ToString(𝔽(_n_)), _e_, *true*).
             1. Set _n_ to _n_ + 1.
           1. Return _A_.
         </emu-alg>
@@ -35282,10 +35281,10 @@ THH:mm:ss.sss
           1. If IsCallable(_callbackfn_) is *false*, throw a *TypeError* exception.
           1. Let _A_ be ? TypedArraySpeciesCreate(_O_, &laquo; _len_ &raquo;).
           1. Let _k_ be 0.
-          1. Repeat, while _k_ &lt; _len_,
-            1. Let _Pk_ be ! ToString(_k_).
+          1. Repeat, while _k_ &lt; ℝ(_len_),
+            1. Let _Pk_ be ! ToString(𝔽(_k_)).
             1. Let _kValue_ be ? Get(_O_, _Pk_).
-            1. Let _mappedValue_ be ? Call(_callbackfn_, _thisArg_, &laquo; _kValue_, _k_, _O_ &raquo;).
+            1. Let _mappedValue_ be ? Call(_callbackfn_, _thisArg_, &laquo; _kValue_, 𝔽(_k_), _O_ &raquo;).
             1. Perform ? Set(_A_, _Pk_, _mappedValue_, *true*).
             1. Set _k_ to _k_ + 1.
           1. Return _A_.
@@ -38513,8 +38512,7 @@ THH:mm:ss.sss
           1. Let _len_ be the mathematical value of ? LengthOfArrayLike(_value_).
           1. Let _index_ be 0.
           1. Repeat, while _index_ &lt; _len_,
-            1. Let _indexNumber_ be the Number value for _index_.
-            1. Let _strP_ be ? SerializeJSONProperty(_state_, ! ToString(_indexNumber_), _value_).
+            1. Let _strP_ be ? SerializeJSONProperty(_state_, ! ToString(𝔽(_index_)), _value_).
             1. If _strP_ is *undefined*, then
               1. Append *"null"* to _partial_.
             1. Else,
