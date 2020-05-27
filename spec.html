@@ -903,28 +903,29 @@
     </emu-clause>
     <emu-clause id="sec-mathematical-operations">
       <h1>Mathematical Operations</h1>
-      <p>This specification makes reference to three kinds of numeric values:</p>
+      <p>This specification makes reference to these kinds of numeric values:</p>
       <ul>
         <li><em>Mathematical value</em>: Arbitrary real numbers, used as the default numeric type.</li>
         <li><em>Number</em>: IEEE 754-2019 double-precision floating point values.</li>
-        <li><em>BigInt</em>: Arbritary integer number.</li>
+        <li><em>BigInt</em>: Arbritary integer.</li>
       </ul>
 
-      <p>In the language of this specification, numerical values and operations (including addition, subtraction, negation, multiplication, division, and comparison) are distinguished among different numeric kinds using subscripts. The subscript <sub><dfn id="𝔽">𝔽</dfn></sub> refers to Numbers, the subscript <sub><dfn id="ℝ">ℝ</dfn></sub> refers to mathematical values, and the subscript <sub><dfn id="ℤ">ℤ</dfn></sub> refers to BigInt. A subscript is used following each numeric value and operation.</p>
-      <p>For brevity, the <sub>ℝ</sub> subscript can be omitted on numeric values&mdash;a numeric value with no subscript is interpreted to be a Mathematical value. An operation with no subscript is interpreted to be a Mathematical value operation, unless one of the parameters has a particular subscript, in which case the operation adopts that subscript. For example, 1<sub>𝔽</sub> + 2<sub>𝔽</sub> = 3<sub>𝔽</sub> is a statement about Number values, and 1 + 2 = 3 is a statement about Mathematical values.</p>
-      <p>In general, when this specification refers to a numerical value, such as in the phrase, "the length of _y_" or "the integer represented by the four hexadecimal digits ...", without explicitly specifying a numeric kind, the phrase refers to a Mathematical value. Phrases which refer to a Number or a BigInt value are explicitly annotated as such; for example, "the Number value of the number of code points in ..." or "the BigInt value of ...".</p>
+      <p>In the language of this specification, numerical values and operations (including addition, subtraction, negation, multiplication, division, and comparison) are distinguished among different numeric kinds using subscripts. The subscript <sub><dfn id="𝔽">𝔽</dfn></sub> refers to Numbers, the subscript <sub><dfn id="ℝ">ℝ</dfn></sub> refers to mathematical values, and the subscript <sub><dfn id="ℤ">ℤ</dfn></sub> refers to BigInts. A subscript is used following each numeric value and operation.</p>
+      <p>For brevity, the <sub>ℝ</sub> subscript can be omitted on numeric values&mdash;a numeric value with no subscript is interpreted to be a mathematical value. An operation with no subscript is interpreted to be a mathematical value operation, unless one of the parameters has a particular subscript, in which case the operation adopts that subscript. For example, 1<sub>𝔽</sub> + 2<sub>𝔽</sub> = 3<sub>𝔽</sub> is a statement about Number values, and 1 + 2 = 3 is a statement about mathematical values.</p>
+      <p>In general, when this specification refers to a numerical value, such as in the phrase, "the length of _y_" or "the integer represented by the four hexadecimal digits ...", without explicitly specifying a numeric kind, the phrase refers to a mathematical value. Phrases which refer to a Number or a BigInt value are explicitly annotated as such; for example, "the Number value of the number of code points in ..." or "the BigInt value of ...".</p>
       <p>It is not defined to mix Numbers, BigInts and mathematical values in either arithmetic or comparison operations, and any such undefined operation would be an editorial error in this specification text.</p>
       <p>The Number value 0, is defined as the double-precision floating point positive zero value. In certain contexts, it may also be written as *+0* for clarity.</p>
       <p>This specification denotes most numeric values in base 10; it also uses numeric values of the form 0x followed by digits 0-9 or A-F as base-16 values.</p>
       <p>In certain contexts, an operation is specified which is generic between Numbers, BigInts and mathematical values. In these cases, the subscript can be a variable; _t_ is often used for this purpose, for example 5<sub>_t_</sub> &times; 10<sub>_t_</sub> = 50<sub>_t_</sub> for any _t_ ranging over ℝ, 𝔽 and ℤ, since the values involved are within the range where the semantics coincide.</p>
       <p>Conversions between mathematical values and numbers are never implicit, and always explicit in this document. A conversion from a mathematical value to a Number is denoted as "the Number value for _x_" or 𝔽(_x_), and is defined in <emu-xref href="#sec-ecmascript-language-types-number-type"></emu-xref>. A conversion from a Number to a mathematical value is denoted as "the <dfn id="mathematical-value">mathematical value</dfn> of _x_", or ℝ(_x_). Note that the mathematical value of non-finite values is not defined, and the mathematical value of *+0* and *-0* is the mathematical value 0<sub>ℝ</sub>.</p>
       <p>When the term <dfn id="integer">integer</dfn> is used in this specification, it refers to a mathematical value which is in the set of integers, unless otherwise stated: when the term <dfn id="integral Number">integral Number</dfn> is used in this specification, it refers to a Number value which its mathematical value is in the set of integers.</p>
-      <p>The mathematical function <emu-eqn id="eqn-abs" aoid="abs">abs<sub>_t_</sub>(_x_)</emu-eqn> produces the absolute value of _x_, which is <emu-eqn>-<sub>_t_</sub>_x_</emu-eqn> if _x_ &lt;<sub>_t_</sub> 0<sub>_t_</sub> and otherwise is _x_ itself.</p>
-      <p>The mathematical function <emu-eqn id="eqn-min" aoid="min">min<sub>_t_</sub>(_x1_, _x2_, &hellip; , _xN_)</emu-eqn> produces the mathematically smallest of <emu-eqn>_x1_</emu-eqn> through <emu-eqn>_xN_</emu-eqn>. The mathematical function <emu-eqn id="eqn-max" aoid="max">max<sub>_t_</sub>(_x1_, _x2_, ..., _xN_)</emu-eqn> produces the mathematically largest of <emu-eqn>_x1_</emu-eqn> through <emu-eqn>_xN_</emu-eqn>. The domain and range of these mathematical functions include *+&infin;* and *-&infin;*.</p>
-      <p>The notation &ldquo;<emu-eqn id="eqn-modulo" aoid="modulo">_x_ modulo<sub>_t_</sub> _y_</emu-eqn>&rdquo; (_y_ must be finite and nonzero) computes a value _k_ of the same sign as _y_ (or zero) such that <emu-eqn>abs<sub>_t_</sub>(_k_) &lt;<sub>_t_</sub> abs<sub>_t_</sub>(_y_) and _x_-<sub>_t_</sub>_k_ = _q_ &times;<sub>_t_</sub> _y_</emu-eqn> for some integer (for _t_ = ℝ), integral Number (for _t_ = 𝔽), or BigInt (for _t_ = ℤ) _q_.</p>
-      <p>The mathematical function <emu-eqn id="eqn-floor" aoid="floor">floor<sub>_t_</sub>(_x_)</emu-eqn> produces the largest integer (for _t_ = ℝ), integral Number (for _t_ = 𝔽), or BigInt (for _t_ = ℤ) (closest to positive infinity) that is not larger than _x_.</p>
+      <p>The mathematical function <emu-eqn id="eqn-abs" aoid="abs">abs(_x_)</emu-eqn> produces the absolute value of _x_, which is <emu-eqn>-_x_</emu-eqn> if _x_ &lt; 0 and otherwise is _x_ itself.</p>
+      <p>The mathematical function <emu-eqn id="eqn-min" aoid="min">min(_x1_, _x2_, &hellip; , _xN_)</emu-eqn> produces the mathematically smallest of <emu-eqn>_x1_</emu-eqn> through <emu-eqn>_xN_</emu-eqn>. The mathematical function <emu-eqn id="eqn-max" aoid="max">max(_x1_, _x2_, ..., _xN_)</emu-eqn> produces the mathematically largest of <emu-eqn>_x1_</emu-eqn> through <emu-eqn>_xN_</emu-eqn>. The domain and range of these mathematical functions include *+&infin;* and *-&infin;*.</p>
+      <p>The notation &ldquo;<emu-eqn id="eqn-modulo" aoid="modulo">_x_ modulo _y_</emu-eqn>&rdquo; (_y_ must be finite and nonzero) computes a value _k_ of the same sign as _y_ (or zero) such that <emu-eqn>abs(_k_) &lt; abs(_y_) and _x_-_k_ = _q_ &times; _y_</emu-eqn> for some integer _q_.</p>
+      <p>The mathematical function <emu-eqn id="eqn-floor" aoid="floor">floor(_x_)</emu-eqn> produces the largest integer (closest to positive infinity) that is not larger than _x_.</p>
+      <p>Mathematical functions min, max, abs, and floor are not defined for Numbers and BigInts, and any usage of those methods that have non-mathematical value arguemnts would be an editorial error in this specification text.</p>
       <emu-note>
-        <p><emu-eqn>floor<sub>_t_</sub>(_x_) = _x_ -<sub>_t_</sub> (_x_ modulo<sub>_t_</sub> 1<sub>_t_</sub>)</emu-eqn>.</p>
+        <p><emu-eqn>floor(_x_) = _x_ - (_x_ modulo 1)</emu-eqn>.</p>
       </emu-note>
     </emu-clause>
     <emu-clause id="sec-value-notation">
@@ -1512,12 +1513,12 @@
             <li>If _exponent_ is *+0*, the result is *1*<sub>𝔽</sub>, even if _base_ is *NaN*.</li>
             <li>If _exponent_ is *-0*, the result is *1*<sub>𝔽</sub>, even if _base_ is *NaN*.</li>
             <li>If _base_ is *NaN* and _exponent_ is nonzero, the result is *NaN*.</li>
-            <li>If abs(_base_) &gt; *1*<sub>𝔽</sub> and _exponent_ is *+&infin;*, the result is *+&infin;*.</li>
-            <li>If abs(_base_) &gt; *1*<sub>𝔽</sub> and _exponent_ is *-&infin;*, the result is *+0*.</li>
-            <li>If abs(_base_) is *1*<sub>𝔽</sub> and _exponent_ is *+&infin;*, the result is *NaN*.</li>
-            <li>If abs(_base_) is *1*<sub>𝔽</sub> and _exponent_ is *-&infin;*, the result is *NaN*.</li>
-            <li>If abs(_base_) &lt; *1*<sub>𝔽</sub> and _exponent_ is *+&infin;*, the result is *+0*.</li>
-            <li>If abs(_base_) &lt; *1*<sub>𝔽</sub> and _exponent_ is *-&infin;*, the result is *+&infin;*.</li>
+            <li>If abs(ℝ(_base_)) &gt; 1 and _exponent_ is *+&infin;*, the result is *+&infin;*.</li>
+            <li>If abs(ℝ(_base_)) &gt; 1 and _exponent_ is *-&infin;*, the result is *+0*.</li>
+            <li>If abs(ℝ(_base_)) is 1 and _exponent_ is *+&infin;*, the result is *NaN*.</li>
+            <li>If abs(ℝ(_base_)) is 1 and _exponent_ is *-&infin;*, the result is *NaN*.</li>
+            <li>If abs(ℝ(_base_)) &lt; 1 and _exponent_ is *+&infin;*, the result is *+0*.</li>
+            <li>If abs(ℝ(_base_)) &lt; 1 and _exponent_ is *-&infin;*, the result is *+&infin;*.</li>
             <li>If _base_ is *+&infin;* and _exponent_ &gt; *+0*, the result is *+&infin;*.</li>
             <li>If _base_ is *+&infin;* and _exponent_ &lt; *+0*, the result is *+0*.</li>
             <li>If _base_ is *-&infin;* and _exponent_ &gt; *+0* and _exponent_ is an odd integral Number, the result is *-&infin;*.</li>
@@ -4881,7 +4882,7 @@
         1. Let _number_ be ? ToNumber(_argument_).
         1. If _number_ is *NaN*, *+0*, or *-0*, return *+0*.
         1. If _number_ is *+&infin;* or *-&infin;*, return _number_.
-        1. Let _integer_ be the Number value that is the same sign as _number_ and whose magnitude is floor(abs(_number_)).
+        1. Let _integer_ be the Number value that is the same sign as _number_ and whose magnitude is floor(abs(ℝ(_number_))).
         1. If _integer_ is *-0*, return *+0*.
         1. Return _integer_.
       </emu-alg>
@@ -4893,7 +4894,7 @@
       <emu-alg>
         1. Let _number_ be ? ToNumber(_argument_).
         1. If _number_ is *NaN*, *+0*, *-0*, *+&infin;*, or *-&infin;*, return *+0*.
-        1. Let _int_ be the mathematical value that is the same sign as _number_ and whose magnitude is floor(abs(_number_)).
+        1. Let _int_ be the mathematical value that is the same sign as _number_ and whose magnitude is floor(abs(ℝ(_number_))).
         1. Let _int32bit_ be _int_ modulo 2<sup>32</sup>.
         1. If _int32bit_ &ge; 2<sup>31</sup>, return the Number value for _int32bit_ - 2<sup>32</sup>; otherwise return the Number value for _int32bit_.
       </emu-alg>
@@ -4919,7 +4920,7 @@
       <emu-alg>
         1. Let _number_ be ? ToNumber(_argument_).
         1. If _number_ is *NaN*, *+0*, *-0*, *+&infin;*, or *-&infin;*, return *+0*.
-        1. Let _int_ be the numeric value that is the same sign as _number_ and whose magnitude is floor(abs(_number_)).
+        1. Let _int_ be the mathematical value that is the same sign as _number_ and whose magnitude is floor(abs(ℝ(_number_))).
         1. Let _int32bit_ be _int_ modulo 2<sup>32</sup>.
         1. Return the Number value for _int32bit_.
       </emu-alg>
@@ -4948,7 +4949,7 @@
       <emu-alg>
         1. Let _number_ be ? ToNumber(_argument_).
         1. If _number_ is *NaN*, *+0*, *-0*, *+&infin;*, or *-&infin;*, return *+0*.
-        1. Let _int_ be the mathematical value that is the same sign as _number_ and whose magnitude is floor(abs(_number_)).
+        1. Let _int_ be the mathematical value that is the same sign as _number_ and whose magnitude is floor(abs(ℝ(_number_))).
         1. Let _int16bit_ be _int_ modulo 2<sup>16</sup>.
         1. If _int16bit_ &ge; 2<sup>15</sup>, return the Number value for _int16bit_ - 2<sup>16</sup>; otherwise return the Number value for _int16bit_.
       </emu-alg>
@@ -4960,7 +4961,7 @@
       <emu-alg>
         1. Let _number_ be ? ToNumber(_argument_).
         1. If _number_ is *NaN*, *+0*, *-0*, *+&infin;*, or *-&infin;*, return *+0*.
-        1. Let _int_ be the mathematical value that is the same sign as _number_ and whose magnitude is floor(abs(_number_)).
+        1. Let _int_ be the mathematical value that is the same sign as _number_ and whose magnitude is floor(abs(ℝ(_number_))).
         1. Let _int16bit_ be _int_ modulo 2<sup>16</sup>.
         1. Return the Number value for _int16bit_.
       </emu-alg>
@@ -4983,7 +4984,7 @@
       <emu-alg>
         1. Let _number_ be ? ToNumber(_argument_).
         1. If _number_ is *NaN*, *+0*, *-0*, *+&infin;*, or *-&infin;*, return *+0*.
-        1. Let _int_ be the mathematical value that is the same sign as _number_ and whose magnitude is floor(abs(_number_)).
+        1. Let _int_ be the mathematical value that is the same sign as _number_ and whose magnitude is floor(abs(ℝ(_number_))).
         1. Let _int8bit_ be _int_ modulo 2<sup>8</sup>.
         1. If _int8bit_ &ge; 2<sup>7</sup>, return the Number value for _int8bit_ - 2<sup>8</sup>; otherwise return the Number value for _int8bit_.
       </emu-alg>
@@ -4995,7 +4996,7 @@
       <emu-alg>
         1. Let _number_ be ? ToNumber(_argument_).
         1. If _number_ is *NaN*, *+0*, *-0*, *+&infin;*, or *-&infin;*, return *+0*.
-        1. Let _int_ be the mathematical value that is the same sign as _number_ and whose magnitude is floor(abs(_number_)).
+        1. Let _int_ be the mathematical value that is the same sign as _number_ and whose magnitude is floor(abs(ℝ(_number_))).
         1. Let _int8bit_ be _int_ modulo 2<sup>8</sup>.
         1. Return the Number value for _int8bit_.
       </emu-alg>
@@ -5009,11 +5010,11 @@
         1. If _number_ is *NaN*, return *+0*.
         1. If _number_ &le; *+0*, return *+0*.
         1. If _number_ &ge; *255*<sub>𝔽</sub>, return *255*<sub>𝔽</sub>.
-        1. Let _f_ be floor(_number_).
-        1. If ℝ(_f_) + *0.5* &lt; ℝ(_number_), return the Number value of ℝ(_f_) + *1*.
-        1. If ℝ(_number_) &lt; ℝ(_f_) + *0.5*, return _f_.
-        1. If _f_ is odd, return the Number value of ℝ(_f_) + *1*.
-        1. Return _f_.
+        1. Let _f_ be floor(ℝ(_number_)).
+        1. If _f_ + 0.5 &lt; ℝ(_number_), return the Number value of _f_ + 1.
+        1. If ℝ(_number_) &lt; _f_ + 0.5, return the Number value of _f_.
+        1. If _f_ is odd, return the Number value of _f_ + 1.
+        1. Return the Number value of _f_.
       </emu-alg>
       <emu-note>
         <p>Unlike the other ECMAScript integer conversion abstract operation, ToUint8Clamp rounds rather than truncates non-integer values and does not convert *+&infin;* to 0. ToUint8Clamp does &ldquo;round half to even&rdquo; tie-breaking. This differs from `Math.round` which does &ldquo;round half up&rdquo; tie-breaking.</p>
@@ -5488,7 +5489,7 @@
       <emu-alg>
         1. If Type(_argument_) is not Number, return *false*.
         1. If _argument_ is *NaN*, *+&infin;*, or *-&infin;*, return *false*.
-        1. If floor(abs(_argument_)) &ne; abs(_argument_), return *false*.
+        1. If floor(abs(ℝ(_argument_))) &ne; abs(ℝ(_argument_)), return *false*.
         1. Return *true*.
       </emu-alg>
     </emu-clause>
@@ -9425,7 +9426,7 @@
         <emu-alg>
           1. Let _keys_ be a new empty List.
           1. Assert: _O_ is an Integer-Indexed exotic object.
-          1. Let _len_ be the Mathematical value of _O_.[[ArrayLength]].
+          1. Let _len_ be the mathematical value of _O_.[[ArrayLength]].
           1. For each integer _i_ starting with 0 such that _i_ &lt; _len_, in ascending order, do
             1. Add ! ToString(𝔽(_i_)) as the last element of _keys_.
           1. For each own property key _P_ of _O_ such that Type(_P_) is String and _P_ is not an integer index, in ascending chronological order of property creation, do
@@ -10426,7 +10427,7 @@
       <p>The abstract operation CodePointAt takes arguments _string_ (a String) and _positionNumber_ (non-negative integral Number). It interprets _string_ as a sequence of UTF-16 encoded code points, as described in <emu-xref href="#sec-ecmascript-language-types-string-type"></emu-xref>, and reads from it a single code point starting with the code unit at index _positionNumber_. It performs the following steps when called:</p>
       <emu-alg>
         1. Let _size_ be the length of _string_.
-        1. Let _position_ be the Mathematical value of _positionNumber_.
+        1. Let _position_ be the mathematical value of _positionNumber_.
         1. Assert: _position_ &ge; 0 and _position_ &lt; _size_.
         1. Let _first_ be the code unit at index _position_ within _string_.
         1. Let _cp_ be the code point whose numeric value is that of _first_.
@@ -27116,7 +27117,7 @@
         <emu-alg>
           1. If ! IsInteger(_number_) is *true*, then
             1. Let _numberMV_ be the mathematical value of _number_.
-            1. If abs(_numberMV_) &le; 2<sup>53</sup> - 1, return *true*.
+            1. If abs(ℝ(_numberMV_)) &le; 2<sup>53</sup> - 1, return *true*.
           1. Return *false*.
         </emu-alg>
       </emu-clause>
@@ -28567,8 +28568,8 @@
           1. Let _y_ be ! ToInteger(_year_).
           1. Let _m_ be ! ToInteger(_month_).
           1. Let _dt_ be ! ToInteger(_date_).
-          1. Let _ym_ be _y_ + floor(_m_ / 12<sub>𝔽</sub>).
-          1. Let _mn_ be _m_ modulo 12<sub>𝔽</sub>.
+          1. Let _ym_ be _y_ + floor(_m_ / 12).
+          1. Let _mn_ be _m_ modulo 12.
           1. Find a value _t_ such that YearFromTime(_t_) is _ym_ and MonthFromTime(_t_) is _mn_ and DateFromTime(_t_) is 1; but if this is not possible (because some argument is out of range), return *NaN*.
           1. Return Day(_t_) + _dt_ - 1<sub>𝔽</sub>.
         </emu-alg>
@@ -28588,7 +28589,7 @@
         <p>The abstract operation TimeClip takes argument _time_ (a Number). It calculates a number of milliseconds. It performs the following steps when called:</p>
         <emu-alg>
           1. If _time_ is not finite, return *NaN*.
-          1. If abs(_time_) &gt; 8.64<sub>𝔽</sub> &times; 10<sub>𝔽</sub><sup>15<sub>𝔽</sub></sup>, return *NaN*.
+          1. If abs(ℝ(_time_)) &gt; 8.64 &times; 10<sup>15</sup>, return *NaN*.
           1. Return ! ToInteger(_time_).
         </emu-alg>
       </emu-clause>
@@ -30003,7 +30004,7 @@ THH:mm:ss.sss
           1. Let _isRegExp_ be ? IsRegExp(_searchString_).
           1. If _isRegExp_ is *true*, throw a *TypeError* exception.
           1. Let _searchStr_ be ? ToString(_searchString_).
-          1. Let _pos_ be ? ToInteger(_position_).
+          1. Let _pos_ be the mathematical value of ? ToInteger(_position_).
           1. Assert: If _position_ is *undefined*, then _pos_ is 0.
           1. Let _len_ be the length of _S_.
           1. Let _start_ be min(max(_pos_, 0), _len_).
@@ -32056,7 +32057,7 @@ THH:mm:ss.sss
               1. Let _e_ be _x_'s _endIndex_.
               1. Let _f_ be _e_ +<sub>𝔽</sub> _direction_.
               1. If _f_ &lt; *+0* or _f_ &gt;<sub>𝔽</sub> _InputLength_, return ~failure~.
-              1. Let _index_ be min<sub>𝔽</sub>(_e_, _f_).
+              1. Let _index_ be the Number value for min(ℝ(_e_), ℝ(_f_)).
               1. Let _ch_ be the character _Input_[_index_].
               1. Let _cc_ be Canonicalize(_ch_).
               1. If _invert_ is *false*, then
@@ -32198,7 +32199,7 @@ THH:mm:ss.sss
               1. Let _len_ be the number of elements in _s_.
               1. Let _f_ be the Number value for ℝ(_e_) + ℝ(_direction_) &times; _len_.
               1. If _f_ &lt; *+0* or _f_ &gt;<sub>𝔽</sub> _InputLength_, return ~failure~.
-              1. Let _g_ be min<sub>𝔽</sub>(_e_, _f_).
+              1. Let _g_ be the Number value for min(ℝ(_e_), ℝ(_f_)).
               1. If there exists an integer _i_ between 0 (inclusive) and _len_ (exclusive) such that Canonicalize(_s_[_i_]) is not the same character value as Canonicalize(_Input_[ℝ(_g_) + _i_]), return ~failure~.
               1. Let _y_ be the State (_f_, _cap_).
               1. Call _c_(_y_) and return its result.
@@ -32889,7 +32890,7 @@ THH:mm:ss.sss
             1. Let _matched_ be ? ToString(? Get(_result_, *"0"*)).
             1. Let _matchLength_ be the number of code units in _matched_.
             1. Let _position_ be ? ToInteger(? Get(_result_, *"index"*)).
-            1. Set _position_ to max<sub>𝔽</sub>(min<sub>𝔽</sub>(_position_, _lengthS_), *+0*).
+            1. Set _position_ to the Number value for max(min(ℝ(_position_), ℝ(_lengthS_)), 0).
             1. Let _n_ be 1.
             1. Let _captures_ be a new empty List.
             1. Repeat, while _n_ &le; _nCaptures_,
@@ -33471,23 +33472,23 @@ THH:mm:ss.sss
         <p>The following steps are taken:</p>
         <emu-alg>
           1. Let _O_ be ? ToObject(*this* value).
-          1. Let _len_ be ? LengthOfArrayLike(_O_).
-          1. Let _relativeTarget_ be ? ToInteger(_target_).
-          1. If _relativeTarget_ &lt; *+0*, let _to_ be max<sub>𝔽</sub>((_len_ +<sub>𝔽</sub> _relativeTarget_), *+0*); else let _to_ be min<sub>𝔽</sub>(_relativeTarget_, _len_).
-          1. Let _relativeStart_ be ? ToInteger(_start_).
-          1. If _relativeStart_ &lt; *+0*, let _from_ be max<sub>𝔽</sub>((_len_ +<sub>𝔽</sub> _relativeStart_), *+0*); else let _from_ be min<sub>𝔽</sub>(_relativeStart_, _len_).
-          1. If _end_ is *undefined*, let _relativeEnd_ be _len_; else let _relativeEnd_ be ? ToInteger(_end_).
-          1. If _relativeEnd_ &lt; *+0*, let _final_ be max<sub>𝔽</sub>((_len_ +<sub>𝔽</sub> _relativeEnd_), *+0*); else let _final_ be min<sub>𝔽</sub>(_relativeEnd_, _len_).
-          1. Let _count_ be min<sub>𝔽</sub>(_final_ -<sub>𝔽</sub> _from_, _len_ -<sub>𝔽</sub> _to_).
-          1. If _from_ &lt;<sub>𝔽</sub> _to_ and _to_ &lt;<sub>𝔽</sub> _from_ +<sub>𝔽</sub> _count_, then
-            1. Let _direction_ be -1<sub>𝔽</sub>.
-            1. Set _from_ to _from_ +<sub>𝔽</sub> _count_ - 1<sub>𝔽</sub>.
-            1. Set _to_ to _to_ +<sub>𝔽</sub> _count_ - 1<sub>𝔽</sub>.
+          1. Let _len_ be the mathematical value of ? LengthOfArrayLike(_O_).
+          1. Let _relativeTarget_ be the mathematical value of ? ToInteger(_target_).
+          1. If _relativeTarget_ &lt; 0, let _to_ be max((_len_ + _relativeTarget_), 0); else let _to_ be min(_relativeTarget_, _len_).
+          1. Let _relativeStart_ be the mathematical value of ? ToInteger(_start_).
+          1. If _relativeStart_ &lt; 0, let _from_ be max((_len_ + _relativeStart_), 0); else let _from_ be min(_relativeStart_, _len_).
+          1. If _end_ is *undefined*, let _relativeEnd_ be _len_; else let _relativeEnd_ be the mathematical value of ? ToInteger(_end_).
+          1. If _relativeEnd_ &lt; 0, let _final_ be max((_len_ + _relativeEnd_), 0); else let _final_ be min(_relativeEnd_, _len_).
+          1. Let _count_ be min(_final_ - _from_, _len_ - _to_).
+          1. If _from_ &lt; _to_ and _to_ &lt; _from_ + _count_, then
+            1. Let _direction_ be -1.
+            1. Set _from_ to _from_ + _count_ - 1.
+            1. Set _to_ to _to_ + _count_ - 1.
           1. Else,
-            1. Let _direction_ be 1<sub>𝔽</sub>.
-          1. Repeat, while _count_ &gt; *+0*,
-            1. Let _fromKey_ be ! ToString(_from_).
-            1. Let _toKey_ be ! ToString(_to_).
+            1. Let _direction_ be 1.
+          1. Repeat, while _count_ &gt; 0,
+            1. Let _fromKey_ be ! ToString(𝔽(_from_)).
+            1. Let _toKey_ be ! ToString(𝔽(_to_)).
             1. Let _fromPresent_ be ? HasProperty(_O_, _fromKey_).
             1. If _fromPresent_ is *true*, then
               1. Let _fromVal_ be ? Get(_O_, _fromKey_).
@@ -33495,9 +33496,9 @@ THH:mm:ss.sss
             1. Else,
               1. Assert: _fromPresent_ is *false*.
               1. Perform ? DeletePropertyOrThrow(_O_, _toKey_).
-            1. Set _from_ to _from_ +<sub>𝔽</sub> _direction_.
-            1. Set _to_ to _to_ +<sub>𝔽</sub> _direction_.
-            1. Set _count_ to _count_ -1<sub>𝔽</sub>.
+            1. Set _from_ to _from_ + _direction_.
+            1. Set _to_ to _to_ + _direction_.
+            1. Set _count_ to _count_ - 1.
           1. Return _O_.
         </emu-alg>
         <emu-note>
@@ -33617,7 +33618,7 @@ THH:mm:ss.sss
         <p>When the `find` method is called, the following steps are taken:</p>
         <emu-alg>
           1. Let _O_ be ? ToObject(*this* value).
-          1. Let _len_ be the Mathematical value of ? LengthOfArrayLike(_O_).
+          1. Let _len_ be the mathematical value of ? LengthOfArrayLike(_O_).
           1. If IsCallable(_predicate_) is *false*, throw a *TypeError* exception.
           1. Let _k_ be 0.
           1. Repeat, while _k_ &lt; _len_,
@@ -33645,7 +33646,7 @@ THH:mm:ss.sss
         <p>When the `findIndex` method is called with one or two arguments, the following steps are taken:</p>
         <emu-alg>
           1. Let _O_ be ? ToObject(*this* value).
-          1. Let _len_ be the Mathematical value of ? LengthOfArrayLike(_O_).
+          1. Let _len_ be the mathematical value of ? LengthOfArrayLike(_O_).
           1. If IsCallable(_predicate_) is *false*, throw a *TypeError* exception.
           1. Let _k_ be 0.
           1. Repeat, while _k_ &lt; _len_,
@@ -33734,7 +33735,7 @@ THH:mm:ss.sss
         <p>When the `forEach` method is called with one or two arguments, the following steps are taken:</p>
         <emu-alg>
           1. Let _O_ be ? ToObject(*this* value).
-          1. Let _len_ be the Mathematical value of ? LengthOfArrayLike(_O_).
+          1. Let _len_ be the mathematical value of ? LengthOfArrayLike(_O_).
           1. If IsCallable(_callbackfn_) is *false*, throw a *TypeError* exception.
           1. Let _k_ be 0.
           1. Repeat, while _k_ &lt; _len_,
@@ -33831,7 +33832,7 @@ THH:mm:ss.sss
         <p>The `join` method takes one argument, _separator_, and performs the following steps:</p>
         <emu-alg>
           1. Let _O_ be ? ToObject(*this* value).
-          1. Let _len_ be the Mathematical value of ? LengthOfArrayLike(_O_).
+          1. Let _len_ be the mathematical value of ? LengthOfArrayLike(_O_).
           1. If _separator_ is *undefined*, let _sep_ be the single-element String *","*.
           1. Else, let _sep_ be ? ToString(_separator_).
           1. Let _R_ be the empty String.
@@ -33870,7 +33871,7 @@ THH:mm:ss.sss
           1. Let _O_ be ? ToObject(*this* value).
           1. Let _len_ be the mathematical value of ? LengthOfArrayLike(_O_).
           1. If _len_ is 0, return -1<sub>𝔽</sub>.
-          1. If _fromIndex_ is present, let _n_ be the Mathematical value of ? ToInteger(_fromIndex_); else let _n_ be _len_ - 1.
+          1. If _fromIndex_ is present, let _n_ be the mathematical value of ? ToInteger(_fromIndex_); else let _n_ be _len_ - 1.
           1. If _n_ &ge; 0, then
             1. Let _k_ be min(_n_, _len_ - 1).
           1. Else,
@@ -33903,7 +33904,7 @@ THH:mm:ss.sss
         <emu-alg>
           1. Let _O_ be ? ToObject(*this* value).
           1. Let _lenNumber_ be ? LengthOfArrayLike(_O_).
-          1. Let _len_ be the Mathematical value of _lenNumber_.
+          1. Let _len_ be the mathematical value of _lenNumber_.
           1. If IsCallable(_callbackfn_) is *false*, throw a *TypeError* exception.
           1. Let _A_ be ? ArraySpeciesCreate(_O_, _lenNumber_).
           1. Let _k_ be 0.
@@ -34140,23 +34141,23 @@ THH:mm:ss.sss
         <p>The following steps are taken:</p>
         <emu-alg>
           1. Let _O_ be ? ToObject(*this* value).
-          1. Let _len_ be ? LengthOfArrayLike(_O_).
-          1. Let _relativeStart_ be ? ToInteger(_start_).
-          1. If _relativeStart_ &lt; *+0*, let _k_ be max((_len_ + _relativeStart_), *+0*); else let _k_ be min(_relativeStart_, _len_).
-          1. If _end_ is *undefined*, let _relativeEnd_ be _len_; else let _relativeEnd_ be ? ToInteger(_end_).
-          1. If _relativeEnd_ &lt; *+0*, let _final_ be max((_len_ + _relativeEnd_), *+0*); else let _final_ be min(_relativeEnd_, _len_).
-          1. Let _count_ be max(_final_ - _k_, *+0*).
-          1. Let _A_ be ? ArraySpeciesCreate(_O_, _count_).
-          1. Let _n_ be *+0*.
+          1. Let _len_ be the mathematical value of ? LengthOfArrayLike(_O_).
+          1. Let _relativeStart_ be  the mathematical value of ? ToInteger(_start_).
+          1. If _relativeStart_ &lt; 0, let _k_ be max((_len_ + _relativeStart_), 0); else let _k_ be min(_relativeStart_, _len_).
+          1. If _end_ is *undefined*, let _relativeEnd_ be _len_; else let _relativeEnd_ be the mathematical value of ? ToInteger(_end_).
+          1. If _relativeEnd_ &lt; 0, let _final_ be max((_len_ + _relativeEnd_), 0); else let _final_ be min(_relativeEnd_, _len_).
+          1. Let _count_ be max(_final_ - _k_, 0).
+          1. Let _A_ be ? ArraySpeciesCreate(_O_, 𝔽(_count_)).
+          1. Let _n_ be 0.
           1. Repeat, while _k_ &lt; _final_,
-            1. Let _Pk_ be ! ToString(_k_).
+            1. Let _Pk_ be ! ToString(𝔽(_k_)).
             1. Let _kPresent_ be ? HasProperty(_O_, _Pk_).
             1. If _kPresent_ is *true*, then
               1. Let _kValue_ be ? Get(_O_, _Pk_).
-              1. Perform ? CreateDataPropertyOrThrow(_A_, ! ToString(_n_), _kValue_).
-            1. Set _k_ to _k_ + 1<sub>𝔽</sub>.
-            1. Set _n_ to _n_ + 1<sub>𝔽</sub>.
-          1. Perform ? Set(_A_, *"length"*, _n_, *true*).
+              1. Perform ? CreateDataPropertyOrThrow(_A_, ! ToString(𝔽(_n_)), _kValue_).
+            1. Set _k_ to _k_ + 1.
+            1. Set _n_ to _n_ + 1.
+          1. Perform ? Set(_A_, *"length"*, 𝔽(_n_), *true*).
           1. Return _A_.
         </emu-alg>
         <emu-note>
@@ -34339,37 +34340,37 @@ THH:mm:ss.sss
         <p>The following steps are taken:</p>
         <emu-alg>
           1. Let _O_ be ? ToObject(*this* value).
-          1. Let _len_ be ? LengthOfArrayLike(_O_).
-          1. Let _relativeStart_ be ? ToInteger(_start_).
-          1. If _relativeStart_ &lt; *+0*, let _actualStart_ be max<sub>𝔽</sub>((_len_ +<sub>𝔽</sub> _relativeStart_), *+0*); else let _actualStart_ be min<sub>𝔽</sub>(_relativeStart_, _len_).
+          1. Let _len_ be the mathematical value of ? LengthOfArrayLike(_O_).
+          1. Let _relativeStart_ be the mathematical value of ? ToInteger(_start_).
+          1. If _relativeStart_ &lt; 0, let _actualStart_ be max((_len_ + _relativeStart_), 0); else let _actualStart_ be min(_relativeStart_, _len_).
           1. If the number of actual arguments is 0, then
-            1. Let _insertCount_ be *+0*.
-            1. Let _actualDeleteCount_ be *+0*.
+            1. Let _insertCount_ be 0.
+            1. Let _actualDeleteCount_ be 0.
           1. Else if the number of actual arguments is 1, then
-            1. Let _insertCount_ be *+0*.
-            1. Let _actualDeleteCount_ be _len_ -<sub>𝔽</sub> _actualStart_.
+            1. Let _insertCount_ be 0.
+            1. Let _actualDeleteCount_ be _len_ - _actualStart_.
           1. Else,
             1. Let _insertCount_ be the number of actual arguments minus 2.
-            1. Let _dc_ be ? ToInteger(_deleteCount_).
-            1. Let _actualDeleteCount_ be min<sub>𝔽</sub>(max<sub>𝔽</sub>(_dc_, *+0*), _len_ -<sub>𝔽</sub> _actualStart_).
-          1. If _len_ +<sub>𝔽</sub> _insertCount_ -<sub>𝔽</sub> _actualDeleteCount_ &gt; 2<sub>𝔽</sub><sup>53<sub>𝔽</sub></sup> - 1<sub>𝔽</sub>, throw a *TypeError* exception.
-          1. Let _A_ be ? ArraySpeciesCreate(_O_, _actualDeleteCount_).
-          1. Let _k_ be *+0*.
-          1. Repeat, while _k_ &lt;<sub>𝔽</sub> _actualDeleteCount_,
-            1. Let _from_ be ! ToString(_actualStart_ +<sub>𝔽</sub> _k_).
+            1. Let _dc_ be the mathematical value of ? ToInteger(_deleteCount_).
+            1. Let _actualDeleteCount_ be min(max(_dc_, 0), _len_ - _actualStart_).
+          1. If _len_ + _insertCount_ - _actualDeleteCount_ &gt; 2<sup>53</sup> - 1, throw a *TypeError* exception.
+          1. Let _A_ be ? ArraySpeciesCreate(_O_, 𝔽(_actualDeleteCount_)).
+          1. Let _k_ be 0.
+          1. Repeat, while _k_ &lt; _actualDeleteCount_,
+            1. Let _from_ be ! ToString(𝔽(_actualStart_ + _k_)).
             1. Let _fromPresent_ be ? HasProperty(_O_, _from_).
             1. If _fromPresent_ is *true*, then
               1. Let _fromValue_ be ? Get(_O_, _from_).
-              1. Perform ? CreateDataPropertyOrThrow(_A_, ! ToString(_k_), _fromValue_).
-            1. Set _k_ to _k_ + 1<sub>𝔽</sub>.
-          1. Perform ? Set(_A_, *"length"*, _actualDeleteCount_, *true*).
+              1. Perform ? CreateDataPropertyOrThrow(_A_, ! ToString(𝔽(_k_)), _fromValue_).
+            1. Set _k_ to _k_ + 1.
+          1. Perform ? Set(_A_, *"length"*, 𝔽(_actualDeleteCount_), *true*).
           1. Let _items_ be a List whose elements are, in left to right order, the portion of the actual argument list starting with the third argument. The list is empty if fewer than three arguments were passed.
-          1. Let _itemCount_ be the Number value of the number of elements in _items_.
-          1. If _itemCount_ &lt;<sub>𝔽</sub> _actualDeleteCount_, then
+          1. Let _itemCount_ be the number of elements in _items_.
+          1. If _itemCount_ &lt; _actualDeleteCount_, then
             1. Set _k_ to _actualStart_.
-            1. Repeat, while _k_ &lt;<sub>𝔽</sub> (_len_ -<sub>𝔽</sub> _actualDeleteCount_),
-              1. Let _from_ be ! ToString(_k_ +<sub>𝔽</sub> _actualDeleteCount_).
-              1. Let _to_ be ! ToString(_k_ +<sub>𝔽</sub> _itemCount_).
+            1. Repeat, while _k_ &lt; (_len_ - _actualDeleteCount_),
+              1. Let _from_ be ! ToString(𝔽(_k_ + _actualDeleteCount_)).
+              1. Let _to_ be ! ToString(𝔽(_k_ + _itemCount_)).
               1. Let _fromPresent_ be ? HasProperty(_O_, _from_).
               1. If _fromPresent_ is *true*, then
                 1. Let _fromValue_ be ? Get(_O_, _from_).
@@ -34377,16 +34378,16 @@ THH:mm:ss.sss
               1. Else,
                 1. Assert: _fromPresent_ is *false*.
                 1. Perform ? DeletePropertyOrThrow(_O_, _to_).
-              1. Set _k_ to _k_ + 1<sub>𝔽</sub>.
+              1. Set _k_ to _k_ + 1.
             1. Set _k_ to _len_.
-            1. Repeat, while _k_ &gt;<sub>𝔽</sub> (_len_ -<sub>𝔽</sub> _actualDeleteCount_ +<sub>𝔽</sub> _itemCount_),
-              1. Perform ? DeletePropertyOrThrow(_O_, ! ToString(_k_ - 1<sub>𝔽</sub>)).
-              1. Set _k_ to _k_ - 1<sub>𝔽</sub>.
-          1. Else if _itemCount_ &gt;<sub>𝔽</sub> _actualDeleteCount_, then
-            1. Set _k_ to (_len_ -<sub>𝔽</sub> _actualDeleteCount_).
-            1. Repeat, while _k_ &gt;<sub>𝔽</sub> _actualStart_,
-              1. Let _from_ be ! ToString(_k_ + _actualDeleteCount_ - 1).
-              1. Let _to_ be ! ToString(_k_ + _itemCount_ - 1).
+            1. Repeat, while _k_ &gt; (_len_ - _actualDeleteCount_ + _itemCount_),
+              1. Perform ? DeletePropertyOrThrow(_O_, ! ToString(𝔽(_k_ - 1))).
+              1. Set _k_ to _k_ - 1.
+          1. Else if _itemCount_ &gt; _actualDeleteCount_, then
+            1. Set _k_ to (_len_ - _actualDeleteCount_).
+            1. Repeat, while _k_ &gt; _actualStart_,
+              1. Let _from_ be ! ToString(𝔽(_k_ + _actualDeleteCount_ - 1)).
+              1. Let _to_ be ! ToString(𝔽(_k_ + _itemCount_ - 1)).
               1. Let _fromPresent_ be ? HasProperty(_O_, _from_).
               1. If _fromPresent_ is *true*, then
                 1. Let _fromValue_ be ? Get(_O_, _from_).
@@ -34394,13 +34395,13 @@ THH:mm:ss.sss
               1. Else,
                 1. Assert: _fromPresent_ is *false*.
                 1. Perform ? DeletePropertyOrThrow(_O_, _to_).
-              1. Set _k_ to _k_ - 1<sub>𝔽</sub>.
+              1. Set _k_ to _k_ - 1.
           1. Set _k_ to _actualStart_.
           1. Repeat, while _items_ is not empty,
             1. Remove the first element from _items_ and let _E_ be the value of that element.
-            1. Perform ? Set(_O_, ! ToString(_k_), _E_, *true*).
-            1. Set _k_ to _k_ + 1<sub>𝔽</sub>.
-          1. Perform ? Set(_O_, *"length"*, _len_ -<sub>𝔽</sub> _actualDeleteCount_ +<sub>𝔽</sub> _itemCount_, *true*).
+            1. Perform ? Set(_O_, ! ToString(𝔽(_k_)), _E_, *true*).
+            1. Set _k_ to _k_ + 1.
+          1. Perform ? Set(_O_, *"length"*, 𝔽(_len_ - _actualDeleteCount_ + _itemCount_), *true*).
           1. Return _A_.
         </emu-alg>
         <emu-note>
@@ -35102,7 +35103,7 @@ THH:mm:ss.sss
             1. If IsDetachedBuffer(_buffer_) is *true*, throw a *TypeError* exception.
             1. Let _typedArrayName_ be the String value of _O_.[[TypedArrayName]].
             1. Let _elementSize_ be the Element Size value specified in <emu-xref href="#table-the-typedarray-constructors"></emu-xref> for _typedArrayName_.
-            1. Let _byteOffset_ be the Mathematical value of _O_.[[ByteOffset]].
+            1. Let _byteOffset_ be the mathematical value of _O_.[[ByteOffset]].
             1. Let _toByteIndex_ be _to_ &times; _elementSize_ + _byteOffset_.
             1. Let _fromByteIndex_ be _from_ &times; _elementSize_ + _byteOffset_.
             1. Let _countBytes_ be _count_ &times; _elementSize_.
@@ -35157,18 +35158,18 @@ THH:mm:ss.sss
         <emu-alg>
           1. Let _O_ be the *this* value.
           1. Perform ? ValidateTypedArray(_O_).
-          1. Let _len_ be _O_.[[ArrayLength]].
+          1. Let _len_ be the mathematical value of _O_.[[ArrayLength]].
           1. If _O_.[[ContentType]] is ~BigInt~, set _value_ to ? ToBigInt(_value_).
           1. Otherwise, set _value_ to ? ToNumber(_value_).
-          1. Let _relativeStart_ be ? ToInteger(_start_).
-          1. If _relativeStart_ &lt; 0, let _k_ be max((_len_ + _relativeStart_), *+0*); else let _k_ be min(_relativeStart_, _len_).
-          1. If _end_ is *undefined*, let _relativeEnd_ be _len_; else let _relativeEnd_ be ? ToInteger(_end_).
-          1. If _relativeEnd_ &lt; *+0*, let _final_ be max((_len_ + _relativeEnd_), *+0*); else let _final_ be min(_relativeEnd_, _len_).
+          1. Let _relativeStart_ be the mathematical value of ? ToInteger(_start_).
+          1. If _relativeStart_ &lt; 0, let _k_ be max((_len_ + _relativeStart_), 0); else let _k_ be min(_relativeStart_, _len_).
+          1. If _end_ is *undefined*, let _relativeEnd_ be _len_; else let _relativeEnd_ be the mathematical value of ? ToInteger(_end_).
+          1. If _relativeEnd_ &lt; 0, let _final_ be max((_len_ + _relativeEnd_), 0); else let _final_ be min(_relativeEnd_, _len_).
           1. If IsDetachedBuffer(_O_.[[ViewedArrayBuffer]]) is *true*, throw a *TypeError* exception.
           1. Repeat, while _k_ &lt; _final_,
-            1. Let _Pk_ be ! ToString(_k_).
+            1. Let _Pk_ be ! ToString(𝔽(_k_)).
             1. Perform ! Set(_O_, _Pk_, _value_, *true*).
-            1. Set _k_ to _k_ + 1<sub>𝔽</sub>.
+            1. Set _k_ to _k_ + 1.
           1. Return _O_.
         </emu-alg>
       </emu-clause>
@@ -35385,7 +35386,7 @@ THH:mm:ss.sss
               1. Set _srcBuffer_ to ? CloneArrayBuffer(_srcBuffer_, _srcByteOffset_, _srcByteLength_, %ArrayBuffer%).
               1. NOTE: %ArrayBuffer% is used to clone _srcBuffer_ because is it known to not have any observable side-effects.
               1. Let _srcByteIndex_ be 0.
-            1. Else, let _srcByteIndex_ be the Mathematical value of _srcByteOffset_.
+            1. Else, let _srcByteIndex_ be the mathematical value of _srcByteOffset_.
             1. Let _targetByteIndex_ be ℝ(_targetOffset_) &times; _targetElementSize_ + ℝ(_targetByteOffset_).
             1. Let _limit_ be ℝ(_targetByteIndex_) + _targetElementSize_ &times; ℝ(_srcLength_).
             1. If _srcType_ is the same as _targetType_, then
@@ -35412,11 +35413,11 @@ THH:mm:ss.sss
         <emu-alg>
           1. Let _O_ be the *this* value.
           1. Perform ? ValidateTypedArray(_O_).
-          1. Let _len_ be _O_.[[ArrayLength]].
-          1. Let _relativeStart_ be ? ToInteger(_start_).
-          1. If _relativeStart_ &lt; *+0*, let _k_ be max((ℝ(_len_) + ℝ(_relativeStart_)), 0); else let _k_ be min(ℝ(_relativeStart_), ℝ(_len_)).
-          1. If _end_ is *undefined*, let _relativeEnd_ be _len_; else let _relativeEnd_ be ? ToInteger(_end_).
-          1. If _relativeEnd_ &lt; *+0*, let _final_ be max((ℝ(_len_) + ℝ(_relativeEnd_)), 0); else let _final_ be min(ℝ(_relativeEnd_), ℝ(_len_)).
+          1. Let _len_ be the matehmatical value of _O_.[[ArrayLength]].
+          1. Let _relativeStart_ be the mathematical value of ? ToInteger(_start_).
+          1. If _relativeStart_ &lt; 0, let _k_ be max((_len_ + _relativeStart_), 0); else let _k_ be min(_relativeStart_, _len_).
+          1. If _end_ is *undefined*, let _relativeEnd_ be _len_; else let _relativeEnd_ be the mathematical value of ? ToInteger(_end_).
+          1. If _relativeEnd_ &lt; 0, let _final_ be max((_len_ + _relativeEnd_), 0); else let _final_ be min(_relativeEnd_, _len_).
           1. Let _count_ be max(_final_ - _k_, 0).
           1. Let _A_ be ? TypedArraySpeciesCreate(_O_, &laquo; 𝔽(_count_) &raquo;).
           1. Let _srcName_ be the String value of _O_.[[TypedArrayName]].
@@ -35438,7 +35439,7 @@ THH:mm:ss.sss
             1. Let _elementSize_ be the Element Size value specified in <emu-xref href="#table-the-typedarray-constructors"></emu-xref> for Element Type _srcType_.
             1. NOTE: If _srcType_ and _targetType_ are the same, the transfer must be performed in a manner that preserves the bit-level encoding of the source data.
             1. Let _srcByteOffet_ be _O_.[[ByteOffset]].
-            1. Let _targetByteIndex_ be the Mathematical value of _A_.[[ByteOffset]].
+            1. Let _targetByteIndex_ be the mathematical value of _A_.[[ByteOffset]].
             1. Let _srcByteIndex_ be (_k_ &times; _elementSize_) + ℝ(_srcByteOffet_).
             1. Let _limit_ be _targetByteIndex_ + _count_ &times; _elementSize_.
             1. Repeat, while _targetByteIndex_ &lt; _limit_,
@@ -35500,11 +35501,11 @@ THH:mm:ss.sss
           1. Perform ? RequireInternalSlot(_O_, [[TypedArrayName]]).
           1. Assert: _O_ has a [[ViewedArrayBuffer]] internal slot.
           1. Let _buffer_ be _O_.[[ViewedArrayBuffer]].
-          1. Let _srcLength_ be _O_.[[ArrayLength]].
-          1. Let _relativeBegin_ be ? ToInteger(_begin_).
-          1. If _relativeBegin_ &lt; *+0*, let _beginIndex_ be max((ℝ(_srcLength_) + ℝ(_relativeBegin_)), 0); else let _beginIndex_ be min(ℝ(_relativeBegin_), ℝ(_srcLength_)).
-          1. If _end_ is *undefined*, let _relativeEnd_ be _srcLength_; else let _relativeEnd_ be ? ToInteger(_end_).
-          1. If _relativeEnd_ &lt; *+0*, let _endIndex_ be max((ℝ(_srcLength_) + ℝ(_relativeEnd_)), 0); else let _endIndex_ be min(ℝ(_relativeEnd_), ℝ(_srcLength_)).
+          1. Let _srcLength_ be the mathematical value of _O_.[[ArrayLength]].
+          1. Let _relativeBegin_ be the mathematical value of ? ToInteger(_begin_).
+          1. If _relativeBegin_ &lt; 0, let _beginIndex_ be max((_srcLength_ + _relativeBegin_), 0); else let _beginIndex_ be min(_relativeBegin_, _srcLength_).
+          1. If _end_ is *undefined*, let _relativeEnd_ be _srcLength_; else let _relativeEnd_ be the mathematical value of ? ToInteger(_end_).
+          1. If _relativeEnd_ &lt; 0, let _endIndex_ be max((_srcLength_ + _relativeEnd_), 0); else let _endIndex_ be min(_relativeEnd_, _srcLength_).
           1. Let _newLength_ be max(_endIndex_ - _beginIndex_, 0).
           1. Let _constructorName_ be the String value of _O_.[[TypedArrayName]].
           1. Let _elementSize_ be the Element Size value specified in <emu-xref href="#table-the-typedarray-constructors"></emu-xref> for _constructorName_.
@@ -35664,7 +35665,7 @@ THH:mm:ss.sss
             1. Let _data_ be ? AllocateArrayBuffer(_bufferConstructor_, _byteLength_).
             1. If IsDetachedBuffer(_srcData_) is *true*, throw a *TypeError* exception.
             1. If _srcArray_.[[ContentType]] is not equal to _O_.[[ContentType]], throw a *TypeError* exception.
-            1. Let _srcByteIndex_ be the Mathematical value of _srcByteOffset_.
+            1. Let _srcByteIndex_ be the mathematical value of _srcByteOffset_.
             1. Let _targetByteIndex_ be 0.
             1. Let _count_ be ℝ(_elementLength_).
             1. Repeat, while _count_ &gt; 0,
@@ -38250,8 +38251,9 @@ THH:mm:ss.sss
           1. Else if _space_ has a [[StringData]] internal slot, then
             1. Set _space_ to ? ToString(_space_).
         1. If Type(_space_) is Number, then
-          1. Set _space_ to min(10<sub>𝔽</sub>, ! ToInteger(_space_)).
-          1. If _space_ &lt; 1<sub>𝔽</sub>, let _gap_ be the empty String; otherwise let _gap_ be the String value containing _space_ occurrences of the code unit 0x0020 (SPACE).
+          1. Let _spaceMV_ be the mathematical value of ! ToInteger(_space_).
+          1. Set _space_ to min(10, _spaceMV_).
+          1. If _space_ &lt; 1, let _gap_ be the empty String; otherwise let _gap_ be the String value containing _space_ occurrences of the code unit 0x0020 (SPACE).
         1. Else if Type(_space_) is String, then
           1. If the length of _space_ is 10 or less, let _gap_ be _space_; otherwise let _gap_ be the String value consisting of the first 10 code units of _space_.
         1. Else,
