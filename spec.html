@@ -31522,11 +31522,11 @@ THH:mm:ss.sss
           <h1>Runtime Semantics: RepeatMatcher ( _m_, _min_, _max_, _greedy_, _x_, _c_, _parenIndex_, _parenCount_ )</h1>
           <p>The abstract operation RepeatMatcher takes arguments _m_ (a Matcher), _min_ (an integral Number), _max_ (integral Number or &infin;), _greedy_ (a Boolean), _x_ (a State), _c_ (a Continuation), _parenIndex_ (an integral Number), and _parenCount_ (an integral Number). It performs the following steps when called:</p>
           <emu-alg>
-            1. If _max_ is zero, return _c_(_x_).
+            1. If _max_ is *+0*<sub>𝔽</sub> or *-0*<sub>𝔽</sub>, return _c_(_x_).
             1. Let _d_ be a new Continuation with parameters (_y_) that captures _m_, _min_, _max_, _greedy_, _x_, _c_, _parenIndex_, and _parenCount_ and performs the following steps when called:
               1. Assert: _y_ is a State.
-              1. If _min_ is zero and _y_'s _endIndex_ is equal to _x_'s _endIndex_, return ~failure~.
-              1. If _min_ is zero, let _min2_ be *+0*<sub>𝔽</sub>; otherwise let _min2_ be _min_ - 1<sub>𝔽</sub>.
+              1. If _min_ is *+0*<sub>𝔽</sub> or *-0*<sub>𝔽</sub> and _y_'s _endIndex_ is equal to _x_'s _endIndex_, return ~failure~.
+              1. If _min_ is *+0*<sub>𝔽</sub> or *-0*<sub>𝔽</sub>, let _min2_ be *+0*<sub>𝔽</sub>; otherwise let _min2_ be _min_ - 1<sub>𝔽</sub>.
               1. If _max_ is &infin;, let _max2_ be &infin;; otherwise let _max2_ be _max_ - 1<sub>𝔽</sub>.
               1. Call RepeatMatcher(_m_, _min2_, _max2_, _greedy_, _y_, _c_, _parenIndex_, _parenCount_) and return its result.
             1. Let _cap_ be a copy of _x_'s _captures_ List.
@@ -33933,7 +33933,7 @@ THH:mm:ss.sss
         <emu-alg>
           1. Let _O_ be ? ToObject(*this* value).
           1. Let _len_ be ? LengthOfArrayLike(_O_).
-          1. If _len_ is zero, then
+          1. If _len_ is *+0*<sub>𝔽</sub> or *-0*<sub>𝔽</sub>, then
             1. Perform ? Set(_O_, *"length"*, 0, *true*).
             1. Return *undefined*.
           1. Else,
@@ -34109,7 +34109,7 @@ THH:mm:ss.sss
         <emu-alg>
           1. Let _O_ be ? ToObject(*this* value).
           1. Let _len_ be ? LengthOfArrayLike(_O_).
-          1. If _len_ is zero, then
+          1. If _len_ is *+0*<sub>𝔽</sub> or *-0*<sub>𝔽</sub>, then
             1. Perform ? Set(_O_, *"length"*, 0, *true*).
             1. Return *undefined*.
           1. Let _first_ be ? Get(_O_, *"0"*).
