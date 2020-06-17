@@ -1642,7 +1642,7 @@
               The sum of two infinities of the same sign is the infinity of that sign.
             </li>
             <li>
-              The sum of an infinity and a finite value is equivalent to the infinite operand.
+              The sum of an infinity and a finite value is the infinite operand.
             </li>
             <li>
               The sum of two negative zeroes is *-0*<sub>𝔽</sub>. The sum of two positive zeroes, or of two zeroes of opposite sign, is *+0*<sub>𝔽</sub>.
@@ -5903,7 +5903,7 @@
       <p>The abstract operation CreateArrayFromList takes argument _elements_ (a List). It is used to create an Array object whose elements are provided by _elements_. It performs the following steps when called:</p>
       <emu-alg>
         1. Assert: _elements_ is a List whose elements are all ECMAScript language values.
-        1. Let _array_ be ! ArrayCreate(*+0*<sub>𝔽</sub>).
+        1. Let _array_ be ! ArrayCreate(0).
         1. Let _n_ be 0.
         1. For each element _e_ of _elements_, do
           1. Perform ! CreateDataPropertyOrThrow(_array_, ! ToString(𝔽(_n_)), _e_).
@@ -8943,16 +8943,15 @@
 
       <emu-clause id="sec-arraycreate" aoid="ArrayCreate">
         <h1>ArrayCreate ( _length_ [ , _proto_ ] )</h1>
-        <p>The abstract operation ArrayCreate takes argument _length_ (a non-negative integral Number) and optional argument _proto_. It is used to specify the creation of new Array exotic objects. It performs the following steps when called:</p>
+        <p>The abstract operation ArrayCreate takes argument _length_ (a non-negative integer) and optional argument _proto_. It is used to specify the creation of new Array exotic objects. It performs the following steps when called:</p>
         <emu-alg>
-          1. Assert: ! IsNonNegativeInteger(_length_) is *true*.
-          1. If _length_ is *-0*<sub>𝔽</sub>, set _length_ to *+0*<sub>𝔽</sub>.
-          1. If ℝ(_length_) &gt; 2<sup>32</sup> - 1, throw a *RangeError* exception.
+          1. Assert: ! IsNonNegativeInteger(𝔽(_length_)) is *true*.
+          1. If _length_ &gt; 2<sup>32</sup> - 1, throw a *RangeError* exception.
           1. If _proto_ is not present, set _proto_ to %Array.prototype%.
           1. Let _A_ be ! MakeBasicObject(&laquo; [[Prototype]], [[Extensible]] &raquo;).
           1. Set _A_.[[Prototype]] to _proto_.
           1. Set _A_.[[DefineOwnProperty]] as specified in <emu-xref href="#sec-array-exotic-objects-defineownproperty-p-desc"></emu-xref>.
-          1. Perform ! OrdinaryDefineOwnProperty(_A_, *"length"*, PropertyDescriptor { [[Value]]: _length_, [[Writable]]: *true*, [[Enumerable]]: *false*, [[Configurable]]: *false* }).
+          1. Perform ! OrdinaryDefineOwnProperty(_A_, *"length"*, PropertyDescriptor { [[Value]]: 𝔽(_length_), [[Writable]]: *true*, [[Enumerable]]: *false*, [[Configurable]]: *false* }).
           1. Return _A_.
         </emu-alg>
       </emu-clause>
@@ -8961,8 +8960,7 @@
         <h1>ArraySpeciesCreate ( _originalArray_, _length_ )</h1>
         <p>The abstract operation ArraySpeciesCreate takes arguments _originalArray_ and _length_. It is used to specify the creation of a new Array object using a constructor function that is derived from _originalArray_. It performs the following steps when called:</p>
         <emu-alg>
-          1. Assert: ! IsNonNegativeInteger(_length_) is *true*.
-          1. If _length_ is *-0*<sub>𝔽</sub>, set _length_ to *+0*<sub>𝔽</sub>.
+          1. Assert: ! IsNonNegativeInteger(𝔽(_length_)) is *true*.
           1. Let _isArray_ be ? IsArray(_originalArray_).
           1. If _isArray_ is *false*, return ? ArrayCreate(_length_).
           1. Let _C_ be ? Get(_originalArray_, *"constructor"*).
@@ -8976,7 +8974,7 @@
             1. If _C_ is *null*, set _C_ to *undefined*.
           1. If _C_ is *undefined*, return ? ArrayCreate(_length_).
           1. If IsConstructor(_C_) is *false*, throw a *TypeError* exception.
-          1. Return ? Construct(_C_, &laquo; _length_ &raquo;).
+          1. Return ? Construct(_C_, &laquo; 𝔽(_length_) &raquo;).
         </emu-alg>
         <emu-note>
           <p>If _originalArray_ was created using the standard built-in Array constructor for a realm that is not the realm of the running execution context, then a new Array is created using the realm of the running execution context. This maintains compatibility with Web browsers that have historically had that behaviour for the `Array.prototype` methods that now are defined using ArraySpeciesCreate.</p>
@@ -9427,7 +9425,7 @@
         <emu-alg>
           1. Let _keys_ be a new empty List.
           1. Assert: _O_ is an Integer-Indexed exotic object.
-          1. Let _len_ be the mathematical value of _O_.[[ArrayLength]].
+          1. Let _len_ be _O_.[[ArrayLength]].
           1. For each integer _i_ starting with 0 such that _i_ &lt; _len_, in ascending order, do
             1. Add ! ToString(𝔽(_i_)) as the last element of _keys_.
           1. For each own property key _P_ of _O_ such that Type(_P_) is String and _P_ is not an integer index, in ascending chronological order of property creation, do
@@ -9463,7 +9461,7 @@
           1. Assert: Type(_index_) is Number.
           1. If ! IsInteger(_index_) is *false*, return *false*.
           1. If _index_ is *-0*<sub>𝔽</sub>, return *false*.
-          1. If ℝ(_index_) &lt; 0 or ℝ(_index_) &ge; ℝ(_O_.[[ArrayLength]]), return *false*.
+          1. If ℝ(_index_) &lt; 0 or ℝ(_index_) &ge; _O_.[[ArrayLength]], return *false*.
           1. Return *true*.
         </emu-alg>
       </emu-clause>
@@ -9480,7 +9478,7 @@
           1. Let _offset_ be _O_.[[ByteOffset]].
           1. Let _arrayTypeName_ be the String value of _O_.[[TypedArrayName]].
           1. Let _elementSize_ be the Element Size value specified in <emu-xref href="#table-the-typedarray-constructors"></emu-xref> for _arrayTypeName_.
-          1. Let _indexedPosition_ be (ℝ(_index_) &times; _elementSize_) + ℝ(_offset_).
+          1. Let _indexedPosition_ be (ℝ(_index_) &times; _elementSize_) + _offset_.
           1. Let _elementType_ be the Element Type value in <emu-xref href="#table-the-typedarray-constructors"></emu-xref> for _arrayTypeName_.
           1. Return GetValueFromBuffer(_buffer_, 𝔽(_indexedPosition_), _elementType_, *true*, ~Unordered~).
         </emu-alg>
@@ -9500,9 +9498,9 @@
           1. Let _offset_ be _O_.[[ByteOffset]].
           1. Let _arrayTypeName_ be the String value of _O_.[[TypedArrayName]].
           1. Let _elementSize_ be the Element Size value specified in <emu-xref href="#table-the-typedarray-constructors"></emu-xref> for _arrayTypeName_.
-          1. Let _indexedPosition_ be (_index_ &times; _elementSize_) + _offset_.
+          1. Let _indexedPosition_ be (ℝ(_index_) &times; _elementSize_) + _offset_.
           1. Let _elementType_ be the Element Type value in <emu-xref href="#table-the-typedarray-constructors"></emu-xref> for _arrayTypeName_.
-          1. Perform SetValueInBuffer(_buffer_, _indexedPosition_, _elementType_, _numValue_, *true*, ~Unordered~).
+          1. Perform SetValueInBuffer(_buffer_, 𝔽(_indexedPosition_), _elementType_, _numValue_, *true*, ~Unordered~).
           1. Return *true*.
         </emu-alg>
       </emu-clause>
@@ -13156,9 +13154,8 @@
           1. Let _cookedStrings_ be TemplateStrings of _templateLiteral_ with argument *false*.
           1. Let _count_ be the number of elements in the List _cookedStrings_.
           1. Assert: _count_ &le; 2<sup>32</sup> - 1.
-          1. Let _countNumber_ be the Nubmer value for _count_.
-          1. Let _template_ be ! ArrayCreate(_countNumber_).
-          1. Let _rawObj_ be ! ArrayCreate(_countNumber_).
+          1. Let _template_ be ! ArrayCreate(_count_).
+          1. Let _rawObj_ be ! ArrayCreate(_count_).
           1. Let _index_ be 0.
           1. Repeat, while _index_ &lt; _count_,
             1. Let _indexNumber_ be the Number value for _index_.
@@ -15728,7 +15725,7 @@
           1. If |DestructuringAssignmentTarget| is neither an |ObjectLiteral| nor an |ArrayLiteral|, then
             1. Let _lref_ be the result of evaluating |DestructuringAssignmentTarget|.
             1. ReturnIfAbrupt(_lref_).
-          1. Let _A_ be ! ArrayCreate(*+0*<sub>𝔽</sub>).
+          1. Let _A_ be ! ArrayCreate(0).
           1. Let _n_ be 0.
           1. Repeat, while _iteratorRecord_.[[Done]] is *false*,
             1. Let _next_ be IteratorStep(_iteratorRecord_).
@@ -17037,7 +17034,7 @@
         <emu-grammar>BindingRestElement : `...` BindingIdentifier</emu-grammar>
         <emu-alg>
           1. Let _lhs_ be ? ResolveBinding(StringValue of |BindingIdentifier|, _environment_).
-          1. Let _A_ be ! ArrayCreate(*+0*<sub>𝔽</sub>).
+          1. Let _A_ be ! ArrayCreate(0).
           1. Let _n_ be 0.
           1. Repeat,
             1. If _iteratorRecord_.[[Done]] is *false*, then
@@ -17056,7 +17053,7 @@
         </emu-alg>
         <emu-grammar>BindingRestElement : `...` BindingPattern</emu-grammar>
         <emu-alg>
-          1. Let _A_ be ! ArrayCreate(*+0*<sub>𝔽</sub>).
+          1. Let _A_ be ! ArrayCreate(0).
           1. Let _n_ be 0.
           1. Repeat,
             1. If _iteratorRecord_.[[Done]] is *false*, then
@@ -30440,7 +30437,7 @@ THH:mm:ss.sss
             1. If _splitter_ is not *undefined*, then
               1. Return ? Call(_splitter_, _separator_, &laquo; _O_, _limit_ &raquo;).
           1. Let _S_ be ? ToString(_O_).
-          1. Let _A_ be ! ArrayCreate(*+0*<sub>𝔽</sub>).
+          1. Let _A_ be ! ArrayCreate(0).
           1. Let _lengthA_ be 0.
           1. If _limit_ is *undefined*, let _lim_ be 2<sup>32</sup> - 1; else let _lim_ be the mathematical value of ? ToUint32(_limit_).
           1. Let _R_ be ? ToString(_separator_).
@@ -31525,7 +31522,7 @@ THH:mm:ss.sss
             1. If _max_ is *+0*<sub>𝔽</sub> or *-0*<sub>𝔽</sub>, return _c_(_x_).
             1. Let _d_ be a new Continuation with parameters (_y_) that captures _m_, _min_, _max_, _greedy_, _x_, _c_, _parenIndex_, and _parenCount_ and performs the following steps when called:
               1. Assert: _y_ is a State.
-              1. If _min_ is *+0*<sub>𝔽</sub> or *-0*<sub>𝔽</sub> and _y_'s _endIndex_ is equivalent to _x_'s _endIndex_, return ~failure~.
+              1. If _min_ is *+0*<sub>𝔽</sub> or *-0*<sub>𝔽</sub> and _y_'s _endIndex_ = _x_'s _endIndex_, return ~failure~.
               1. If _min_ is *+0*<sub>𝔽</sub> or *-0*<sub>𝔽</sub>, let _min2_ be *+0*<sub>𝔽</sub>; otherwise let _min2_ be _min_ - 1<sub>𝔽</sub>.
               1. If _max_ is &infin;, let _max2_ be &infin;; otherwise let _max2_ be _max_ - 1<sub>𝔽</sub>.
               1. Call RepeatMatcher(_m_, _min2_, _max2_, _greedy_, _y_, _c_, _parenIndex_, _parenCount_) and return its result.
@@ -32649,9 +32646,8 @@ THH:mm:ss.sss
               1. Perform ? Set(_R_, *"lastIndex"*, 𝔽(_e_), *true*).
             1. Let _n_ be the number of elements in _r_'s _captures_ List. (This is the same value as <emu-xref href="#sec-notation"></emu-xref>'s _NcapturingParens_.)
             1. Assert: _n_ &lt; 2<sup>32</sup> - 1.
-            1. Let _nNumber_ be the Number value of _n_.
-            1. Let _A_ be ! ArrayCreate(_nNumber_ + 1<sub>𝔽</sub>).
-            1. Assert: The value of _A_'s *"length"* property is _nNumber_ + 1<sub>𝔽</sub>.
+            1. Let _A_ be ! ArrayCreate(_n_ + 1).
+            1. Assert: The mathematical value of _A_'s *"length"* property is _n_ + 1.
             1. Perform ! CreateDataPropertyOrThrow(_A_, *"index"*, _lastIndex_).
             1. Perform ! CreateDataPropertyOrThrow(_A_, *"input"*, _S_).
             1. Let _matchedSubstr_ be the matched substring (i.e. the portion of _S_ between offset _lastIndex_ inclusive and offset _e_ exclusive).
@@ -32987,7 +32983,7 @@ THH:mm:ss.sss
           1. If _flags_ contains *"y"*, let _newFlags_ be _flags_.
           1. Else, let _newFlags_ be the string-concatenation of _flags_ and *"y"*.
           1. Let _splitter_ be ? Construct(_C_, &laquo; _rx_, _newFlags_ &raquo;).
-          1. Let _A_ be ! ArrayCreate(*+0*<sub>𝔽</sub>).
+          1. Let _A_ be ! ArrayCreate(0).
           1. Let _lengthA_ be 0.
           1. If _limit_ is *undefined*, let _lim_ be 2<sup>32</sup> - 1; else let _lim_ be the mathematical value of ? ToUint32(_limit_).
           1. If _lim_ is 0, return _A_.
@@ -33255,7 +33251,7 @@ THH:mm:ss.sss
           1. Assert: _numberOfArgs_ &ge; 2.
           1. If NewTarget is *undefined*, let _newTarget_ be the active function object; else let _newTarget_ be NewTarget.
           1. Let _proto_ be ? GetPrototypeFromConstructor(_newTarget_, *"%Array.prototype%"*).
-          1. Let _array_ be ? ArrayCreate(𝔽(__numberOfArgs_), _proto_).
+          1. Let _array_ be ? ArrayCreate(_numberOfArgs_, _proto_).
           1. Let _k_ be 0.
           1. Let _items_ be a zero-origined List containing the argument items in order.
           1. Repeat, while _k_ &lt; _numberOfArgs_,
@@ -33291,7 +33287,7 @@ THH:mm:ss.sss
             1. If IsConstructor(_C_) is *true*, then
               1. Let _A_ be ? Construct(_C_).
             1. Else,
-              1. Let _A_ be ! ArrayCreate(*+0*<sub>𝔽</sub>).
+              1. Let _A_ be ! ArrayCreate(0).
             1. Let _iteratorRecord_ be ? GetIterator(_items_, ~sync~, _usingIterator_).
             1. Let _k_ be 0.
             1. Repeat,
@@ -33319,7 +33315,7 @@ THH:mm:ss.sss
           1. If IsConstructor(_C_) is *true*, then
             1. Let _A_ be ? Construct(_C_, &laquo; _len_ &raquo;).
           1. Else,
-            1. Let _A_ be ? ArrayCreate(_len_).
+            1. Let _A_ be ? ArrayCreate(ℝ(_len_)).
           1. Let _k_ be 0.
           1. Repeat, while _k_ &lt; ℝ(_len_),
             1. Let _kNumber_ be the Number value for _k_.
@@ -33357,7 +33353,7 @@ THH:mm:ss.sss
           1. If IsConstructor(_C_) is *true*, then
             1. Let _A_ be ? Construct(_C_, &laquo; _lenNumber_ &raquo;).
           1. Else,
-            1. Let _A_ be ? ArrayCreate(_lenNumber_).
+            1. Let _A_ be ? ArrayCreate(_len_).
           1. Let _k_ be 0.
           1. Repeat, while _k_ &lt; _len_,
             1. Let _kValue_ be _items_[_k_].
@@ -33413,7 +33409,7 @@ THH:mm:ss.sss
         <p>The following steps are taken:</p>
         <emu-alg>
           1. Let _O_ be ? ToObject(*this* value).
-          1. Let _A_ be ? ArraySpeciesCreate(_O_, *+0*<sub>𝔽</sub>).
+          1. Let _A_ be ? ArraySpeciesCreate(_O_, 0).
           1. Let _n_ be 0.
           1. Let _items_ be a List whose first element is _O_ and whose subsequent elements are, in left to right order, the arguments that were passed to this function invocation.
           1. Repeat, while _items_ is not empty,
@@ -33586,7 +33582,7 @@ THH:mm:ss.sss
           1. Let _O_ be ? ToObject(*this* value).
           1. Let _len_ be the mathematical value of ? LengthOfArrayLike(_O_).
           1. If IsCallable(_callbackfn_) is *false*, throw a *TypeError* exception.
-          1. Let _A_ be ? ArraySpeciesCreate(_O_, *+0*<sub>𝔽</sub>).
+          1. Let _A_ be ? ArraySpeciesCreate(_O_, 0).
           1. Let _k_ be 0.
           1. Let _to_ be 0.
           1. Repeat, while _k_ &lt; _len_,
@@ -33672,7 +33668,7 @@ THH:mm:ss.sss
           1. Let _depthNum_ be 1<sub>𝔽</sub>.
           1. If _depth_ is not *undefined*, then
             1. Set _depthNum_ to ? ToInteger(_depth_).
-          1. Let _A_ be ? ArraySpeciesCreate(_O_, *+0*<sub>𝔽</sub>).
+          1. Let _A_ be ? ArraySpeciesCreate(_O_, 0).
           1. Perform ? FlattenIntoArray(_A_, _O_, _sourceLen_, *+0*<sub>𝔽</sub>, _depthNum_).
           1. Return _A_.
         </emu-alg>
@@ -33719,7 +33715,7 @@ THH:mm:ss.sss
           1. Let _O_ be ? ToObject(*this* value).
           1. Let _sourceLen_ be ? LengthOfArrayLike(_O_).
           1. If ! IsCallable(_mapperFunction_) is *false*, throw a *TypeError* exception.
-          1. Let _A_ be ? ArraySpeciesCreate(_O_, *+0*<sub>𝔽</sub>).
+          1. Let _A_ be ? ArraySpeciesCreate(_O_, 0).
           1. Perform ? FlattenIntoArray(_A_, _O_, _sourceLen_, *+0*<sub>𝔽</sub>, 1<sub>𝔽</sub>, _mapperFunction_, _thisArg_).
           1. Return _A_.
         </emu-alg>
@@ -34148,7 +34144,7 @@ THH:mm:ss.sss
           1. If _end_ is *undefined*, let _relativeEnd_ be _len_; else let _relativeEnd_ be the mathematical value of ? ToInteger(_end_).
           1. If _relativeEnd_ &lt; 0, let _final_ be max((_len_ + _relativeEnd_), 0); else let _final_ be min(_relativeEnd_, _len_).
           1. Let _count_ be max(_final_ - _k_, 0).
-          1. Let _A_ be ? ArraySpeciesCreate(_O_, 𝔽(_count_)).
+          1. Let _A_ be ? ArraySpeciesCreate(_O_, _count_).
           1. Let _n_ be 0.
           1. Repeat, while _k_ &lt; _final_,
             1. Let _Pk_ be ! ToString(𝔽(_k_)).
@@ -34355,7 +34351,7 @@ THH:mm:ss.sss
             1. Let _dc_ be the mathematical value of ? ToInteger(_deleteCount_).
             1. Let _actualDeleteCount_ be min(max(_dc_, 0), _len_ - _actualStart_).
           1. If _len_ + _insertCount_ - _actualDeleteCount_ &gt; 2<sup>53</sup> - 1, throw a *TypeError* exception.
-          1. Let _A_ be ? ArraySpeciesCreate(_O_, 𝔽(_actualDeleteCount_)).
+          1. Let _A_ be ? ArraySpeciesCreate(_O_, _actualDeleteCount_).
           1. Let _k_ be 0.
           1. Repeat, while _k_ &lt; _actualDeleteCount_,
             1. Let _from_ be ! ToString(𝔽(_actualStart_ + _k_)).
@@ -34592,7 +34588,7 @@ THH:mm:ss.sss
             1. Let _itemKind_ be _O_.[[ArrayLikeIterationKind]].
             1. If _a_ has a [[TypedArrayName]] internal slot, then
               1. If IsDetachedBuffer(_a_.[[ViewedArrayBuffer]]) is *true*, throw a *TypeError* exception.
-              1. Let _len_ be the mathematical value of _a_.[[ArrayLength]].
+              1. Let _len_ be _a_.[[ArrayLength]].
             1. Else,
               1. Let _len_ be the mathematical value of ? LengthOfArrayLike(_a_).
             1. If _index_ &ge; _len_, then
@@ -35060,7 +35056,7 @@ THH:mm:ss.sss
           1. Let _buffer_ be _O_.[[ViewedArrayBuffer]].
           1. If IsDetachedBuffer(_buffer_) is *true*, return 0.
           1. Let _size_ be _O_.[[ByteLength]].
-          1. Return _size_.
+          1. Return the Number value for _size_.
         </emu-alg>
       </emu-clause>
 
@@ -35074,7 +35070,7 @@ THH:mm:ss.sss
           1. Let _buffer_ be _O_.[[ViewedArrayBuffer]].
           1. If IsDetachedBuffer(_buffer_) is *true*, return 0.
           1. Let _offset_ be _O_.[[ByteOffset]].
-          1. Return _offset_.
+          1. Return the Number value for _offset_.
         </emu-alg>
       </emu-clause>
 
@@ -35091,20 +35087,20 @@ THH:mm:ss.sss
           1. Let _O_ be the *this* value.
           1. Perform ? ValidateTypedArray(_O_).
           1. Let _len_ be _O_.[[ArrayLength]].
-          1. Let _relativeTarget_ be ? ToInteger(_target_).
-          1. If ℝ(_relativeTarget_) &lt; 0, let _to_ be max((ℝ(_len_) + ℝ(_relativeTarget_)), 0); else let _to_ be min(ℝ(_relativeTarget_), ℝ(_len_)).
-          1. Let _relativeStart_ be ? ToInteger(_start_).
-          1. If ℝ(_relativeStart_) &lt; 0, let _from_ be max((ℝ(_len_) + ℝ(_relativeStart_)), 0); else let _from_ be min(ℝ(_relativeStart_), ℝ(_len_)).
-          1. If _end_ is *undefined*, let _relativeEnd_ be _len_; else let _relativeEnd_ be ? ToInteger(_end_).
-          1. If ℝ(_relativeEnd_) &lt; 0, let _final_ be max((ℝ(_len_) + ℝ(_relativeEnd_)), 0); else let _final_ be min(ℝ(_relativeEnd_), ℝ(_len_)).
-          1. Let _count_ be min(ℝ(_final_) - ℝ(_from_), ℝ(_len_) - ℝ(_to_)).
+          1. Let _relativeTarget_ be the mathematical value of ? ToInteger(_target_).
+          1. If _relativeTarget_ &lt; 0, let _to_ be max((_len_ + _relativeTarget_), 0); else let _to_ be min(_relativeTarget_, _len_).
+          1. Let _relativeStart_ be the mathematical value of ? ToInteger(_start_).
+          1. If _relativeStart_ &lt; 0, let _from_ be max(_len_ + _relativeStart_, 0); else let _from_ be min(_relativeStart_, _len_).
+          1. If _end_ is *undefined*, let _relativeEnd_ be _len_; else let _relativeEnd_ be the mathematical value of ? ToInteger(_end_).
+          1. If _relativeEnd_ &lt; 0, let _final_ be max((_len_ + _relativeEnd_), 0); else let _final_ be min(_relativeEnd_, _len_).
+          1. Let _count_ be min(_final_ - _from_, _len_ - _to_).
           1. If _count_ &gt; 0, then
             1. NOTE: The copying must be performed in a manner that preserves the bit-level encoding of the source data.
             1. Let _buffer_ be _O_.[[ViewedArrayBuffer]].
             1. If IsDetachedBuffer(_buffer_) is *true*, throw a *TypeError* exception.
             1. Let _typedArrayName_ be the String value of _O_.[[TypedArrayName]].
             1. Let _elementSize_ be the Element Size value specified in <emu-xref href="#table-the-typedarray-constructors"></emu-xref> for _typedArrayName_.
-            1. Let _byteOffset_ be the mathematical value of _O_.[[ByteOffset]].
+            1. Let _byteOffset_ be _O_.[[ByteOffset]].
             1. Let _toByteIndex_ be _to_ &times; _elementSize_ + _byteOffset_.
             1. Let _fromByteIndex_ be _from_ &times; _elementSize_ + _byteOffset_.
             1. Let _countBytes_ be _count_ &times; _elementSize_.
@@ -35159,7 +35155,7 @@ THH:mm:ss.sss
         <emu-alg>
           1. Let _O_ be the *this* value.
           1. Perform ? ValidateTypedArray(_O_).
-          1. Let _len_ be the mathematical value of _O_.[[ArrayLength]].
+          1. Let _len_ be _O_.[[ArrayLength]].
           1. If _O_.[[ContentType]] is ~BigInt~, set _value_ to ? ToBigInt(_value_).
           1. Otherwise, set _value_ to ? ToNumber(_value_).
           1. Let _relativeStart_ be the mathematical value of ? ToInteger(_start_).
@@ -35267,7 +35263,7 @@ THH:mm:ss.sss
           1. Let _buffer_ be _O_.[[ViewedArrayBuffer]].
           1. If IsDetachedBuffer(_buffer_) is *true*, return 0.
           1. Let _length_ be _O_.[[ArrayLength]].
-          1. Return _length_.
+          1. Return the Nubmer value for _length_.
         </emu-alg>
         <p>This function is not generic. The *this* value must be an object with a [[TypedArrayName]] internal slot.</p>
       </emu-clause>
@@ -35281,9 +35277,9 @@ THH:mm:ss.sss
           1. Perform ? ValidateTypedArray(_O_).
           1. Let _len_ be _O_.[[ArrayLength]].
           1. If IsCallable(_callbackfn_) is *false*, throw a *TypeError* exception.
-          1. Let _A_ be ? TypedArraySpeciesCreate(_O_, &laquo; _len_ &raquo;).
+          1. Let _A_ be ? TypedArraySpeciesCreate(_O_, &laquo; 𝔽(_len_) &raquo;).
           1. Let _k_ be 0.
-          1. Repeat, while _k_ &lt; ℝ(_len_),
+          1. Repeat, while _k_ &lt; _len_,
             1. Let _Pk_ be ! ToString(𝔽(_k_)).
             1. Let _kValue_ be ? Get(_O_, _Pk_).
             1. Let _mappedValue_ be ? Call(_callbackfn_, _thisArg_, &laquo; _kValue_, 𝔽(_k_), _O_ &raquo;).
@@ -35325,8 +35321,8 @@ THH:mm:ss.sss
             1. Let _target_ be the *this* value.
             1. Perform ? RequireInternalSlot(_target_, [[TypedArrayName]]).
             1. Assert: _target_ has a [[ViewedArrayBuffer]] internal slot.
-            1. Let _targetOffset_ be ? ToInteger(_offset_).
-            1. If ℝ(_targetOffset_) &lt; 0, throw a *RangeError* exception.
+            1. Let _targetOffset_ be the mathematical value of ? ToInteger(_offset_).
+            1. If _targetOffset_ &lt; 0, throw a *RangeError* exception.
             1. Let _targetBuffer_ be _target_.[[ViewedArrayBuffer]].
             1. If IsDetachedBuffer(_targetBuffer_) is *true*, throw a *TypeError* exception.
             1. Let _targetLength_ be _target_.[[ArrayLength]].
@@ -35335,18 +35331,18 @@ THH:mm:ss.sss
             1. Let _targetType_ be the Element Type value in <emu-xref href="#table-the-typedarray-constructors"></emu-xref> for _targetName_.
             1. Let _targetByteOffset_ be _target_.[[ByteOffset]].
             1. Let _src_ be ? ToObject(_array_).
-            1. Let _srcLength_ be ? LengthOfArrayLike(_src_).
-            1. If ℝ(_srcLength_) + ℝ(_targetOffset_) &gt; ℝ(_targetLength_), throw a *RangeError* exception.
-            1. Let _targetByteIndex_ be ℝ(_targetOffset_) &times; _targetElementSize_ + ℝ(_targetByteOffset_).
+            1. Let _srcLength_ be the mathematical value of ? LengthOfArrayLike(_src_).
+            1. If _srcLength_ + _targetOffset_ &gt; _targetLength_, throw a *RangeError* exception.
+            1. Let _targetByteIndex_ be _targetOffset_ &times; _targetElementSize_ + _targetByteOffset_.
             1. Let _k_ be 0.
-            1. Let _limit_ be _targetByteIndex_ + _targetElementSize_ &times; ℝ(_srcLength_).
+            1. Let _limit_ be _targetByteIndex_ + _targetElementSize_ &times; _srcLength_.
             1. Repeat, while _targetByteIndex_ &lt; _limit_,
               1. Let _Pk_ be ! ToString(𝔽(_k_)).
               1. Let _value_ be ? Get(_src_, _Pk_).
               1. If _target_.[[ContentType]] is ~BigInt~, set _value_ to ? ToBigInt(_value_).
               1. Otherwise, set _value_ to ? ToNumber(_value_).
               1. If IsDetachedBuffer(_targetBuffer_) is *true*, throw a *TypeError* exception.
-              1. Perform SetValueInBuffer(_targetBuffer_, 𝔽(_targetByteIndex_𝔽(, _targetType_, _value_, *true*, ~Unordered~).
+              1. Perform SetValueInBuffer(_targetBuffer_, 𝔽(_targetByteIndex_), _targetType_, _value_, *true*, ~Unordered~).
               1. Set _k_ to _k_ + 1.
               1. Set _targetByteIndex_ to _targetByteIndex_ + _targetElementSize_.
             1. Return *undefined*.
@@ -35361,8 +35357,8 @@ THH:mm:ss.sss
             1. Let _target_ be the *this* value.
             1. Perform ? RequireInternalSlot(_target_, [[TypedArrayName]]).
             1. Assert: _target_ has a [[ViewedArrayBuffer]] internal slot.
-            1. Let _targetOffset_ be ? ToInteger(_offset_).
-            1. If ℝ(_targetOffset_) &lt; 0, throw a *RangeError* exception.
+            1. Let _targetOffset_ be the mathematical value of ? ToInteger(_offset_).
+            1. If _targetOffset_ &lt; 0, throw a *RangeError* exception.
             1. Let _targetBuffer_ be _target_.[[ViewedArrayBuffer]].
             1. If IsDetachedBuffer(_targetBuffer_) is *true*, throw a *TypeError* exception.
             1. Let _targetLength_ be _target_.[[ArrayLength]].
@@ -35377,7 +35373,7 @@ THH:mm:ss.sss
             1. Let _srcElementSize_ be the Element Size value specified in <emu-xref href="#table-the-typedarray-constructors"></emu-xref> for _srcName_.
             1. Let _srcLength_ be _typedArray_.[[ArrayLength]].
             1. Let _srcByteOffset_ be _typedArray_.[[ByteOffset]].
-            1. If ℝ(_srcLength_) + ℝ(_targetOffset_) &gt; ℝ(_targetLength_), throw a *RangeError* exception.
+            1. If _srcLength_ + _targetOffset_ &gt; _targetLength_, throw a *RangeError* exception.
             1. If _target_.[[ContentType]] is not equal to _typedArray_.[[ContentType]], throw a *TypeError* exception.
             1. If both IsSharedArrayBuffer(_srcBuffer_) and IsSharedArrayBuffer(_targetBuffer_) are *true*, then
               1. If _srcBuffer_.[[ArrayBufferData]] and _targetBuffer_.[[ArrayBufferData]] are the same Shared Data Block values, let _same_ be *true*; else let _same_ be *false*.
@@ -35388,8 +35384,8 @@ THH:mm:ss.sss
               1. NOTE: %ArrayBuffer% is used to clone _srcBuffer_ because is it known to not have any observable side-effects.
               1. Let _srcByteIndex_ be 0.
             1. Else, let _srcByteIndex_ be the mathematical value of _srcByteOffset_.
-            1. Let _targetByteIndex_ be ℝ(_targetOffset_) &times; _targetElementSize_ + ℝ(_targetByteOffset_).
-            1. Let _limit_ be ℝ(_targetByteIndex_) + _targetElementSize_ &times; ℝ(_srcLength_).
+            1. Let _targetByteIndex_ be _targetOffset_ &times; _targetElementSize_ + _targetByteOffset_.
+            1. Let _limit_ be _targetByteIndex_ + _targetElementSize_ &times; _srcLength_.
             1. If _srcType_ is the same as _targetType_, then
               1. NOTE: If _srcType_ and _targetType_ are the same, the transfer must be performed in a manner that preserves the bit-level encoding of the source data.
               1. Repeat, while _targetByteIndex_ &lt; _limit_,
@@ -35414,7 +35410,7 @@ THH:mm:ss.sss
         <emu-alg>
           1. Let _O_ be the *this* value.
           1. Perform ? ValidateTypedArray(_O_).
-          1. Let _len_ be the matehmatical value of _O_.[[ArrayLength]].
+          1. Let _len_ be _O_.[[ArrayLength]].
           1. Let _relativeStart_ be the mathematical value of ? ToInteger(_start_).
           1. If _relativeStart_ &lt; 0, let _k_ be max((_len_ + _relativeStart_), 0); else let _k_ be min(_relativeStart_, _len_).
           1. If _end_ is *undefined*, let _relativeEnd_ be _len_; else let _relativeEnd_ be the mathematical value of ? ToInteger(_end_).
@@ -35440,8 +35436,8 @@ THH:mm:ss.sss
             1. Let _elementSize_ be the Element Size value specified in <emu-xref href="#table-the-typedarray-constructors"></emu-xref> for Element Type _srcType_.
             1. NOTE: If _srcType_ and _targetType_ are the same, the transfer must be performed in a manner that preserves the bit-level encoding of the source data.
             1. Let _srcByteOffet_ be _O_.[[ByteOffset]].
-            1. Let _targetByteIndex_ be the mathematical value of _A_.[[ByteOffset]].
-            1. Let _srcByteIndex_ be (_k_ &times; _elementSize_) + ℝ(_srcByteOffet_).
+            1. Let _targetByteIndex_ be _A_.[[ByteOffset]].
+            1. Let _srcByteIndex_ be (_k_ &times; _elementSize_) + _srcByteOffet_.
             1. Let _limit_ be _targetByteIndex_ + _count_ &times; _elementSize_.
             1. Repeat, while _targetByteIndex_ &lt; _limit_,
               1. Let _value_ be GetValueFromBuffer(_srcBuffer_, 𝔽(_srcByteIndex_), ~Uint8~, *true*, ~Unordered~).
@@ -35502,7 +35498,7 @@ THH:mm:ss.sss
           1. Perform ? RequireInternalSlot(_O_, [[TypedArrayName]]).
           1. Assert: _O_ has a [[ViewedArrayBuffer]] internal slot.
           1. Let _buffer_ be _O_.[[ViewedArrayBuffer]].
-          1. Let _srcLength_ be the mathematical value of _O_.[[ArrayLength]].
+          1. Let _srcLength_ be _O_.[[ArrayLength]].
           1. Let _relativeBegin_ be the mathematical value of ? ToInteger(_begin_).
           1. If _relativeBegin_ &lt; 0, let _beginIndex_ be max((_srcLength_ + _relativeBegin_), 0); else let _beginIndex_ be min(_relativeBegin_, _srcLength_).
           1. If _end_ is *undefined*, let _relativeEnd_ be _srcLength_; else let _relativeEnd_ be the mathematical value of ? ToInteger(_end_).
@@ -35629,9 +35625,9 @@ THH:mm:ss.sss
             1. Let _byteLength_ be _elementSize_ &times; _length_.
             1. Let _data_ be ? AllocateArrayBuffer(%ArrayBuffer%, _byteLength_).
             1. Set _O_.[[ViewedArrayBuffer]] to _data_.
-            1. Set _O_.[[ByteLength]] to _byteLength_.
+            1. Set _O_.[[ByteLength]] to ℝ(_byteLength_).
             1. Set _O_.[[ByteOffset]] to 0.
-            1. Set _O_.[[ArrayLength]] to _length_.
+            1. Set _O_.[[ArrayLength]] to ℝ(_length_).
             1. Return _O_.
           </emu-alg>
         </emu-clause>
@@ -35662,14 +35658,14 @@ THH:mm:ss.sss
           1. Else,
             1. Let _bufferConstructor_ be %ArrayBuffer%.
           1. If _elementType_ is the same as _srcType_, then
-            1. Let _data_ be ? CloneArrayBuffer(_srcData_, _srcByteOffset_, 𝔽(_byteLength_), _bufferConstructor_).
+            1. Let _data_ be ? CloneArrayBuffer(_srcData_, _srcByteOffset_, _byteLength_, _bufferConstructor_).
           1. Else,
             1. Let _data_ be ? AllocateArrayBuffer(_bufferConstructor_, _byteLength_).
             1. If IsDetachedBuffer(_srcData_) is *true*, throw a *TypeError* exception.
             1. If _srcArray_.[[ContentType]] is not equal to _O_.[[ContentType]], throw a *TypeError* exception.
-            1. Let _srcByteIndex_ be the mathematical value of _srcByteOffset_.
+            1. Let _srcByteIndex_ be _srcByteOffset_.
             1. Let _targetByteIndex_ be 0.
-            1. Let _count_ be ℝ(_elementLength_).
+            1. Let _count_ be _elementLength_.
             1. Repeat, while _count_ &gt; 0,
               1. Let _value_ be GetValueFromBuffer(_srcData_, 𝔽(_srcByteIndex_), _srcType_, *true*, ~Unordered~).
               1. Perform SetValueInBuffer(_data_, 𝔽(_targetByteIndex_), _elementType_, _value_, *true*, ~Unordered~).
@@ -35730,23 +35726,23 @@ THH:mm:ss.sss
           1. Let _constructorName_ be the String value of the Constructor Name value specified in <emu-xref href="#table-the-typedarray-constructors"></emu-xref> for this <var>TypedArray</var> constructor.
           1. Let _O_ be ? AllocateTypedArray(_constructorName_, NewTarget, <code>"%<var>TypedArray</var>.prototype%"</code>).
           1. Let _elementSize_ be the Element Size value specified in <emu-xref href="#table-the-typedarray-constructors"></emu-xref> for _constructorName_.
-          1. Let _offset_ be ? ToIndex(_byteOffset_).
-          1. If ℝ(_offset_) modulo _elementSize_ &ne; 0, throw a *RangeError* exception.
+          1. Let _offset_ be the mathematical value of ? ToIndex(_byteOffset_).
+          1. If _offset_ modulo _elementSize_ &ne; 0, throw a *RangeError* exception.
           1. If _length_ is not *undefined*, then
             1. Let _newLength_ be the Mathematicla value of ? ToIndex(_length_).
           1. If IsDetachedBuffer(_buffer_) is *true*, throw a *TypeError* exception.
           1. Let _bufferByteLength_ be _buffer_.[[ArrayBufferByteLength]].
           1. If _length_ is *undefined*, then
-            1. If ℝ(_bufferByteLength_) modulo _elementSize_ &ne; 0, throw a *RangeError* exception.
-            1. Let _newByteLength_ be ℝ(_bufferByteLength_) - ℝ(_offset_).
+            1. If _bufferByteLength_ modulo _elementSize_ &ne; 0, throw a *RangeError* exception.
+            1. Let _newByteLength_ be _bufferByteLength_ - _offset_.
             1. If _newByteLength_ &lt; 0, throw a *RangeError* exception.
           1. Else,
             1. Let _newByteLength_ be _newLength_ &times; _elementSize_.
-            1. If ℝ(_offset_) + _newByteLength_ &gt; ℝ(_bufferByteLength_), throw a *RangeError* exception.
+            1. If _offset_ + _newByteLength_ &gt; _bufferByteLength_, throw a *RangeError* exception.
           1. Set _O_.[[ViewedArrayBuffer]] to _buffer_.
-          1. Set _O_.[[ByteLength]] to the Number value of _newByteLength_.
+          1. Set _O_.[[ByteLength]] to _newByteLength_.
           1. Set _O_.[[ByteOffset]] to _offset_.
-          1. Set _O_.[[ArrayLength]] to the Number value of _newByteLength_ / _elementSize_.
+          1. Set _O_.[[ArrayLength]] to _newByteLength_ / _elementSize_.
           1. Return _O_.
         </emu-alg>
       </emu-clause>
@@ -35758,7 +35754,7 @@ THH:mm:ss.sss
           1. Let _newTypedArray_ be ? Construct(_constructor_, _argumentList_).
           1. Perform ? ValidateTypedArray(_newTypedArray_).
           1. If _argumentList_ is a List of a single Number, then
-            1. If _newTypedArray_.[[ArrayLength]] &lt; _argumentList_[0], throw a *TypeError* exception.
+            1. If _newTypedArray_.[[ArrayLength]] &lt; ℝ(_argumentList_[0]), throw a *TypeError* exception.
           1. Return _newTypedArray_.
         </emu-alg>
       </emu-clause>
@@ -36882,11 +36878,11 @@ THH:mm:ss.sss
 
       <emu-clause id="sec-clonearraybuffer" aoid="CloneArrayBuffer">
         <h1>CloneArrayBuffer ( _srcBuffer_, _srcByteOffset_, _srcLength_, _cloneConstructor_ )</h1>
-        <p>The abstract operation CloneArrayBuffer takes arguments _srcBuffer_ (an ArrayBuffer object), _srcByteOffset_ (an integral Number), _srcLength_ (an integral Number), and _cloneConstructor_ (a constructor). It creates a new ArrayBuffer whose data is a copy of _srcBuffer_'s data over the range starting at _srcByteOffset_ and continuing for _srcLength_ bytes. It performs the following steps when called:</p>
+        <p>The abstract operation CloneArrayBuffer takes arguments _srcBuffer_ (an ArrayBuffer object), _srcByteOffset_ (an integral Number), _srcLength_ (an integer), and _cloneConstructor_ (a constructor). It creates a new ArrayBuffer whose data is a copy of _srcBuffer_'s data over the range starting at _srcByteOffset_ and continuing for _srcLength_ bytes. It performs the following steps when called:</p>
         <emu-alg>
           1. Assert: Type(_srcBuffer_) is Object and it has an [[ArrayBufferData]] internal slot.
           1. Assert: IsConstructor(_cloneConstructor_) is *true*.
-          1. Let _targetBuffer_ be ? AllocateArrayBuffer(_cloneConstructor_, ℝ(_srcLength_)).
+          1. Let _targetBuffer_ be ? AllocateArrayBuffer(_cloneConstructor_, _srcLength_).
           1. If IsDetachedBuffer(_srcBuffer_) is *true*, throw a *TypeError* exception.
           1. Let _srcBlock_ be _srcBuffer_.[[ArrayBufferData]].
           1. Let _targetBlock_ be _targetBuffer_.[[ArrayBufferData]].
@@ -37123,7 +37119,7 @@ THH:mm:ss.sss
           1. If IsSharedArrayBuffer(_O_) is *true*, throw a *TypeError* exception.
           1. If IsDetachedBuffer(_O_) is *true*, throw a *TypeError* exception.
           1. Let _length_ be _O_.[[ArrayBufferByteLength]].
-          1. Return _length_.
+          1. Return the Number value for _length_.
         </emu-alg>
       </emu-clause>
 
@@ -37140,7 +37136,7 @@ THH:mm:ss.sss
           1. Perform ? RequireInternalSlot(_O_, [[ArrayBufferData]]).
           1. If IsSharedArrayBuffer(_O_) is *true*, throw a *TypeError* exception.
           1. If IsDetachedBuffer(_O_) is *true*, throw a *TypeError* exception.
-          1. Let _len_ be the mathematical value of _O_.[[ArrayBufferByteLength]].
+          1. Let _len_ be _O_.[[ArrayBufferByteLength]].
           1. Let _relativeStart_ be the mathematical value of ? ToInteger(_start_).
           1. If _relativeStart_ &lt; 0, let _first_ be max((_len_ + _relativeStart_), 0); else let _first_ be min(_relativeStart_, _len_).
           1. If _end_ is *undefined*, let _relativeEnd_ be _len_; else let _relativeEnd_ be the mathematical value of ? ToInteger(_end_).
@@ -37152,7 +37148,7 @@ THH:mm:ss.sss
           1. If IsSharedArrayBuffer(_new_) is *true*, throw a *TypeError* exception.
           1. If IsDetachedBuffer(_new_) is *true*, throw a *TypeError* exception.
           1. If SameValue(_new_, _O_) is *true*, throw a *TypeError* exception.
-          1. If ℝ(_new_.[[ArrayBufferByteLength]]) &lt; ℝ(_newLen_), throw a *TypeError* exception.
+          1. If _new_.[[ArrayBufferByteLength]] &lt; ℝ(_newLen_), throw a *TypeError* exception.
           1. NOTE: Side-effects of the above steps may have detached _O_.
           1. If IsDetachedBuffer(_O_) is *true*, throw a *TypeError* exception.
           1. Let _fromBuf_ be _O_.[[ArrayBufferData]].
@@ -37191,7 +37187,7 @@ THH:mm:ss.sss
           1. Assert: ! IsNonNegativeInteger(_byteLength_) is *true*.
           1. Let _block_ be ? CreateSharedByteDataBlock(_byteLength_).
           1. Set _obj_.[[ArrayBufferData]] to _block_.
-          1. Set _obj_.[[ArrayBufferByteLength]] to _byteLength_.
+          1. Set _obj_.[[ArrayBufferByteLength]] to ℝ(_byteLength_).
           1. Return _obj_.
         </emu-alg>
       </emu-clause>
@@ -37278,7 +37274,7 @@ THH:mm:ss.sss
           1. Perform ? RequireInternalSlot(_O_, [[ArrayBufferData]]).
           1. If IsSharedArrayBuffer(_O_) is *false*, throw a *TypeError* exception.
           1. Let _length_ be _O_.[[ArrayBufferByteLength]].
-          1. Return _length_.
+          1. Return the Number value for _length_.
         </emu-alg>
       </emu-clause>
 
@@ -37294,7 +37290,7 @@ THH:mm:ss.sss
           1. Let _O_ be the *this* value.
           1. Perform ? RequireInternalSlot(_O_, [[ArrayBufferData]]).
           1. If IsSharedArrayBuffer(_O_) is *false*, throw a *TypeError* exception.
-          1. Let _len_ be the mathematical value of _O_.[[ArrayBufferByteLength]].
+          1. Let _len_ be _O_.[[ArrayBufferByteLength]].
           1. Let _relativeStart_ be the mathematical value of ? ToInteger(_start_).
           1. If _relativeStart_ &lt; 0, let _first_ be max((_len_ + _relativeStart_), 0); else let _first_ be min(_relativeStart_, _len_).
           1. If _end_ is *undefined*, let _relativeEnd_ be _len_; else let _relativeEnd_ be ? ToInteger(_end_).
@@ -37305,7 +37301,7 @@ THH:mm:ss.sss
           1. Perform ? RequireInternalSlot(_new_, [[ArrayBufferData]]).
           1. If IsSharedArrayBuffer(_new_) is *false*, throw a *TypeError* exception.
           1. If _new_.[[ArrayBufferData]] and _O_.[[ArrayBufferData]] are the same Shared Data Block values, throw a *TypeError* exception.
-          1. If ℝ(_new_.[[ArrayBufferByteLength]]) &lt; ℝ(_newLen_), throw a *TypeError* exception.
+          1. If _new_.[[ArrayBufferByteLength]] &lt; ℝ(_newLen_), throw a *TypeError* exception.
           1. Let _fromBuf_ be _O_.[[ArrayBufferData]].
           1. Let _toBuf_ be _new_.[[ArrayBufferData]].
           1. Perform CopyDataBlockBytes(_toBuf_, 0, _fromBuf_, 𝔽(_first_), _newLen_).
@@ -37342,14 +37338,14 @@ THH:mm:ss.sss
         <emu-alg>
           1. Perform ? RequireInternalSlot(_view_, [[DataView]]).
           1. Assert: _view_ has a [[ViewedArrayBuffer]] internal slot.
-          1. Let _getIndex_ be ? ToIndex(_requestIndex_).
+          1. Let _getIndex_ be the mathematical value of ? ToIndex(_requestIndex_).
           1. Set _isLittleEndian_ to ! ToBoolean(_isLittleEndian_).
           1. Let _buffer_ be _view_.[[ViewedArrayBuffer]].
           1. If IsDetachedBuffer(_buffer_) is *true*, throw a *TypeError* exception.
           1. Let _viewOffset_ be _view_.[[ByteOffset]].
           1. Let _viewSize_ be _view_.[[ByteLength]].
           1. Let _elementSize_ be the Element Size value specified in <emu-xref href="#table-the-typedarray-constructors"></emu-xref> for Element Type _type_.
-          1. If ℝ(_getIndex_) + _elementSize_ &gt; ℝ(_viewSize_), throw a *RangeError* exception.
+          1. If _getIndex_ + _elementSize_ &gt; _viewSize_, throw a *RangeError* exception.
           1. Let _bufferIndex_ be _getIndex_ + _viewOffset_.
           1. Return GetValueFromBuffer(_buffer_, _bufferIndex_, _type_, *false*, ~Unordered~, _isLittleEndian_).
         </emu-alg>
@@ -37361,7 +37357,7 @@ THH:mm:ss.sss
         <emu-alg>
           1. Perform ? RequireInternalSlot(_view_, [[DataView]]).
           1. Assert: _view_ has a [[ViewedArrayBuffer]] internal slot.
-          1. Let _getIndex_ be ? ToIndex(_requestIndex_).
+          1. Let _getIndex_ be the mathematical value ? ToIndex(_requestIndex_).
           1. If ! IsBigIntElementType(_type_) is *true*, let _numberValue_ be ? ToBigInt(_value_).
           1. Otherwise, let _numberValue_ be ? ToNumber(_value_).
           1. Set _isLittleEndian_ to ! ToBoolean(_isLittleEndian_).
@@ -37370,7 +37366,7 @@ THH:mm:ss.sss
           1. Let _viewOffset_ be _view_.[[ByteOffset]].
           1. Let _viewSize_ be _view_.[[ByteLength]].
           1. Let _elementSize_ be the Element Size value specified in <emu-xref href="#table-the-typedarray-constructors"></emu-xref> for Element Type _type_.
-          1. If ℝ(_getIndex_) + _elementSize_ &gt; ℝ(_viewSize_), throw a *RangeError* exception.
+          1. If _getIndex_ + _elementSize_ &gt; _viewSize_, throw a *RangeError* exception.
           1. Let _bufferIndex_ be _getIndex_ + _viewOffset_.
           1. Return SetValueInBuffer(_buffer_, _bufferIndex_, _type_, _numberValue_, *false*, ~Unordered~, _isLittleEndian_).
         </emu-alg>
@@ -37406,8 +37402,8 @@ THH:mm:ss.sss
           1. Let _O_ be ? OrdinaryCreateFromConstructor(NewTarget, *"%DataView.prototype%"*, &laquo; [[DataView]], [[ViewedArrayBuffer]], [[ByteLength]], [[ByteOffset]] &raquo;).
           1. If IsDetachedBuffer(_buffer_) is *true*, throw a *TypeError* exception.
           1. Set _O_.[[ViewedArrayBuffer]] to _buffer_.
-          1. Set _O_.[[ByteLength]] to _viewByteLength_.
-          1. Set _O_.[[ByteOffset]] to _offset_.
+          1. Set _O_.[[ByteLength]] to ℝ(_viewByteLength_).
+          1. Set _O_.[[ByteOffset]] to ℝ(_offset_).
           1. Return _O_.
         </emu-alg>
       </emu-clause>
@@ -37460,7 +37456,7 @@ THH:mm:ss.sss
           1. Let _buffer_ be _O_.[[ViewedArrayBuffer]].
           1. If IsDetachedBuffer(_buffer_) is *true*, throw a *TypeError* exception.
           1. Let _size_ be _O_.[[ByteLength]].
-          1. Return _size_.
+          1. Return the Number value for _size_.
         </emu-alg>
       </emu-clause>
 
@@ -37474,7 +37470,7 @@ THH:mm:ss.sss
           1. Let _buffer_ be _O_.[[ViewedArrayBuffer]].
           1. If IsDetachedBuffer(_buffer_) is *true*, throw a *TypeError* exception.
           1. Let _offset_ be _O_.[[ByteOffset]].
-          1. Return _offset_.
+          1. Return the Number value for _offset_.
         </emu-alg>
       </emu-clause>
 
@@ -37741,7 +37737,7 @@ THH:mm:ss.sss
           1. Let _accessIndex_ be ? ToIndex(_requestIndex_).
           1. Let _length_ be _typedArray_.[[ArrayLength]].
           1. Assert: ℝ(_accessIndex_) &ge; 0.
-          1. If ℝ(_accessIndex_) &ge; ℝ(_length_), throw a *RangeError* exception.
+          1. If ℝ(_accessIndex_) &ge; _length_, throw a *RangeError* exception.
           1. Return _accessIndex_.
         </emu-alg>
       </emu-clause>
@@ -37870,8 +37866,8 @@ THH:mm:ss.sss
           1. Let _elementSize_ be the Element Size value specified in <emu-xref href="#table-the-typedarray-constructors"></emu-xref> for _arrayTypeName_.
           1. Let _elementType_ be the Element Type value in <emu-xref href="#table-the-typedarray-constructors"></emu-xref> for _arrayTypeName_.
           1. Let _offset_ be _typedArray_.[[ByteOffset]].
-          1. Let _indexedPosition_ be (_i_ &times; _elementSize_) + _offset_.
-          1. Return GetModifySetValueInBuffer(_buffer_, _indexedPosition_, _elementType_, _v_, _op_).
+          1. Let _indexedPosition_ be (ℝ(_i_) &times; _elementSize_) + _offset_.
+          1. Return GetModifySetValueInBuffer(_buffer_, 𝔽(_indexedPosition_), _elementType_, _v_, _op_).
         </emu-alg>
       </emu-clause>
 
@@ -37885,8 +37881,8 @@ THH:mm:ss.sss
           1. Let _elementSize_ be the Element Size value specified in <emu-xref href="#table-the-typedarray-constructors"></emu-xref> for _arrayTypeName_.
           1. Let _elementType_ be the Element Type value in <emu-xref href="#table-the-typedarray-constructors"></emu-xref> for _arrayTypeName_.
           1. Let _offset_ be _typedArray_.[[ByteOffset]].
-          1. Let _indexedPosition_ be (_i_ &times; _elementSize_) + _offset_.
-          1. Return GetValueFromBuffer(_buffer_, _indexedPosition_, _elementType_, *true*, ~SeqCst~).
+          1. Let _indexedPosition_ be (ℝ(_i_) &times; _elementSize_) + _offset_.
+          1. Return GetValueFromBuffer(_buffer_, 𝔽(_indexedPosition_), _elementType_, *true*, ~SeqCst~).
         </emu-alg>
       </emu-clause>
 
@@ -37970,11 +37966,11 @@ THH:mm:ss.sss
         1. Let _expectedBytes_ be NumericToRawBytes(_elementType_, _expected_, _isLittleEndian_).
         1. Let _elementSize_ be the Element Size value specified in <emu-xref href="#table-the-typedarray-constructors"></emu-xref> for _arrayTypeName_.
         1. Let _offset_ be _typedArray_.[[ByteOffset]].
-        1. Let _indexedPosition_ be (_i_ &times; _elementSize_) + _offset_.
+        1. Let _indexedPosition_ be (ℝ(_i_) &times; _elementSize_) + _offset_.
         1. Let _compareExchange_ be a new read-modify-write modification function with parameters (_oldBytes_, _newBytes_) that captures _expectedBytes_ and performs the following steps atomically when called:
           1. If ByteListEqual(_oldBytes_, _expectedBytes_) is *true*, return _newBytes_.
           1. Return _oldBytes_.
-        1. Return GetModifySetValueInBuffer(_buffer_, _indexedPosition_, _elementType_, _replacement_, _compareExchange_).
+        1. Return GetModifySetValueInBuffer(_buffer_, 𝔽(_indexedPosition_), _elementType_, _replacement_, _compareExchange_).
       </emu-alg>
     </emu-clause>
 
@@ -38036,8 +38032,8 @@ THH:mm:ss.sss
         1. Let _elementSize_ be the Element Size value specified in <emu-xref href="#table-the-typedarray-constructors"></emu-xref> for _arrayTypeName_.
         1. Let _elementType_ be the Element Type value in <emu-xref href="#table-the-typedarray-constructors"></emu-xref> for _arrayTypeName_.
         1. Let _offset_ be _typedArray_.[[ByteOffset]].
-        1. Let _indexedPosition_ be (_i_ &times; _elementSize_) + _offset_.
-        1. Perform SetValueInBuffer(_buffer_, _indexedPosition_, _elementType_, _v_, *true*, ~SeqCst~).
+        1. Let _indexedPosition_ be (ℝ(_i_) &times; _elementSize_) + _offset_.
+        1. Perform SetValueInBuffer(_buffer_, 𝔽(_indexedPosition_), _elementType_, _v_, *true*, ~SeqCst~).
         1. Return _v_.
       </emu-alg>
     </emu-clause>
@@ -38076,8 +38072,8 @@ THH:mm:ss.sss
         1. Let _block_ be _buffer_.[[ArrayBufferData]].
         1. Let _offset_ be _typedArray_.[[ByteOffset]].
         1. Let _elementSize_ be the Element Size value specified in <emu-xref href="#table-the-typedarray-constructors"></emu-xref> for _arrayTypeName_.
-        1. Let _indexedPosition_ be (_i_ &times; _elementSize_) + _offset_.
-        1. Let _WL_ be GetWaiterList(_block_, _indexedPosition_).
+        1. Let _indexedPosition_ be (ℝ(_i_) &times; _elementSize_) + _offset_.
+        1. Let _WL_ be GetWaiterList(_block_, 𝔽(_indexedPosition_)).
         1. Perform EnterCriticalSection(_WL_).
         1. Let _w_ be ! AtomicLoad(_typedArray_, _i_).
         1. If _v_ is not equal to _w_, then
@@ -38110,8 +38106,8 @@ THH:mm:ss.sss
         1. Let _offset_ be _typedArray_.[[ByteOffset]].
         1. Let _arrayTypeName_ be _typedArray_.[[TypedArrayName]].
         1. Let _elementSize_ be the Element Size value specified in <emu-xref href="#table-the-typedarray-constructors"></emu-xref> for _arrayTypeName_.
-        1. Let _indexedPosition_ be (_i_ &times; _elementSize_) + _offset_.
-        1. Let _WL_ be GetWaiterList(_block_, _indexedPosition_).
+        1. Let _indexedPosition_ be (ℝ(_i_) &times; _elementSize_) + _offset_.
+        1. Let _WL_ be GetWaiterList(_block_, 𝔽(_indexedPosition_)).
         1. Let _n_ be 0.
         1. Perform EnterCriticalSection(_WL_).
         1. Let _S_ be RemoveWaiters(_WL_, _c_).
